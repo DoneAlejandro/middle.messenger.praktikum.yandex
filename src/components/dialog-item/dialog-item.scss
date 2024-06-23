@@ -1,0 +1,50 @@
+@import '../../assets/variables.scss';
+.dialog {
+	&__line {
+		height: $height-line;
+		background-color: $color-line;
+		margin: 3px 0;
+	}
+	&__container {
+		cursor: pointer;
+		display: grid;
+		grid-template:
+			'a n n' 45px
+			'a m u' 36px/90px 1fr 25px;
+		gap: 0 10px;
+		padding: 8px;
+		&--current {
+			cursor: default;
+		}
+	}
+	&__avatar {
+		grid-area: a;
+		width: $avatar-width;
+		height: $avatar-height;
+		margin-right: 0.5rem;
+		border-radius: $avatar-radius;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	&__name {
+		grid-area: n;
+	}
+	&__message {
+		grid-area: m;
+	}
+	&__unread {
+		grid-area: u;
+		margin-top: 14px;
+		height: 20px;
+		width: 20px;
+		font: $font-micro;
+		background: $button-bgcolor;
+		color: $button-color;
+		place-self: end;
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}

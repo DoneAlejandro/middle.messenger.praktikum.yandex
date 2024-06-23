@@ -1,0 +1,19 @@
+@import '../../assets/variables.scss';
+.main-registration {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0 10px;
+}
+.registration {
+	background: $profile-bgcolor;
+	padding: $profile-padding;
+	border-radius: 10px;
+	box-shadow: $profile-box-shadow;
+	max-width: 400px;
+	width: 100%;
+}
+.footer-registration {
+	display: flex;
+	flex-direction: column;
+}

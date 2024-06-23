@@ -1,0 +1,12 @@
+{{#> Main className='main-chat'}}
+	<section class="main-chat__list">
+		{{#> Header className='header-chat'}}
+			{{> MenuBurger}}
+			{{> InputSearch placeholder='Поиск'}}
+		{{/ Header}}
+		{{> DialogList}}
+	</section>
+	<section class='main-chat__dialog'>
+		{{> PopUp}}
+	</section>
+{{/ Main}}
