@@ -1,5 +1,5 @@
 {
-	"name": "yandex_messenger",
+	"name": "middle.messenger.praktikum.yandex",
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
@@ -19,8 +19,8 @@
 		"express": "^4.19.2",
 		"handlebars": "^4.7.8"
 	},
-	"engines" : { 
-    "npm" : ">=10.0.0",
-    "node" : ">=20.0.0"
-  }
+	"engines": {
+		"npm": ">=10.0.0",
+		"node": ">=20.0.0"
+	}
 }
