@@ -1,0 +1,25 @@
+@import '../../assets/variables.scss';
+.input-container {
+	position: relative;
+	&__input {
+		padding: $input-search-padding;
+		border-radius: $input-search-border-radius;
+		background-color: $input-search-bgcolor;
+		color: $input-search-text-color;
+		width: 100%;
+		&::placeholder {
+			color: $input-search-placeholder-color;
+		}
+	}
+	&__icon {
+		position: absolute;
+		left: 10px;
+		top: 50%;
+		transform: translateY(-50%);
+		width: $input-search-icon-width;
+		height: $input-search-icon-height;
+		background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24"><path d="M10 2a8 8 0 105.293 14.293l5.702 5.702 1.414-1.414-5.702-5.702A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"/></svg>');
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+}

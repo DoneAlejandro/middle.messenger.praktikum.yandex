@@ -1,0 +1,61 @@
+$font-body: Inter, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-sans;
+
+$font-weight-regular: 500;
+$font-weight-semibold: 600;
+
+$main-padding: 0 10px;
+// Стили хэдера
+$header-avatar-width: 5.375rem;
+$header-avatar-height: 5.375rem;
+$header-avatar-bradius: 50%;
+
+// Стили профайла
+$profile-bgcolor: #242426;
+$profile-padding: 20px;
+$profile-box-shadow: 0 4px 12px rgba(13, 35, 67, 0.03);
+
+$font-large: 40px;
+$font-big: 20px;
+$font-title: 16px;
+$font-regular: 13px;
+$font-small: 12px;
+$font-micro: 11px;
+$font-nano: 9px;
+// Стили инпута поиска
+$input-search-padding: 8px 12px 8px 36px;
+$input-search-border-radius: 20px;
+$input-search-bgcolor: #2c2c2c;
+$input-search-text-color: #fff;
+$input-search-placeholder-color: #b0b0b0;
+$input-search-icon-width: 22px;
+$input-search-icon-height: 22px;
+// Стили инпута
+$input-padding: 10px;
+$input-border: 1px solid #3369f3;
+$input-text-color: #fff;
+$input-placeholder-color: #999;
+$input-opacity: 0.5;
+// Стили аватара
+$avatar-width: 3.375rem;
+$avatar-height: 3.375rem;
+$avatar-radius: 50%;
+// Стили разделительной линии (для чатов)
+$height-line: 1.5px;
+$color-line: #555;
+// Стили текста
+$text-bgcolor: #fff;
+$text-color: #fff;
+$text-light-color: #999;
+
+$link-color: #3369f3;
+$link-hover-color: #0056b3;
+$title-color: #1e1e1e;
+// Стили кнопки
+$button-color: #fff;
+$button-bgcolor: #{$link-color};
+$button-bghover: #{$link-hover-color};
+
+$menu-button-color: #{$button-bgcolor};
+$menu-button-bgcolor: #fff;
+$menu-button-width: 30px;
+$menu-button-height: 20px;

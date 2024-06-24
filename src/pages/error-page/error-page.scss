@@ -1,0 +1,21 @@
+@import '../../assets/variables.scss';
+.main-error {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: $main-padding;
+}
+.error {
+	&__code {
+		font-weight: $font-weight-regular;
+		font-size: $font-large;
+		margin-bottom: 20px;
+		text-align: center;
+	}
+	&__text {
+		font-weight: $font-weight-regular;
+		font-size: $font-big;
+		margin-bottom: 70px;
+		text-align: center;
+	}
+}

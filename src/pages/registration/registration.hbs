@@ -1,0 +1,27 @@
+{{#> Header}}
+{{> Title title='ONE-on-ONE Social'}}
+{{/ Header}}
+{{#> Main className='main-registration'}}
+<section class='registration'>
+	{{>Subtitle subtitle='Регистрация'}}
+	<form class='registration-form'>
+		<div class='registration-form__container'>
+			<div class='registration-form__inputs'>
+				{{>InputField type='email' title='Почта' name='emil'}}
+				{{>InputField type='text' title='Логин' name='login'}}
+				{{>InputField type='text' title='Имя' name='first_name'}}
+				{{>InputField type='text' title='Фамилия' name='second_name'}}
+				{{>InputField type='tel' title='Телефон' name='phone' pattern='^(\+7|8)?[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$'}}
+				{{>InputField type='password' title='Пароль' name='password'}}
+				{{>InputField type='password' title='Пароль (ещё раз)' name='password'}}
+			</div>
+			{{>Button text='Зарегистрироваться' page='chat'}}
+		</div>
+		{{>Link text='Войти' href='#' className='registration-form__link' page='signin'}}
+	</form>
+</section>
+{{/ Main}}
+{{#> Footer className='footer-registration'}}
+{{> Copyright copyright='© 2024 DoneAlejandro. Все права защищены.'}}
+{{> PopUp}}
+{{/ Footer}}

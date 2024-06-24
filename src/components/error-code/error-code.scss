@@ -1,0 +1,12 @@
+@import '../../assets/variables.scss';
+.error-code {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	&__title {
+		font-weight: $font-weight-regular;
+		font-size: $font-large;
+		text-align: center;
+		color: $text-color;
+	}
+}
