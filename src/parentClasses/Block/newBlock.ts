@@ -167,6 +167,7 @@ export default class Block {
 			this.element.addEventListener(eventName, events[eventName]);
 		});
 	}
+	
 	public addAttributes() {
 		const { attributes = {} } = this.props;
 		Object.entries(attributes).forEach(([key, value]) => {
