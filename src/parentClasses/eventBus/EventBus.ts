@@ -1,5 +1,3 @@
-import { IListeners } from "../types";
-
 export default class EventBus {
 	public listeners: Record<string, Array<Function>>;
 	constructor() {

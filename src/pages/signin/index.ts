@@ -1,2 +1,3 @@
 import './signin.scss';
-export { default as SigninPage } from './signin.hbs?raw';
+// export { default as SigninPage } from './signin.hbs?raw';
+export {SignIn} from './signin.ts';

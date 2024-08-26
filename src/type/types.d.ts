@@ -3,11 +3,11 @@ export interface Components {
 	Input: string;
 	InputField: string;
 	Link: string;
-	Title: string;
+	Title: HTMLElement;
 	ErrorCode: string;
 	ErrorText: string;
 	Footer: string;
-	Header: string;
+	Header: HTMLElement;
 	Copyright: string;
 	Subtitle: string;
 	Main: string;

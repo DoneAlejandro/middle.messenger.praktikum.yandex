@@ -3,4 +3,4 @@ export { ErrorPage } from './error-page';
 export { ErrorPageFourth } from './error-page-fourth';
 export { ProfilePage } from './profile';
 export { RegistrationPage } from './registration';
-export { SigninPage } from './signin';
+export { SignIn } from './signin/index';
