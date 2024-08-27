@@ -5,17 +5,14 @@ import headerTemplate from './header.hbs?raw';
 
 export class Header extends Block {
 	constructor(props: TBlock) {
-		super({...props, title});
+		super({ ...props });
 	}
 	render() {
-		console.log(`header ${headerTemplate} this.compile(headerTemplate, this.props) ${this.compile(headerTemplate, this.props)}`);
-		return this.compile(headerTemplate, this.props);
-		// return `
-        //     <div class="input__text-error">{{errorText}}</div>
-        // `;
+		const title = new Title({
+			titleText: this.props.titleText,
+		});
+		return this.compile(headerTemplate, { ...this.props, title: title });
 	}
 }
 
-export const title = new Title({
-	titleText: 'ONE-on-ONE Social',
-})
+
