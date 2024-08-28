@@ -63,7 +63,8 @@ export default class Block {
 			const stub = fragment.content.querySelector(`[data-id="__l_${tmpId}"]`);
 			stub?.replaceWith(listTemp.content);
 		});
-		return fragment.content.firstElementChild as HTMLElement;
+		return fragment.content as unknown as HTMLElement;
+		
 	}
 
 	private renderElement() {

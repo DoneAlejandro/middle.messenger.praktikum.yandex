@@ -7,8 +7,12 @@ export class SignIn extends Block {
 	constructor(props: TBlock) {
 		super({ ...props, header, main });
 	}
+	
 	render() {
+		// console.log({...this.props});
+		// console.log(header)
 		return this.compile(SigninPage, this.props);
+		// return `<div>{{{header}}}{{{main}}}</div>`
 	}
 }
 
