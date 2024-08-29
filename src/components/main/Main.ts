@@ -6,8 +6,8 @@ export class Main extends Block {
 	constructor(props: TBlock) {
 		super({ ...props });
 	}
-	render():HTMLElement {
-		// console.log(main);
+	render(): HTMLElement {
+		console.log(`main ${this.props}`);
 		return this.compile(main, this.props);
 	}
 }

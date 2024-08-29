@@ -8,10 +8,10 @@ export class Header extends Block {
 		super({ ...props });
 	}
 	render() {
-		const title = new Title({
-			titleText: this.props.titleText,
-		});
-		return this.compile(headerTemplate, { ...this.props, title: title });
+		// const title = new Title({
+		// 	titleText: this.props.titleText,
+		// });
+		return this.compile(headerTemplate, { ...this.props,  });
 	}
 }
 

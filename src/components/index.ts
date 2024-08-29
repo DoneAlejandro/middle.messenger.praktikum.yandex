@@ -1,3 +1,4 @@
+export { Form } from './form';
 export { Button } from './button';
 export { Copyright } from './copyright';
 export { DialogItem } from './dialog-item';
@@ -13,5 +14,6 @@ export { Link } from './link';
 export { Main } from './main';
 export { MenuBurger } from './menu-burger';
 export { PopUp } from './pop-up';
-export { Subtitle } from './subtitle';
+export { Subtitle } from './subtitle'
 export { Title } from './title';
+

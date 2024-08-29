@@ -1,2 +1,2 @@
 import './subtitle.scss';
-export { default as Subtitle } from './subtitle.hbs?raw';
+export { Subtitle } from './Subtitle.ts';

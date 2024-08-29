@@ -1,0 +1,13 @@
+<section class="{{signinStyle}}">
+	{{{ subtitleComponent subtitleText="{{subtitleText}}" }}}
+	<form class="{{formStyle}}">
+		<div class="{{formContainerStyle}}">
+			<div class="{{formInputsStyle}}">
+				{{{ InputField type="{{inputType}}" title="{{inputTitle}}" name="{{inputName}}" }}}
+				{{{ InputField type="{{inputType}}" title="{{inputTitle}}" name="{{inputName}}" }}}
+			</div>
+			{{{ Button text="{{textButton}}" page='error' className='signin-form__button' }}}
+		</div>
+		{{{ Link text="{{textLink}}" href='#' page='registration' }}}
+	</form>
+</section>

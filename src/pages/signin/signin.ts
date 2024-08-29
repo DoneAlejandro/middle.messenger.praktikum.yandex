@@ -1,27 +1,30 @@
-import { Header, Main, Title } from '../../components';
+import { Form, Header, Main, Subtitle, Title } from '../../components';
 import Block from '../../parentClasses/Block/BLock';
 import { TBlock } from '../../parentClasses/types';
 import SigninPage from './signin.hbs?raw';
 
 export class SignIn extends Block {
 	constructor(props: TBlock) {
-		super({ ...props, header, main });
+		super({ ...props, headerComponent, mainComponent });
 	}
-	
+
 	render() {
-		// console.log({...this.props});
-		// console.log(header)
+		console.log(`formComponent ${formComponent}`);
 		return this.compile(SigninPage, this.props);
-		// return `<div>{{{header}}}{{{main}}}</div>`
 	}
 }
-
-export const header = new Header({
+export const headerComponent = new Header({
 	title: new Title({
 		titleText: 'ONE-on-ONE Social',
-	})
+	}),
+});
+export const subtitleComponent = new Subtitle({
+	subtitleText: 'Войти',
+});
+export const formComponent = new Form({
+	subtitleComponent,
 });
 
-export const main = new Main({
-	
-})
+export const mainComponent = new Main({
+	formComponent,
+});
