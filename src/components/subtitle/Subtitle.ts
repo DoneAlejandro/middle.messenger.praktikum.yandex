@@ -8,6 +8,7 @@ export class Subtitle extends Block {
 		super({ ...props });
 	}
 	render() {
+		console.log(`subtitle ${subtitle} ${JSON.stringify(this.props)}`);
 		return this.compile(subtitle, this.props);
 	}
 }

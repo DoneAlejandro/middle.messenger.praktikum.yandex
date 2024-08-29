@@ -7,7 +7,7 @@ export class Main extends Block {
 		super({ ...props });
 	}
 	render(): HTMLElement {
-		console.log(`main ${this.props}`);
-		return this.compile(main, this.props);
+		console.log(`main ${main} ${JSON.stringify(this.props)}`);
+		return this.compile(main, {...this.props});
 	}
 }

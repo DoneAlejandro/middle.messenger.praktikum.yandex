@@ -1,6 +1,5 @@
 import Block from '../../parentClasses/Block/BLock';
 import { TBlock } from '../../parentClasses/types';
-import { Title } from '../title';
 import headerTemplate from './header.hbs?raw';
 
 export class Header extends Block {
@@ -8,11 +7,7 @@ export class Header extends Block {
 		super({ ...props });
 	}
 	render() {
-		// const title = new Title({
-		// 	titleText: this.props.titleText,
-		// });
-		return this.compile(headerTemplate, { ...this.props,  });
+		// console.log(`header ${headerTemplate} ${JSON.stringify(this.props)}`);
+		return this.compile(headerTemplate, { ...this.props });
 	}
 }
-
-

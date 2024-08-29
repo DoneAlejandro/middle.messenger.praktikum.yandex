@@ -39,7 +39,8 @@ export default class Block {
 		Object.entries(this.children).forEach(([key, child]) => {
 			propsAndStubs[key] = `<div data-id="${child.props.id}"></div>`;
 		});
-		
+		// console.log(`compile ${template} ${JSON.stringify(propsAndStubs)}`);
+
 		const tmpId = nanoid(6);
 		Object.entries(this.list).forEach(([key]) => {
 			propsAndStubs[key] = `<div data-id="__l_${tmpId}"></div>`;
@@ -63,8 +64,8 @@ export default class Block {
 			const stub = fragment.content.querySelector(`[data-id="__l_${tmpId}"]`);
 			stub?.replaceWith(listTemp.content);
 		});
-		return fragment.content as unknown as HTMLElement;
 		
+		return fragment.content as unknown as HTMLElement;
 	}
 
 	private renderElement() {
@@ -177,5 +178,4 @@ export default class Block {
 			},
 		});
 	}
-
 }

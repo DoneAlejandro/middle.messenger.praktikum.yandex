@@ -9,7 +9,6 @@ export class SignIn extends Block {
 	}
 
 	render() {
-		console.log(`formComponent ${formComponent}`);
 		return this.compile(SigninPage, this.props);
 	}
 }
@@ -21,10 +20,9 @@ export const headerComponent = new Header({
 export const subtitleComponent = new Subtitle({
 	subtitleText: 'Войти',
 });
-export const formComponent = new Form({
-	subtitleComponent,
-});
+
+export const formComponent = new Form({});
 
 export const mainComponent = new Main({
-	formComponent,
+	formComponent: [subtitleComponent, formComponent],
 });

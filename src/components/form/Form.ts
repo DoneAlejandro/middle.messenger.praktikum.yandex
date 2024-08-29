@@ -7,7 +7,7 @@ export class Form extends Block {
 	}
 
 	render() {
-		console.log(`form ${form}`);
-		return this.compile(form, this.props);
+		console.log(`form ${form}, props ${JSON.stringify(this.props)}`);
+		return this.compile(form, { ...this.props });
 	}
 }
