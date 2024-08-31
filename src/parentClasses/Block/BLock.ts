@@ -4,6 +4,7 @@ import EventBus from '../eventBus/EventBus';
 import { ChildrenType, ListType, TBlock } from '../types';
 
 export default class Block {
+	// События
 	public static EVENTS = {
 		INIT: 'init',
 		FLOW_CDM: 'flow:component-did-mount',
@@ -11,6 +12,7 @@ export default class Block {
 		FLOW_RENDER: 'flow:render',
 	};
 
+	// Свойства
 	public props: TBlock = {
 		id: '',
 		events: {},
@@ -34,27 +36,33 @@ export default class Block {
 		this.registerEvents(eventBus);
 		eventBus.emit(Block.EVENTS.INIT);
 	}
+
+	// Метод для компиляции шаблона с пропсами
 	public compile(template: string, props: TBlock) {
 		const propsAndStubs = { ...props };
+
+		// Используем заглушки
 		Object.entries(this.children).forEach(([key, child]) => {
 			propsAndStubs[key] = `<div data-id="${child.props.id}"></div>`;
 		});
-		// console.log(`compile ${template} ${JSON.stringify(propsAndStubs)}`);
 
 		const tmpId = nanoid(6);
 		Object.entries(this.list).forEach(([key]) => {
 			propsAndStubs[key] = `<div data-id="__l_${tmpId}"></div>`;
 		});
 
+		// Создаем шаблон
 		const fragment = document.createElement('template') as HTMLTemplateElement;
 		fragment.setAttribute('data-id', this.id);
 		fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
 
+		// Заменяем заглушки на реальные компоненты
 		Object.values(this.children).forEach(child => {
 			const stub = fragment.content.querySelector(`[data-id="${child.props.id}"]`);
 			stub?.replaceWith(child.getContent());
 		});
 
+		// Меняем заглушки списка на реальные элементы списка
 		Object.entries(this.list).forEach(([key]) => {
 			const child = this.list[key];
 			const listTemp = document.createElement('template') as HTMLTemplateElement;
@@ -64,10 +72,11 @@ export default class Block {
 			const stub = fragment.content.querySelector(`[data-id="__l_${tmpId}"]`);
 			stub?.replaceWith(listTemp.content);
 		});
-		
+
 		return fragment.content as unknown as HTMLElement;
 	}
 
+	// Метод для рендеринга элемента
 	private renderElement() {
 		const templ = this.render();
 		if (this.element) {
@@ -77,12 +86,18 @@ export default class Block {
 		this.addEvents();
 		this.addAttributes();
 	}
+
+	// Метод для рендеринга компонента
 	public render(): HTMLElement {
 		return this.getContent();
 	}
+
+	// Инициализация компонента
 	public init() {
 		this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
 	}
+
+	// Установка новых пропсов
 	public setProps(nextProps: typeof this.props) {
 		if (!nextProps) {
 			return;
@@ -91,9 +106,13 @@ export default class Block {
 		Object.assign(this.props, props);
 		Object.assign(this.list, list);
 	}
+
+	// Получаем содержимое элемента
 	public getContent(): HTMLElement {
 		return this.element;
 	}
+
+	// Метод, вызываемый при монтировании компонента
 	private componentDidMount(props: TBlock) {
 		this.componentDidMountPublic(props);
 		Object.values(this.children).forEach(child => {
@@ -103,12 +122,18 @@ export default class Block {
 			this.firstRender = true;
 		}
 	}
+
+	// Метод для диспатча события монтирования
 	public dispatchComponentDidMount() {
 		this.eventBus().emit(Block.EVENTS.FLOW_CDM, this.props);
 	}
+
+	// Метод монтирования компонента, может быть переопределен в наследуемых классах
 	public componentDidMountPublic(props: TBlock) {
 		return !props ? false : true;
 	}
+
+	// Обновление компонента при изменении пропсов
 	private componentDidUpdatePrivate(oldProps: TBlock, newProps: TBlock) {
 		if (oldProps?.events) {
 			const { events } = oldProps;
@@ -122,21 +147,29 @@ export default class Block {
 			this.renderElement();
 		}
 	}
+
+	// Метод обновления компонента, может быть переопределен в наследуемых классах
 	public componentDidUpdate(oldProps: TBlock, newProps: TBlock): boolean {
 		return !oldProps || !newProps ? false : true;
 	}
+
+	// Регистрация событий в EventBus
 	private registerEvents(eventBus: EventBus) {
 		eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
 		eventBus.on(Block.EVENTS.FLOW_CDM, this.componentDidMount.bind(this));
 		eventBus.on(Block.EVENTS.FLOW_CDU, this.componentDidUpdatePrivate.bind(this));
 		eventBus.on(Block.EVENTS.FLOW_RENDER, this.renderElement.bind(this));
 	}
+
+	// Добавление событий к элементу
 	private addEvents() {
 		const { events = {} } = this.props;
 		Object.keys(events).forEach(eventName => {
 			this.element.addEventListener(eventName, events[eventName]);
 		});
 	}
+
+	// Метод вытаскивания переменных из пропсов
 	private getChildrenAndProps(propsWithChildren: TBlock) {
 		const props: TBlock = {};
 		const children: ChildrenType = {};
@@ -153,26 +186,33 @@ export default class Block {
 		});
 		return { props, children, list };
 	}
+
+	// Добавление атрибутов к элементу
 	public addAttributes() {
 		const { attr = {} } = this.props;
+
 		Object.entries(attr).forEach(([key, value]) => {
 			if (typeof value === 'string') {
 				this.element.setAttribute(key, value);
 			}
 		});
 	}
+
+	// Метод для создания прокси объекта
 	private makePropsProxy(props: TBlock) {
 		return new Proxy(props, {
 			get: (target, prop: string | symbol) => {
 				const value = target[prop as string];
-				return typeof value === 'function' ? value.bind(target) : value;
+				return typeof value === 'function' ? value.bind(target) : value; // Если значение - функция, биндим контекст
 			},
+
 			set: (target, prop: string, value) => {
 				const oldTarget = { ...target };
 				target[prop] = value;
 				this.eventBus().emit(Block.EVENTS.FLOW_CDU, { ...oldTarget }, { ...target });
 				return true;
 			},
+
 			deleteProperty: () => {
 				throw new Error('Нет доступа');
 			},

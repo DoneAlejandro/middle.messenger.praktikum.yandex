@@ -21,7 +21,9 @@ export const subtitleComponent = new Subtitle({
 	subtitleText: 'Войти',
 });
 
-export const formComponent = new Form({});
+export const formComponent = new Form({
+	
+});
 
 export const mainComponent = new Main({
 	formComponent: [subtitleComponent, formComponent],
