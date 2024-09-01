@@ -1,5 +1,5 @@
-// import Handlebars from 'handlebars';
-// import * as Components from './components';
+import Handlebars from 'handlebars';
+import * as Components from './components';
 import * as Pages from './pages';
 import Block from './parentClasses/Block/BLock';
 // import { Components as ComponentsType } from './type/types';
@@ -7,6 +7,9 @@ import Block from './parentClasses/Block/BLock';
 interface Pages {
 	[key: string]: Block;
 }
+Object.entries(Components).forEach(([name, component]) => {
+	Handlebars.registerPartial(name, component);
+});
 const signinPage = new Pages.SignIn({});
 const pages: Pages = {
 	signin: signinPage,
@@ -17,9 +20,6 @@ const pages: Pages = {
 	// errorFourth: [Pages.ErrorPageFourth],
 };
 
-// Object.entries(Components).forEach(([name, component]) => {
-// 	Handlebars.registerPartial(name, component);
-// });
 // function render(root: HTMLElement, block: Block) {
 //     root?.appendChild(block.getContent())
 //     block.dispatchComponentDidMount()
@@ -40,12 +40,12 @@ const pages: Pages = {
 // 	// app.innerHTML = handlebarsCompile(args);
 // }
 function navigate(page: string) {
-    const app = document.getElementById('app');
-  
-    const Component = pages[page]
-    // const component = new Component();
-    app?.append(Component.getContent()!);
-  }
+	const app = document.getElementById('app');
+
+	const Component = pages[page];
+	// const component = new Component();
+	app?.append(Component.getContent()!);
+}
 document.addEventListener('DOMContentLoaded', () => {
 	navigate('signin');
 });
