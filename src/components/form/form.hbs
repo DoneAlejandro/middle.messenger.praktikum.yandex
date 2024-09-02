@@ -1,13 +1,12 @@
-<section class="{{signinStyle}}">
-	{{{ subtitleText }}}
-	{{{ subtitleComponent subtitleText=subtitleText }}}
+<section class="{{signinStyle}} {{#if sectionStyle}} {{{ sectionStyle }}}{{/if}}">
+	{{{ subtitleComponent }}}
 	<form class="{{formStyle}}">
 		<div class="{{formContainerStyle}}">
 			<div class="{{formInputsStyle}}">
-				{{{ InputField type="{{inputType}}" title="{{inputTitle}}" name="{{inputName}}" }}}
-				{{{ InputField type="{{inputType}}" title="{{inputTitle}}" name="{{inputName}}" }}}
+				{{{ InputFieldLoginComponent }}}
+				{{{ InputFieldPasswordComponent }}}
 			</div>
-			{{{ Button text="{{textButton}}" page='error' className='signin-form__button' }}}
+			{{{ ButtonComponent text="{{textButton}}" page='error' className='signin-form__button' }}}
 		</div>
 		{{{ Link text="{{textLink}}" href='#' page='registration' }}}
 	</form>
