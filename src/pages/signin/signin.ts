@@ -1,4 +1,4 @@
-import { Form, Header, Input, InputField, Main, Title, Button } from '../../components';
+import { Button, Copyright, Footer, Form, Header, Input, InputField, Link, Main, PopUp, Title } from '../../components';
 import Block from '../../parentClasses/Block/BLock';
 import { TBlock } from '../../parentClasses/types';
 import { Subtitle } from './../../components/subtitle/Subtitle';
@@ -24,31 +24,50 @@ export class SignIn extends Block {
 					subtitleComponent: new Subtitle({
 						subtitleText: 'Войти',
 					}),
-					InputFieldLoginComponent: new InputField({
-						inputFieldStyle: 'input-field',
-						inputFieldLabelStyle: 'input-field__label',
-						labelInput: 'Логин',
-						labelTitle: 'Логин',
-						inputComponent: new Input({
-							inputType: 'text',
-							inputTitle: 'Логин',
-							inputName: 'login',
-						}),
+					InputContentComponent: [InputFieldLoginComponent, InputFieldPasswordComponent],
+					ButtonComponent: new Button({
+						text: 'Войти',
+						buttonStyle: 'signin-form__button',
+						page: 'error',
 					}),
-					InputFieldPasswordComponent: new InputField({
-						inputFieldStyle: 'input-field',
-						inputFieldLabelStyle: 'input-field__label',
-						labelInput: 'Пароль',
-						labelTitle: 'Пароль',
-						inputComponent: new Input({
-							inputType: 'password',
-							inputTitle: 'Пароль',
-							inputName: 'password',
-						}),
+					LinkComponent: new Link({
+						text: 'Нет аккаунта?',
+						page: 'registration',
 					}),
-					buttonComponent: new Button({
-						
-					})
+				}),
+			}),
+			footerComponent: new Footer({
+				footerStyle: 'footer-signin',
+				copyrightComponent: new Copyright({
+					copyright: '© 2024 DoneAlejandro. Все права защищены.',
+				}),
+				popUpComponent: new PopUp({
+					linkSignIn: new Link({
+						text: 'Войти',
+						page: 'signin',
+					}),
+					linkRegistration: new Link({
+						text: 'Регистрация',
+						page: 'registration',
+					}),
+					linkProfile: new Link({
+						text: 'Профиль',
+						page: 'profile',
+					}),
+					linkChat: new Link({
+						text: 'Чат',
+						page: 'chat',
+					}),
+					linkErrorFifth: new Link({
+						text: 'Ошибка 500',
+						linkStyle: 'popup__link-errorFiveHundredth',
+						page: 'error',
+					}),
+					linkErrorFourth: new Link({
+						text: 'Ошибка 404',
+						linkStyle: 'popup__link-errorFourHundredth',
+						page: 'errorFourth',
+					}),
 				}),
 			}),
 		});
@@ -58,3 +77,26 @@ export class SignIn extends Block {
 		return this.compile(SigninPage, this.props);
 	}
 }
+
+export const InputFieldLoginComponent = new InputField({
+	inputFieldStyle: 'input-field',
+	inputFieldLabelStyle: 'input-field__label',
+	labelInput: 'Логин',
+	labelTitle: 'Логин',
+	inputComponent: new Input({
+		inputType: 'text',
+		inputTitle: 'Логин',
+		inputName: 'login',
+	}),
+});
+export const InputFieldPasswordComponent = new InputField({
+	inputFieldStyle: 'input-field',
+	inputFieldLabelStyle: 'input-field__label',
+	labelInput: 'Пароль',
+	labelTitle: 'Пароль',
+	inputComponent: new Input({
+		inputType: 'password',
+		inputTitle: 'Пароль',
+		inputName: 'password',
+	}),
+});

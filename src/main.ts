@@ -11,8 +11,10 @@ Object.entries(Components).forEach(([name, component]) => {
 	Handlebars.registerPartial(name, component);
 });
 const signinPage = new Pages.SignIn({});
+const registrationPage = new Pages.Registration({});
 const pages: Pages = {
 	signin: signinPage,
+	registration: registrationPage
 	// registration: [Pages.RegistrationPage],
 	// error: [Pages.ErrorPage],
 	// chat: [Pages.ChatPage],
@@ -47,7 +49,7 @@ function navigate(page: string) {
 	app?.append(Component.getContent()!);
 }
 document.addEventListener('DOMContentLoaded', () => {
-	navigate('signin');
+	navigate('registration');
 });
 
 document.addEventListener('click', e => {

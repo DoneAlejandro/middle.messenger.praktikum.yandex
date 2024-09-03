@@ -1,12 +1,12 @@
 import Block from '../../parentClasses/Block/BLock';
 import { TBlock } from '../../parentClasses/types';
-import main from './main.hbs?raw';
+import copyrightTemplate from './copyright.hbs?raw';
 
-export class Main extends Block {
+export class Copyright extends Block {
 	constructor(props: TBlock) {
 		super({ ...props });
 	}
 	render() {
-		return this.compile(main, { ...this.props });
+		return this.compile(copyrightTemplate, this.props );
 	}
 }
