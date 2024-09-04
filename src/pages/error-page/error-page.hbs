@@ -1,14 +1,10 @@
-{{#> Header}}
-{{> Title title='ONE-on-ONE Social'}}
-{{/ Header}}
-{{#> Main className='main-error'}}
-<section class='error'>
-	{{> ErrorCode code='500' className='error__code'}}
-	<img src='https://github.com/DoneAlejandro/yandex-praktikum/blob/sprint_1/src/assets/img/fixiki.png?raw=true' alt='fixiki'>
-	{{> ErrorText text='Мы уже фиксим' className='error__text'}}
-	{{> Link text='Назад к чатам' href='#' page='signin' className='error__link'}}
-</section>
-{{/ Main}}
-{{#> Footer}}
-{{> Copyright copyright='© 2024 DoneAlejandro. Все права защищены.'}}
-{{/ Footer}}
+{{{ HeaderComponent }}}
+<main class='main main-error'>
+	<section class='error'>
+		{{{ ErrorCodeComponent }}}
+		<img src='https://github.com/DoneAlejandro/yandex-praktikum/blob/sprint_1/src/assets/img/fixiki.png?raw=true' alt='fixiki'>
+		{{{ ErrorTextComponent }}}
+		{{{ ErrorLinkComponent }}}
+	</section>
+</main>
+{{{ FooterComponent }}}

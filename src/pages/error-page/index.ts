@@ -1,2 +1,2 @@
 import './error-page.scss';
-export { default as ErrorPage } from './error-page.hbs?raw';
+export { ErrorPage } from './errorPage.ts';

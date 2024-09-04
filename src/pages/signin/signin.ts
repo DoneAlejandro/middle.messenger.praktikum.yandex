@@ -2,7 +2,7 @@ import { Button, Copyright, Footer, Form, Header, Input, InputField, Link, Main,
 import Block from '../../parentClasses/Block/BLock';
 import { TBlock } from '../../parentClasses/types';
 import { Subtitle } from './../../components/subtitle/Subtitle';
-import SigninPage from './signin.hbs?raw';
+import SigninPageTemplate from './signin.hbs?raw';
 
 export class SignIn extends Block {
 	constructor(props: TBlock) {
@@ -18,7 +18,7 @@ export class SignIn extends Block {
 
 				formComponent: new Form({
 					formStyle: 'signin-form',
-					signinStyle: 'signin',
+					sectionStyle: 'signin',
 					formContainerStyle: 'signin-form__container',
 					formInputsStyle: 'signin-form__inputs',
 					subtitleComponent: new Subtitle({
@@ -61,7 +61,7 @@ export class SignIn extends Block {
 					linkErrorFifth: new Link({
 						text: 'Ошибка 500',
 						linkStyle: 'popup__link-errorFiveHundredth',
-						page: 'error',
+						page: 'errorPage',
 					}),
 					linkErrorFourth: new Link({
 						text: 'Ошибка 404',
@@ -74,7 +74,7 @@ export class SignIn extends Block {
 	}
 
 	render() {
-		return this.compile(SigninPage, this.props);
+		return this.compile(SigninPageTemplate, this.props);
 	}
 }
 
@@ -87,6 +87,7 @@ export const InputFieldLoginComponent = new InputField({
 		inputType: 'text',
 		inputTitle: 'Логин',
 		inputName: 'login',
+		inputPlaceholder: 'ГрандМастерБит',
 	}),
 });
 export const InputFieldPasswordComponent = new InputField({
@@ -98,5 +99,6 @@ export const InputFieldPasswordComponent = new InputField({
 		inputType: 'password',
 		inputTitle: 'Пароль',
 		inputName: 'password',
+		inputPlaceholder: 'Пароль',
 	}),
 });

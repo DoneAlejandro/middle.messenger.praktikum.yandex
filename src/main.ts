@@ -12,9 +12,17 @@ Object.entries(Components).forEach(([name, component]) => {
 });
 const signinPage = new Pages.SignIn({});
 const registrationPage = new Pages.Registration({});
+const chatPage = new Pages.ChatPage({});
+const ErrorPage = new Pages.ErrorPage({});
+const ErrorPageFourth = new Pages.ErrorPageFourth({});
+const ProfilePage = new Pages.ProfilePage({});
 const pages: Pages = {
 	signin: signinPage,
-	registration: registrationPage
+	registration: registrationPage,
+	chat: chatPage,
+	errorPage: ErrorPage,
+	errorFourth: ErrorPageFourth,
+	profile: ProfilePage,
 	// registration: [Pages.RegistrationPage],
 	// error: [Pages.ErrorPage],
 	// chat: [Pages.ChatPage],
@@ -41,15 +49,22 @@ const pages: Pages = {
 // 	app.appendChild(pages[page].render());
 // 	// app.innerHTML = handlebarsCompile(args);
 // }
+function render(root: HTMLElement, block: Block) {
+	root?.appendChild(block.getContent());
+	block.dispatchComponentDidMount();
+	return root;
+}
 function navigate(page: string) {
 	const app = document.getElementById('app');
 
 	const Component = pages[page];
 	// const component = new Component();
-	app?.append(Component.getContent()!);
+	app.innerHTML = '';
+	render(app, Component);
+	// app?.appendChild(Component.getContent()!);
 }
 document.addEventListener('DOMContentLoaded', () => {
-	navigate('registration');
+	navigate('profile');
 });
 
 document.addEventListener('click', e => {

@@ -1,4 +1,4 @@
-{{#> Header className='header-profile'}}
+{{!-- {{#> Header className='header-profile'}}
 <div class='header-profile__avatar'>
 	<img src="https://github.com/DoneAlejandro/yandex-praktikum/blob/sprint_1/src/assets/img/kchay.jpg?raw=true" alt="name">
 </div>
@@ -26,4 +26,13 @@
 {{#> Footer className='footer-profile'}}
 {{> Copyright copyright='© 2024 DoneAlejandro. Все права защищены.'}}
 {{> PopUp}}
-{{/ Footer}}
+{{/ Footer}} --}}
+
+<header class="header header-profile">
+	<div class='header-profile__avatar'>
+		<img src="https://github.com/DoneAlejandro/yandex-praktikum/blob/sprint_1/src/assets/img/kchay.jpg?raw=true" alt="name">
+	</div>
+	{{{ titleComponent }}}
+</header>
+{{{ mainComponent }}}
+{{{ footerComponent }}}

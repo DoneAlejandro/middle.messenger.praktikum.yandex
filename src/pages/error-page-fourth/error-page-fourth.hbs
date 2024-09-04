@@ -1,4 +1,4 @@
-{{#> Header}}
+{{!-- {{#> Header}}
 {{> Title title='ONE-on-ONE Social'}}
 {{/ Header}}
 {{#> Main className='main-error'}}
@@ -10,4 +10,13 @@
 {{/ Main}}
 {{#> Footer}}
 {{> Copyright copyright='© 2024 DoneAlejandro. Все права защищены.'}}
-{{/ Footer}}
+{{/ Footer}} --}}
+{{{ HeaderComponent }}}
+<main class='main main-error'>
+	<section class='error'>
+		{{{ ErrorCodeComponent }}}
+		{{{ ErrorTextComponent }}}
+		{{{ ErrorLinkComponent }}}
+	</section>
+</main>
+{{{ FooterComponent }}}

@@ -1,27 +1,22 @@
-import { Button, Copyright, Footer, Form, Header, Input, InputField, Link, Main, PopUp, Subtitle, Title } from '../../components';
+import { Button, Copyright, Footer, Form, Input, InputField, Link, Main, PopUp, Title } from '../../components';
 import Block from '../../parentClasses/Block/BLock';
 import { TBlock } from '../../parentClasses/types';
-import RegistrationPage from './registration.hbs?raw';
+import profilePageTemplate from './profile.hbs?raw';
 
-export class Registration extends Block {
+export class ProfilePage extends Block {
 	constructor(props: TBlock) {
 		super({
 			...props,
-			headerComponent: new Header({
-				title: new Title({
-					titleText: 'ONE-on-ONE Social',
-				}),
+			titleComponent: new Title({
+				titleText: 'Иван',
 			}),
 			mainComponent: new Main({
-				mainStyle: 'main-registration',
+				mainStyle: 'main-profile',
 				formComponent: new Form({
-					formStyle: 'registration-form',
-					sectionStyle: 'registration',
-					formContainerStyle: 'registration-form__container',
-					formInputsStyle: 'registration-form__inputs',
-					subtitleComponent: new Subtitle({
-						subtitleText: 'Регистрация',
-					}),
+					formStyle: 'profile-form',
+					sectionStyle: 'profile',
+					formContainerStyle: 'profile-form__container',
+					formInputsStyle: 'profile-form__inputs',
 					InputContentComponent: [
 						InputFieldMailComponent,
 						InputFieldLoginComponent,
@@ -32,7 +27,7 @@ export class Registration extends Block {
 						InputFieldPasswordRetryComponent,
 					],
 					ButtonComponent: new Button({
-						text: 'Зарегистрироваться',
+						text: 'Сохранить',
 						page: 'chat',
 					}),
 				}),
@@ -73,12 +68,10 @@ export class Registration extends Block {
 			}),
 		});
 	}
-
 	render() {
-		return this.compile(RegistrationPage, this.props);
+		return this.compile(profilePageTemplate, this.props);
 	}
 }
-
 export const InputFieldMailComponent = new InputField({
 	inputFieldStyle: 'input-field',
 	inputFieldLabelStyle: 'input-field__label',
