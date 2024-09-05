@@ -4,12 +4,9 @@
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
-		"lint:ts": "eslint \"**/*.{ts,tsx}\"",
-		"lint:ts:fix": "eslint \"**/*.{ts,tsx}\" --fix",
+		"lint": "eslint .",
 		"lint:scss": "npx stylelint \"**/*.scss\"",
 		"lint:scss:fix": "npx stylelint \"**/*.scss\" --fix",
-		"lint": "eslint . --ext .ts,.tsx",
-		"lint:fix": "eslint . --ext .ts,.tsx --fix",
 		"stylelint:fix": "stylelint \"**/*.scss\" --fix",
 		"dev": "vite",
 		"build": "tsc && vite build",
@@ -18,6 +15,9 @@
 		"start": "npm run build && npm run server"
 	},
 	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^8.4.0",
+		"@typescript-eslint/parser": "^8.4.0",
+		"eslint": "^9.9.1",
 		"sass": "^1.77.5",
 		"stylelint": "^16.8.2",
 		"stylelint-config-standard": "^36.0.1",

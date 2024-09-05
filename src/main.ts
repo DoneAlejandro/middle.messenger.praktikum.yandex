@@ -3,6 +3,7 @@ import * as Components from './components';
 import * as Pages from './pages';
 import Block from './parentClasses/Block/BLock';
 
+// eslint-disable-next-line no-redeclare
 interface Pages {
 	[key: string]: Block;
 }
