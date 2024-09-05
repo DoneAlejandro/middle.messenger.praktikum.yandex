@@ -4,7 +4,7 @@ export function checkValidate(event: Event, validationFn: (value: string) => boo
 	const input = event.target as HTMLInputElement;
 	const isValid = validationFn(input.value);
 	const errorElement = input.parentElement!.querySelector('.input-error') as HTMLElement;
-	console.log(input);
+	console.log(`input ${input.value}`);
 
 	if (!isValid) {
 		errorElement.textContent = getErrorMessage(fieldType);

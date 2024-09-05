@@ -92,7 +92,7 @@ export const InputFieldLoginComponent = new InputField({
 		inputPlaceholder: 'ГрандМастерБит',
 		events: {
 			blur: (event: Event) => {
-				console.log('asdasd');
+				console.log(`event: ${event}`);
 				
 				checkValidate(event, loginValidation, 'login')
 			}
