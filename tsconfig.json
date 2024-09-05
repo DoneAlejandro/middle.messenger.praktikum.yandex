@@ -11,11 +11,11 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"noEmit": true,
+		"noImplicitAny": true,
+		"strictNullChecks": true,
+		"sourceMap": true,
 
 		"strict": true,
-		"noImplicitAny": true,
-		"sourceMap": true,
-		"strictNullChecks": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true
