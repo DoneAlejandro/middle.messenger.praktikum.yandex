@@ -64,7 +64,7 @@ function navigate(page: string) {
 	// app?.appendChild(Component.getContent()!);
 }
 document.addEventListener('DOMContentLoaded', () => {
-	navigate('profile');
+	navigate('signin');
 });
 
 document.addEventListener('click', e => {

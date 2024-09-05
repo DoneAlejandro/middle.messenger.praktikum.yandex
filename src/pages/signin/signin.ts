@@ -1,6 +1,7 @@
 import { Button, Copyright, Footer, Form, Header, Input, InputField, Link, Main, PopUp, Title } from '../../components';
 import Block from '../../parentClasses/Block/BLock';
 import { TBlock } from '../../parentClasses/types';
+import { checkValidate, loginValidation } from '../../validation/validation';
 import { Subtitle } from './../../components/subtitle/Subtitle';
 import SigninPageTemplate from './signin.hbs?raw';
 
@@ -28,7 +29,7 @@ export class SignIn extends Block {
 					ButtonComponent: new Button({
 						text: 'Войти',
 						buttonStyle: 'signin-form__button',
-						page: 'error',
+						page: 'chat',
 					}),
 					LinkComponent: new Link({
 						text: 'Нет аккаунта?',
@@ -83,11 +84,17 @@ export const InputFieldLoginComponent = new InputField({
 	inputFieldLabelStyle: 'input-field__label',
 	labelInput: 'Логин',
 	labelTitle: 'Логин',
+	
 	inputComponent: new Input({
 		inputType: 'text',
 		inputTitle: 'Логин',
 		inputName: 'login',
 		inputPlaceholder: 'ГрандМастерБит',
+		events: {
+			blur: (event: Event) => {
+				checkValidate(event, loginValidation, 'login')
+			}
+		},
 	}),
 });
 export const InputFieldPasswordComponent = new InputField({
