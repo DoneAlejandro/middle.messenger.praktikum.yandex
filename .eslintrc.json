@@ -3,7 +3,7 @@
 		"browser": true,
 		"es2021": true
 	},
-	"extends": ["airbnb"],
+	"extends": ["airbnb", "stylelint-config-standard", "stylelint-config-standard-scss"],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"ecmaFeatures": {
