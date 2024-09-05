@@ -1,10 +1,12 @@
-@import '../../assets/variables.scss';
+@import '../../assets/variables';
+
 .dialog {
 	&__line {
 		height: $height-line;
 		background-color: $color-line;
 		margin: 3px 0;
 	}
+
 	&__container {
 		cursor: pointer;
 		display: grid;
@@ -13,10 +15,12 @@
 			'a m u' 36px/90px 1fr 25px;
 		gap: 0 10px;
 		padding: 8px;
+
 		&--current {
 			cursor: default;
 		}
 	}
+
 	&__avatar {
 		grid-area: a;
 		width: $avatar-width;
@@ -27,12 +31,15 @@
 		align-items: center;
 		justify-content: center;
 	}
+
 	&__name {
 		grid-area: n;
 	}
+
 	&__message {
 		grid-area: m;
 	}
+
 	&__unread {
 		grid-area: u;
 		margin-top: 14px;

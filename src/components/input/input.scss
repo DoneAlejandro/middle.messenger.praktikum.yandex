@@ -1,10 +1,12 @@
-@import '../../assets/variables.scss';
+@import '../../assets/variables';
+
 .input {
 	width: 100%;
 	padding: $input-padding;
 	margin-bottom: 15px;
 	border-bottom: $input-border;
 	color: $input-text-color;
+
 	&::placeholder {
 		font-size: $font-regular;
 		color: $input-placeholder-color;
