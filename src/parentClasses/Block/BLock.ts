@@ -79,6 +79,7 @@ export default class Block {
 	// Метод для рендеринга элемента
 	private renderElement() {
 		const templ = this.render();
+		console.log(`templ ${templ}`);
 		if (this.element) {
 			this.element.replaceWith(templ);
 		}
@@ -89,11 +90,15 @@ export default class Block {
 
 	// Метод для рендеринга компонента
 	public render(): HTMLElement {
+		console.log('asdda');
+
 		return this.getContent();
 	}
 
 	// Инициализация компонента
 	public init() {
+		console.log('sdfsdfsdfsdf3442');
+
 		this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
 	}
 
@@ -163,9 +168,12 @@ export default class Block {
 
 	// Добавление событий к элементу
 	private addEvents() {
+		console.log(`event added: ${this.props.events}`);
 		const { events = {} } = this.props;
 		Object.keys(events).forEach(eventName => {
 			this.element.addEventListener(eventName, events[eventName]);
+			console.log(`Event ${eventName} added to`, this.element);
+			console.log(`event removed: ${eventName}`);
 		});
 	}
 

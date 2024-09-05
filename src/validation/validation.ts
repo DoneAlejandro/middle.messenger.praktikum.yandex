@@ -1,13 +1,10 @@
 // Общая функция валидации
-
-
-
 export function checkValidate(event: Event, validationFn: (value: string) => boolean, fieldType: string) {
 	console.log('validation');
 	const input = event.target as HTMLInputElement;
 	const isValid = validationFn(input.value);
 	const errorElement = input.parentElement!.querySelector('.input-error') as HTMLElement;
-console.log(input);
+	console.log(input);
 
 	if (!isValid) {
 		errorElement.textContent = getErrorMessage(fieldType);
@@ -30,13 +27,13 @@ function getErrorMessage(fieldType: string): string {
 
 // Валидация логина
 export function loginValidation(value: string): boolean {
-	console.log(value);
-	
+	console.log(`value ${value}`);
+
 	return /^[a-zA-Z0-9_-]{3,16}$/.test(value);
 }
 
 // Валидация пароля
 export function passwordValidation(value: string): boolean {
 	const regex = /^(?=.*[A-Z])(?=.*\d)[a-zA-Z\d_-]{8,40}$/;
-    return regex.test(value);
+	return regex.test(value);
 }
