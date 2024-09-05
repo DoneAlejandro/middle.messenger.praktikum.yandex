@@ -1,6 +1,6 @@
-import Block from "../../parentClasses/Block/BLock";
-import { TBlock } from "../../parentClasses/types";
-import linkTemplate from "./link.hbs?raw";
+import Block from '../../parentClasses/Block/BLock';
+import { TBlock } from '../../parentClasses/types';
+import linkTemplate from './link.hbs?raw';
 
 export class Link extends Block {
 	constructor(props: TBlock) {

@@ -1,12 +1,15 @@
 <section class="{{#if sectionStyle}} {{{sectionStyle}}}{{/if}}">
 	{{{ subtitleComponent }}}
-	<form class="{{formStyle}}">
+	<form class="{{formStyle}}" onsubmit="return false;">
 		<div class="{{formContainerStyle}}">
 			<div class="{{formInputsStyle}}">
 				{{{ InputContentComponent }}}
 			</div>
 			{{{ ButtonComponent}}}
 		</div>
+		<button type="submit" class="{{#if buttonStyle}} {{{ buttonStyle }}}{{/if}}">
+			Отправить форму
+		</button>
 		{{{ LinkComponent }}}
 	</form>
 </section>

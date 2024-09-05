@@ -1,4 +1,13 @@
 import { Button, Copyright, Footer, Form, Header, Input, InputField, Link, Main, PopUp, Subtitle, Title } from '../../components';
+import { handleFormSubmit } from '../../globalFunction/validation/formSubmit/formSubmit';
+import {
+	checkValidate,
+	emailValidation,
+	loginValidation,
+	nameValidation,
+	passwordValidation,
+	phoneValidation,
+} from '../../globalFunction/validation/validation';
 import Block from '../../parentClasses/Block/BLock';
 import { TBlock } from '../../parentClasses/types';
 import RegistrationPage from './registration.hbs?raw';
@@ -15,6 +24,11 @@ export class Registration extends Block {
 			mainComponent: new Main({
 				mainStyle: 'main-registration',
 				formComponent: new Form({
+					events: {
+						submit: (event: Event) => {
+							handleFormSubmit(event);
+						},
+					},
 					formStyle: 'registration-form',
 					sectionStyle: 'registration',
 					formContainerStyle: 'registration-form__container',
@@ -89,6 +103,11 @@ export const InputFieldMailComponent = new InputField({
 		inputTitle: 'Почта',
 		inputName: 'email',
 		inputPlaceholder: 'логин@почта.рф',
+		events: {
+			blur: (event: Event) => {
+				checkValidate(event, emailValidation, 'email');
+			},
+		},
 	}),
 });
 
@@ -102,6 +121,11 @@ export const InputFieldLoginComponent = new InputField({
 		inputTitle: 'Логин',
 		inputName: 'login',
 		inputPlaceholder: 'ГрандМастерБит',
+		events: {
+			blur: (event: Event) => {
+				checkValidate(event, loginValidation, 'login');
+			},
+		},
 	}),
 });
 
@@ -115,6 +139,11 @@ export const InputFieldNameComponent = new InputField({
 		inputTitle: 'Имя',
 		inputName: 'first_name',
 		inputPlaceholder: 'Мастер',
+		events: {
+			blur: (event: Event) => {
+				checkValidate(event, nameValidation, 'first_name');
+			},
+		},
 	}),
 });
 
@@ -128,6 +157,11 @@ export const InputFieldSecondNameComponent = new InputField({
 		inputTitle: 'Фамилия',
 		inputName: 'second_name',
 		inputPlaceholder: 'Бит',
+		events: {
+			blur: (event: Event) => {
+				checkValidate(event, nameValidation, 'last_name');
+			},
+		},
 	}),
 });
 
@@ -141,7 +175,11 @@ export const InputFieldPhoneComponent = new InputField({
 		inputTitle: 'Телефон',
 		inputName: 'phone',
 		inputPlaceholder: 'ГрандМастерБит',
-		pattern: '+7[0-9]{10}',
+		events: {
+			blur: (event: Event) => {
+				checkValidate(event, phoneValidation, 'phone');
+			},
+		},
 	}),
 });
 export const InputFieldPasswordComponent = new InputField({
@@ -154,6 +192,11 @@ export const InputFieldPasswordComponent = new InputField({
 		inputTitle: 'Пароль',
 		inputName: 'password',
 		inputPlaceholder: 'Пароль',
+		events: {
+			blur: (event: Event) => {
+				checkValidate(event, passwordValidation, 'password');
+			},
+		},
 	}),
 });
 export const InputFieldPasswordRetryComponent = new InputField({
@@ -166,5 +209,10 @@ export const InputFieldPasswordRetryComponent = new InputField({
 		inputTitle: 'Пароль (ещё раз)',
 		inputName: 'password',
 		inputPlaceholder: 'Пароль (ещё раз)',
+		events: {
+			blur: (event: Event) => {
+				checkValidate(event, passwordValidation, 'password');
+			},
+		},
 	}),
 });

@@ -7,7 +7,6 @@ export class Title extends Block {
 		super(props);
 	}
 	render() {
-		console.log(`title ${title} ${JSON.stringify(this.props)}`);
 		return this.compile(title, this.props);
 	}
 }

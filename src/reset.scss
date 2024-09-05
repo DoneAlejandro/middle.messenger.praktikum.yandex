@@ -111,3 +111,16 @@ main {
 footer {
 	padding: 10px 0;
 }
+.input-error {
+	font-size: 10px;
+	position: absolute;
+	color: red;
+	width: 100px;
+	// background: #fff;
+	// padding: 2px;
+	border-radius: 5px;
+	// display: none;
+}
+// .input-error--visible {
+// 	display: block;
+// }

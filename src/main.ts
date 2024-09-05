@@ -2,13 +2,14 @@ import Handlebars from 'handlebars';
 import * as Components from './components';
 import * as Pages from './pages';
 import Block from './parentClasses/Block/BLock';
-// import { Components as ComponentsType } from './type/types';
 
 interface Pages {
 	[key: string]: Block;
 }
 Object.entries(Components).forEach(([name, component]) => {
-	Handlebars.registerPartial(name, component);
+	if (typeof component === 'string') {
+		Handlebars.registerPartial(name, component);
+	}
 });
 const signinPage = new Pages.SignIn({});
 const registrationPage = new Pages.Registration({});
@@ -23,32 +24,8 @@ const pages: Pages = {
 	errorPage: ErrorPage,
 	errorFourth: ErrorPageFourth,
 	profile: ProfilePage,
-	// registration: [Pages.RegistrationPage],
-	// error: [Pages.ErrorPage],
-	// chat: [Pages.ChatPage],
-	// profile: [Pages.ProfilePage],
-	// errorFourth: [Pages.ErrorPageFourth],
 };
 
-// function render(root: HTMLElement, block: Block) {
-//     root?.appendChild(block.getContent())
-//     block.dispatchComponentDidMount()
-//     return root;
-// }
-// function navigate(page: string) {
-// 	const app = document.getElementById('app')!;
-// 	const pageBlock = pages[page]
-//     app.innerHTML = ''
-//     render(app, pageBlock)
-// }
-
-// function navigate(page: string): void {
-// 	// const [sours, args] = pages[page];
-// 	// const handlebarsCompile = Handlebars.compile(sours);
-// 	const app = document.getElementById('app')!;
-// 	app.appendChild(pages[page].render());
-// 	// app.innerHTML = handlebarsCompile(args);
-// }
 function render(root: HTMLElement, block: Block) {
 	root?.appendChild(block.getContent());
 	block.dispatchComponentDidMount();
@@ -56,15 +33,14 @@ function render(root: HTMLElement, block: Block) {
 }
 function navigate(page: string) {
 	const app = document.getElementById('app');
-
 	const Component = pages[page];
-	// const component = new Component();
-	app.innerHTML = '';
-	render(app, Component);
-	// app?.appendChild(Component.getContent()!);
+	if (app !== null) {
+		app.innerHTML = '';
+		render(app, Component);
+	}
 }
 document.addEventListener('DOMContentLoaded', () => {
-	navigate('signin');
+	navigate('registration');
 });
 
 document.addEventListener('click', e => {

@@ -7,7 +7,6 @@ export class Header extends Block {
 		super({ ...props });
 	}
 	render() {
-		// console.log(`header ${headerTemplate} ${JSON.stringify(this.props)}`);
 		return this.compile(headerTemplate, { ...this.props });
 	}
 }

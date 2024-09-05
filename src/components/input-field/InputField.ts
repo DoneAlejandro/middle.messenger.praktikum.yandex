@@ -1,6 +1,6 @@
-import Block from "../../parentClasses/Block/BLock";
-import { TBlock } from "../../parentClasses/types";
-import inputTemplate from "./input-field.hbs?raw";
+import Block from '../../parentClasses/Block/BLock';
+import { TBlock } from '../../parentClasses/types';
+import inputTemplate from './input-field.hbs?raw';
 
 export class InputField extends Block {
 	constructor(props: TBlock) {

@@ -1,7 +1,8 @@
 import { Button, Copyright, Footer, Form, Header, Input, InputField, Link, Main, PopUp, Title } from '../../components';
+import { handleFormSubmit } from '../../globalFunction/validation/formSubmit/formSubmit';
+import { checkValidate, loginValidation, passwordValidation } from '../../globalFunction/validation/validation';
 import Block from '../../parentClasses/Block/BLock';
 import { TBlock } from '../../parentClasses/types';
-import { checkValidate, loginValidation } from '../../validation/validation';
 import { Subtitle } from './../../components/subtitle/Subtitle';
 import SigninPageTemplate from './signin.hbs?raw';
 
@@ -18,6 +19,11 @@ export class SignIn extends Block {
 				mainStyle: 'main-signin',
 
 				formComponent: new Form({
+					events: {
+						submit: (event: Event) => {
+							handleFormSubmit(event);
+						},
+					},
 					formStyle: 'signin-form',
 					sectionStyle: 'signin',
 					formContainerStyle: 'signin-form__container',
@@ -84,7 +90,7 @@ export const InputFieldLoginComponent = new InputField({
 	inputFieldLabelStyle: 'input-field__label',
 	labelInput: 'Логин',
 	labelTitle: 'Логин',
-	
+
 	inputComponent: new Input({
 		inputType: 'text',
 		inputTitle: 'Логин',
@@ -92,10 +98,8 @@ export const InputFieldLoginComponent = new InputField({
 		inputPlaceholder: 'ГрандМастерБит',
 		events: {
 			blur: (event: Event) => {
-				console.log(`event: ${event}`);
-				
-				checkValidate(event, loginValidation, 'login')
-			}
+				checkValidate(event, loginValidation, 'login');
+			},
 		},
 	}),
 });
@@ -109,5 +113,10 @@ export const InputFieldPasswordComponent = new InputField({
 		inputTitle: 'Пароль',
 		inputName: 'password',
 		inputPlaceholder: 'Пароль',
+		events: {
+			blur: (event: Event) => {
+				checkValidate(event, passwordValidation, 'password');
+			},
+		},
 	}),
 });

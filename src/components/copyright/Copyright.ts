@@ -7,6 +7,6 @@ export class Copyright extends Block {
 		super({ ...props });
 	}
 	render() {
-		return this.compile(copyrightTemplate, this.props );
+		return this.compile(copyrightTemplate, this.props);
 	}
 }
