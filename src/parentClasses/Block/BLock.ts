@@ -79,6 +79,7 @@ export default class Block {
 	// Метод для рендеринга элемента
 	private renderElement() {
 		const templ = this.render();
+		this.removeEvents();
 		if (this.element) {
 			this.element.replaceWith(templ);
 		}
@@ -167,6 +168,14 @@ export default class Block {
 
 		Object.keys(events).forEach(eventName => {
 			this.element.addEventListener(eventName, events[eventName]);
+		});
+	}
+
+	// Метод для удаления событий
+	private removeEvents() {
+		const { events = {} } = this.props;
+		Object.keys(events).forEach(eventName => {
+			this.element?.removeEventListener(eventName, events[eventName]);
 		});
 	}
 
