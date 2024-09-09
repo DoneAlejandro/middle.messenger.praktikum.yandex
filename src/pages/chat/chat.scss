@@ -3,18 +3,21 @@
 	flex-direction: row;
 	height: 100%;
 	width: 100%;
+
 	&__list {
 		display: flex;
 		flex-direction: column;
 		background-color: #2c2c2c;
 		color: #fff;
 	}
+
 	&__dialog {
 		background-color: #111112;
 		display: flex;
 		flex: 3;
 	}
 }
+
 .header-chat {
 	justify-content: space-between;
 	padding: 0 8px;

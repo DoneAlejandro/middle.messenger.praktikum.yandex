@@ -1,8 +1,10 @@
-@import '../../assets/variables.scss';
+@import '../../assets/variables';
+
 .error-text {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
 	&__text {
 		font-weight: $font-regular;
 		font-size: $font-big;

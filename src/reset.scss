@@ -1,10 +1,12 @@
-@import './assets/variables.scss';
-/*----------------------СТИЛЬ ОБНУЛЕНИЯ---------------------------*/
+@import './assets/variables';
+
+/* ----------------------СТИЛЬ ОБНУЛЕНИЯ--------------------------- */
 * {
-	padding: 0px;
-	margin: 0px;
+	padding: 0;
+	margin: 0;
 	border: none;
 }
+
 *,
 *::before,
 *::after {
@@ -17,9 +19,11 @@ a:link,
 a:visited {
 	text-decoration: none;
 }
+
 a:hover {
 	text-decoration: none;
 }
+
 /* Common */
 
 h1,
@@ -32,21 +36,26 @@ p {
 	font-size: inherit;
 	font-weight: inherit;
 }
+
 ul,
 ul li {
 	list-style: none;
 }
+
 img {
 	vertical-align: top;
 }
+
 img,
 svg {
 	max-width: 100%;
 	height: auto;
 }
+
 address {
 	font-style: normal;
 }
+
 /* Form */
 input,
 textarea,
@@ -57,30 +66,35 @@ select {
 	color: inherit;
 	background-color: transparent;
 }
+
 input::-ms-clear {
 	display: none;
 }
+
 button,
 input[type='submit'] {
 	display: inline-block;
 	box-shadow: none;
 	background-color: transparent;
-	background: none;
 	cursor: pointer;
 }
+
 input:focus,
 input:active,
 button:focus,
 button:active {
 	outline: none;
 }
+
 button::-moz-focus-inner {
 	padding: 0;
 	border: 0;
 }
+
 label {
 	cursor: pointer;
 }
+
 html,
 body {
 	height: 100%;
@@ -88,6 +102,7 @@ body {
 	font-size: 24px;
 	font-family: $font-body;
 }
+
 body {
 	display: flex;
 	flex-direction: column;
@@ -100,6 +115,7 @@ body {
 	flex-direction: column;
 	min-height: 100vh;
 }
+
 header {
 	padding: 10px 0;
 }
@@ -111,3 +127,20 @@ main {
 footer {
 	padding: 10px 0;
 }
+
+.input-error {
+	font-size: 10px;
+	position: absolute;
+	color: red;
+	width: 100px;
+
+	// background: #fff;
+	// padding: 2px;
+	border-radius: 5px;
+
+	// display: none;
+}
+
+// .input-error--visible {
+// 	display: block;
+// }

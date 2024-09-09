@@ -1,6 +1,8 @@
-@import '../../assets/variables.scss';
+@import '../../assets/variables';
+
 .input-field {
 	position: relative;
+
 	&__label {
 		font-size: $font-nano;
 		color: $input-placeholder-color;

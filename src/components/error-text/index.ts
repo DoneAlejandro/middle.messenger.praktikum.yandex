@@ -1,2 +1,2 @@
 import './error-text.scss';
-export { default as ErrorText } from './error-text.hbs?raw';
+export { ErrorText } from './ErrorText.ts';

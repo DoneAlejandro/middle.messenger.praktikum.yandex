@@ -1,29 +1,10 @@
-{{#> Header className='header-profile'}}
-<div class='header-profile__avatar'>
-	<img src="https://github.com/DoneAlejandro/yandex-praktikum/blob/sprint_1/src/assets/img/kchay.jpg?raw=true" alt="name">
-</div>
-{{> Title title='Иван'}}
-{{/ Header}}
-{{#> Main className='main-profile'}}
-<section class='profile'>
-	<form class="profile-form">
-		<div class="profile-form__container">
-			<div class="profile-form__inputs">
-				{{>InputField type='email' title='Почта' name='emil'}}
-				{{>InputField type='text' title='Логин' name='login'}}
-				{{>InputField type='text' title='Имя' name='first_name'}}
-				{{>InputField type='text' title='Фамилия' name='second_name'}}
-				{{>InputField type='tel' title='Телефон' name='phone' pattern='^(\+7|8)?[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$'}}
-				{{>InputField type='password' title='Пароль' name='password'}}
-				{{>InputField type='password' title='Пароль (ещё раз)' name='password'}}
-			</div>
-			{{>Button text='Зарегистрироваться' page='chat'}}
+<div class="page">
+	<header class="header header-profile">
+		<div class='header-profile__avatar'>
+			<img src="https://github.com/DoneAlejandro/yandex-praktikum/blob/sprint_1/src/assets/img/kchay.jpg?raw=true" alt="name">
 		</div>
-		{{>Link text='Войти' href='#' className='profile-form__link' page='signin'}}
-	</form>
-</section>
-{{/ Main}}
-{{#> Footer className='footer-profile'}}
-{{> Copyright copyright='© 2024 DoneAlejandro. Все права защищены.'}}
-{{> PopUp}}
-{{/ Footer}}
+		{{{ titleComponent }}}
+	</header>
+	{{{ mainComponent }}}
+	{{{ footerComponent }}}
+</div>

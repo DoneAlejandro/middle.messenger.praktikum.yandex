@@ -1,10 +1,12 @@
-@import '../../assets/variables.scss';
+@import '../../assets/variables';
+
 .main-registration {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	padding: 0 10px;
 }
+
 .registration {
 	background: $profile-bgcolor;
 	padding: $profile-padding;
@@ -13,6 +15,7 @@
 	max-width: 400px;
 	width: 100%;
 }
+
 .footer-registration {
 	display: flex;
 	flex-direction: column;

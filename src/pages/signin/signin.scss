@@ -1,22 +1,31 @@
+.page {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
 .main-signin {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	padding: 0 10px;
 }
+
 .signin {
 	background: #242426;
 	padding: 20px;
 	border-radius: 10px;
-	box-shadow: 0 4px 12px rgba(13, 35, 67, 0.03);
+	box-shadow: 0 4px 12px rgb(13 35 67 / 3%);
 	max-width: 400px;
 	width: 100%;
 }
+
 .signin-form {
 	&__inputs {
 		margin-bottom: 154px;
 	}
 }
+
 .footer-signin {
 	display: flex;
 	flex-direction: column;

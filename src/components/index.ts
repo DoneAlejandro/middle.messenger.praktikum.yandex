@@ -5,6 +5,7 @@ export { DialogList } from './dialog-list';
 export { ErrorCode } from './error-code';
 export { ErrorText } from './error-text';
 export { Footer } from './footer';
+export { Form } from './form';
 export { Header } from './header';
 export { Input } from './input';
 export { InputField } from './input-field';

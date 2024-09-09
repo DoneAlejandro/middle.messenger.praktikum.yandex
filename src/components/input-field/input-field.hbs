@@ -1,4 +1,5 @@
-<div class='input-field'>
-	<label for='{{login}}' class='input-field__label'>{{title}}</label>
-	{{>Input type=type title=title value=value name=name placeholder=placeholder pattern=pattern className='input-field__input'}}
+<div class='{{inputFieldStyle}}'>
+	<label for='{{labelInput}}' class='{{inputFieldLabelStyle}}'>{{labelTitle}}</label>
+	{{{inputComponent}}}
+	<span class="input-error"></span>
 </div>

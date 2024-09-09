@@ -1,24 +1,29 @@
-@import '../../assets/variables.scss';
+@import '../../assets/variables';
+
 .header-profile {
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 30px;
 	padding: 15px 3px;
 	height: 100%;
+
 	&__avatar {
 		width: $header-avatar-width;
 		height: $header-avatar-height;
+
 		img {
 			border-radius: $header-avatar-bradius;
 		}
 	}
 }
+
 .main-profile {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	padding: 0 10px;
 }
+
 .profile {
 	background: $profile-bgcolor;
 	padding: $profile-padding;
@@ -27,6 +32,7 @@
 	max-width: 400px;
 	width: 100%;
 }
+
 .footer-profile {
 	display: flex;
 	flex-direction: column;

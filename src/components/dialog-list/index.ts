@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars';
 import './dialog-list.scss';
-export { default as DialogList } from './dialog-list.hbs?raw';
+export { DialogList } from './DialogList.ts';
 Handlebars.registerHelper('chat-page-list', () => {
 	return [
 		{
