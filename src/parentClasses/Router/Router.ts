@@ -1,85 +1,70 @@
-import Block from '../Block/BLock';
-import { PagesPaths } from './pathEnum';
-import { Route } from './Route';
+import Route from "./Route";
 
-export class Router {
-    public routes: Route[] = []
-
-    public history: History = window.history
-
-    private _currentRoute: Route | undefined
-
-    private _rootQuery: string = ''
-
-    static __instance: Router
-
-    constructor(rootQuery: string) {
+class Router {
+    constructor(rootQuery) {
         if (Router.__instance) {
-            return Router.__instance
+            return Router.__instance;
         }
-        this.routes = []
-        this.history = window.history
-        this._currentRoute = undefined
-        this._rootQuery = rootQuery
 
-        Router.__instance = this
+        this.routes = [];
+        this.history = window.history;
+        this._currentRoute = null;
+        this._rootQuery = rootQuery;
+
+        Router.__instance = this;
     }
 
-    use(pathname: PagesPaths, block: Block) {
-        const route = new Route(pathname, block, { rootQuery: this._rootQuery })
+    use(pathname, block) {
+        const route = new Route(pathname, block, {rootQuery: this._rootQuery});
         this.routes.push(route);
-        return this
-    }
-
-    async guard(redirectTo: PagesPaths, callback: () => boolean | Promise<boolean>) {
-        const result = await callback()
-
-        if (!result) {
-            this.go(redirectTo)
-        }
-        return this
+        return this;
     }
 
     start() {
-        window.onpopstate = ((event) => {
-            const currentWindow = event.currentTarget as Window;
-            this._onRoute(currentWindow.location.pathname as PagesPaths)
-        })
-
-        this._onRoute(window.location.pathname as PagesPaths)
+        window.onpopstate = (event => {
+            this._onRoute(event.currentTarget.location.pathname);
+        }).bind(this);
+        this._onRoute(window.location.pathname);
     }
 
-    _onRoute(pathname: PagesPaths) {
-        let route = this.getRoute(pathname);
+    _onRoute(pathname) {
+        const route = this.getRoute(pathname);
 
         if (!route) {
-            route = this.getRoute(PagesPaths.ERROR_CLIENT)
-        }
-        if (this._currentRoute && this._currentRoute !== route) {
-            this._currentRoute.leave()
+          return;
         }
 
+// add code
+       if (this._currentRoute && this._currentRoute !== route) {
+            this._currentRoute.leave();
+        }
+//
         this._currentRoute = route;
-
-        route?.render()
+        if(route !== null){
+          route.render(route, pathname);
+        }
     }
 
-    go(pathname: PagesPaths) {
-        this.history.pushState({}, '', pathname)
-        this._onRoute(pathname)
+    go(pathname) {
+      this.history.pushState({}, '', pathname);
+      this._onRoute(pathname);
     }
 
     back() {
-        this.history.back()
+      this.history.back();
     }
 
     forward() {
-        this.history.forward()
+      this.history.forward();
     }
 
-    getRoute(pathname: PagesPaths) {
-        return this.routes.find((route) => route.match(pathname))
+    getRoute(pathname) {
+      const route = this.routes.find(route => route.match(pathname));
+      if(!route) {
+        return this.routes.find(route => route.match('*'))
+      }
+      return route
     }
 }
 
-export const router = new Router('#app')
+export default Router;

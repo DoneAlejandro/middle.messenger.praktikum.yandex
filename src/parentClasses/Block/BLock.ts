@@ -9,7 +9,6 @@ export default class Block {
 		INIT: 'init',
 		FLOW_CDM: 'flow:component-did-mount',
 		FLOW_CDU: 'flow:component-did-update',
-		FLOW_CDUM: 'flow:component-did-unmount',
 		FLOW_RENDER: 'flow:render',
 	};
 
@@ -24,7 +23,6 @@ export default class Block {
 	public firstRender = false;
 	private element: HTMLElement = document.createElement('div');
 	private id: string;
-	private isListItem: boolean = false;
 	public eventBus: () => EventBus;
 
 	constructor(propsWithChildren: TBlock) {
@@ -134,38 +132,6 @@ export default class Block {
 	// Метод монтирования компонента, может быть переопределен в наследуемых классах
 	public componentDidMountPublic(props: TBlock) {
 		return !props ? false : true;
-	}
-	private _componentDidUnmount() {
-		this.componentDidUnmount(this.props);
-		if (this.children) {
-			Object.values(this.children).forEach(child => {
-				if (!child.isListItem) {
-					// console.log('Child mounted', child);
-					child.dispatchComponentDidUnmount();
-				}
-			});
-		}
-		if (this.list) {
-			Object.values(this.list).forEach(list => {
-				list.forEach(child => {
-					if (child instanceof Block) {
-						// console.log('List item mounted', child);
-
-						child.dispatchComponentDidUnmount();
-					}
-				});
-			});
-		}
-	}
-
-	dispatchComponentDidUnmount() {
-		this.eventBus().emit(Block.EVENTS.FLOW_CDUM, this.props);
-	}
-	componentDidUnmount(props: TBlock) {
-		if (!props) {
-			return false;
-		}
-		return true;
 	}
 
 	// Обновление компонента при изменении пропсов

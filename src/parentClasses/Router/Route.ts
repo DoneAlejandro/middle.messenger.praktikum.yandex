@@ -1,33 +1,12 @@
-
-import Block from '../Block/BLock';
-import { PagesPaths } from './pathEnum';
-
-
-interface IRouteProps {
-    rootQuery: string
-}
-
-export class Route {
-    private _pathname: PagesPaths
-
-    private _blockClass: Block;
-
-    private _block: null | Block;
-
-    private _props: IRouteProps;
-
-    private _root: HTMLElement | null;
-
-    constructor(pathname: PagesPaths, view: Block, props: IRouteProps) {
+class Route {
+    constructor(pathname, view, props) {
         this._pathname = pathname;
         this._blockClass = view;
         this._block = null;
         this._props = props;
-
-        this._root = document.querySelector(this._props.rootQuery)
     }
 
-    navigate(pathname: PagesPaths) {
+    navigate(pathname) {
         if (this.match(pathname)) {
             this._pathname = pathname;
             this.render();
@@ -35,29 +14,29 @@ export class Route {
     }
 
     leave() {
-        if (this._root) {
-            this._root.innerHTML = ''
-            this._block?.dispatchComponentDidUnmount()
-        } else {
-            throw new Error('Root not found')
+        if (this._block) {
+            this._block.hide();
         }
     }
 
-    match(pathname: PagesPaths) {
-        return pathname === this._pathname
+    match(pathname) {
+        return pathname === this._pathname;
+    }
+
+    _renderDom(query, block) {
+        const root = document.querySelector(query);
+        root.append(block.getContent());
     }
 
     render() {
         if (!this._block) {
-            this._block = this._blockClass
+            this._block = new this._blockClass({});
+            this._renderDom(this._props.rootQuery, this._block);
+            return;
         }
-        if (!this._root) {
-            throw new Error('Root element for router not found')
-        }
-
-        this._root.insertAdjacentElement('beforeend', this._block.getContent())
-        this._block.dispatchComponentDidMount();
 
         this._block.show();
     }
 }
+
+export default Route;
