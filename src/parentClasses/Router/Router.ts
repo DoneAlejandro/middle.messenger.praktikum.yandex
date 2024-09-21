@@ -1,70 +1,76 @@
-import Route from "./Route";
+import Block from '../Block/BLock';
+import { PagesPaths } from './pathEnum';
+import Route from './Route';
 
 class Router {
-    constructor(rootQuery) {
-        if (Router.__instance) {
-            return Router.__instance;
-        }
+	private routes: Route[] = [];
+	private history: History = window.history;
+	private _currentRoute: Route | undefined = undefined;
+	private _rootQuery: string = '';
+	static __instance: Router;
 
-        this.routes = [];
-        this.history = window.history;
-        this._currentRoute = null;
-        this._rootQuery = rootQuery;
+	constructor(rootQuery: string) {
+		if (Router.__instance) {
+			return Router.__instance;
+		}
 
-        Router.__instance = this;
-    }
+		this.routes = [];
+		this.history = window.history;
+		this._currentRoute = undefined;
+		this._rootQuery = rootQuery;
 
-    use(pathname, block) {
-        const route = new Route(pathname, block, {rootQuery: this._rootQuery});
-        this.routes.push(route);
-        return this;
-    }
+		Router.__instance = this;
+	}
 
-    start() {
-        window.onpopstate = (event => {
-            this._onRoute(event.currentTarget.location.pathname);
-        }).bind(this);
-        this._onRoute(window.location.pathname);
-    }
+	use(pathname: PagesPaths, block: Block) {
+		const route = new Route(pathname, block, { rootQuery: this._rootQuery });
+		this.routes.push(route);
+		return this;
+	}
 
-    _onRoute(pathname) {
-        const route = this.getRoute(pathname);
+	start() {
+		window.onpopstate = ((event: PopStateEvent) => {
+			const targetWindow = event.currentTarget as Window;
+			this._onRoute(targetWindow!.location.pathname as PagesPaths);
+		}).bind(this);
+		this._onRoute(window.location.pathname as PagesPaths);
+	}
 
-        if (!route) {
-          return;
-        }
+	_onRoute(pathname: PagesPaths) {
+		let route = this.getRoute(pathname);
 
-// add code
-       if (this._currentRoute && this._currentRoute !== route) {
-            this._currentRoute.leave();
-        }
-//
-        this._currentRoute = route;
-        if(route !== null){
-          route.render(route, pathname);
-        }
-    }
+		if (!route) {
+			route = this.getRoute(PagesPaths.ERROR_CLIENT);
+		}
+		if (this._currentRoute && this._currentRoute !== route) {
+			this._currentRoute.leave();
+		}
 
-    go(pathname) {
-      this.history.pushState({}, '', pathname);
-      this._onRoute(pathname);
-    }
+		this._currentRoute = route;
 
-    back() {
-      this.history.back();
-    }
+		route?.render();
+	}
 
-    forward() {
-      this.history.forward();
-    }
+	go(pathname: PagesPaths) {
+		this.history.pushState({}, '', pathname);
+		this._onRoute(pathname);
+	}
 
-    getRoute(pathname) {
-      const route = this.routes.find(route => route.match(pathname));
-      if(!route) {
-        return this.routes.find(route => route.match('*'))
-      }
-      return route
-    }
+	back() {
+		this.history.back();
+	}
+
+	forward() {
+		this.history.forward();
+	}
+
+	getRoute(pathname: PagesPaths) {
+		const route = this.routes.find(route => route.match(pathname));
+		if (!route) {
+			return this.routes.find(route => route.match(pathname));
+		}
+		return route;
+	}
 }
 
 export default Router;
