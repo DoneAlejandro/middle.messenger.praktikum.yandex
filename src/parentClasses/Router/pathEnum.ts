@@ -1,9 +1,8 @@
 export enum PagesPaths {
     SIGNIN = '/',
-    SIGNUP = '/sign-up',
-    MAIN = '/main',
+    REGISTRATION = '/registration',
     CHAT = '/messenger',
-    ERROR_CLIENT = '/error-client',
-    ERROR_SERVER = '/error-server',
+    ERROR_FOURTH = '/error-fourth',
+    ERROR_FIFTH = '/error-fifth',
     PROFILE = '/settings',
 }
