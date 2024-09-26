@@ -22,7 +22,7 @@ export class ErrorPageFourth extends Block {
 			}),
 			ErrorLinkComponent: new Link({
 				text: 'Назад к чатам',
-				page: 'signin',
+				href: '/messenger',
 				className: 'error__link',
 			}),
 			FooterComponent: new Footer({

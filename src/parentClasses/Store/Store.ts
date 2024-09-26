@@ -1,33 +1,35 @@
 import EventBus from './EventBus';
 
 export enum StoreEvents {
-  Updated = 'Updated'
+	Updated = 'Updated',
 }
 
 export class Store extends EventBus {
-  private state = {};
+	private state = {};
+	private defaultState = {};
+	public static __instance: Store;
 
-  constructor(defaultState) {
-    if (Store.__instance) {
-      return Store.__instance;
-    }
-    super();
+	constructor(defaultState: {}) {
+		if (Store.__instance) {
+			return Store.__instance;
+		}
+		super();
 
-    this.state = defaultState;
-    this.set(defaultState);
+		this.state = defaultState;
+		this.set(defaultState);
 
-    Store.__instance = this;
-  }
+		Store.__instance = this;
+	}
 
-  public getState() {
-    return this.state;
-  }
+	public getState() {
+		return this.state;
+	}
 
-  public set(nextState) {
-    const prevState = { ...this.state };
+	public set(nextState) {
+		const prevState = { ...this.state };
 
-    this.state = { ...this.state, ...nextState };
+		this.state = { ...this.state, ...nextState };
 
-    this.emit(StoreEvents.Updated, prevState, nextState);
-  }
+		this.emit(StoreEvents.Updated, prevState, nextState);
+	}
 }

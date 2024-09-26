@@ -228,4 +228,11 @@ export default class Block {
 			},
 		});
 	}
+	show() {
+        this.getContent().style.display = 'flex'
+    }
+
+    hide() {
+        this.getContent().style.display = 'none'
+    }
 }

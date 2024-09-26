@@ -29,11 +29,10 @@ const pages: Pages = {
 	profile: ProfilePage,
 };
 const router = new Router('#app');
-window.router = router;
 router
 .use(PagesPaths.SIGNIN, pages.signin)
-.use(PagesPaths.REGISTRATION, pages.registrationPage)
-.use(PagesPaths.CHAT, pages.chatPage)
+.use(PagesPaths.REGISTRATION, pages.registration)
+.use(PagesPaths.CHAT, pages.chat)
 .use(PagesPaths.ERROR_FOURTH, pages.errorFourth)
 .use(PagesPaths.ERROR_FIFTH, pages.errorPage)
 .use(PagesPaths.PROFILE, pages.profile)

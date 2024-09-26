@@ -35,11 +35,11 @@ export class SignIn extends Block {
 					ButtonComponent: new Button({
 						text: 'Войти',
 						buttonStyle: 'signin-form__button',
-						page: 'chat',
+						href: '/messenger',
 					}),
 					LinkComponent: new Link({
 						text: 'Нет аккаунта?',
-						page: 'registration',
+						href: '/registration',
 					}),
 				}),
 			}),
@@ -51,29 +51,29 @@ export class SignIn extends Block {
 				popUpComponent: new PopUp({
 					linkSignIn: new Link({
 						text: 'Войти',
-						page: 'signin',
+						href: '/',
 					}),
 					linkRegistration: new Link({
 						text: 'Регистрация',
-						page: 'registration',
+						href: '/registration',
 					}),
 					linkProfile: new Link({
 						text: 'Профиль',
-						page: 'profile',
+						href: '/settings',
 					}),
 					linkChat: new Link({
 						text: 'Чат',
-						page: 'chat',
+						href: '/messenger',
 					}),
 					linkErrorFifth: new Link({
 						text: 'Ошибка 500',
 						linkStyle: 'popup__link-errorFiveHundredth',
-						page: 'errorPage',
+						href: '/error-fifth',
 					}),
 					linkErrorFourth: new Link({
 						text: 'Ошибка 404',
 						linkStyle: 'popup__link-errorFourHundredth',
-						page: 'errorFourth',
+						href: '/error-fourth',
 					}),
 				}),
 			}),

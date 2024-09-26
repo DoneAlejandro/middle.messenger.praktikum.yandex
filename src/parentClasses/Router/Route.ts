@@ -53,6 +53,7 @@ class Route {
 			this._renderDom(this._props.rootQuery, this._block);
 			return;
 		}
+		this._block.show();
 	}
 }
 

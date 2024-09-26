@@ -28,25 +28,29 @@ function queryStringify(data: Record<string, unknown>): string {
 }
 
 // Класс для выполнения HTTP-запросов
-class HTTPTransport {
+export class HTTPTransport {
+	private apiUrl: string = '';
+	constructor(apiPath: string) {
+		this.apiUrl = `local${apiPath}`;
+	}
 	// Метод для выполнения GET-запроса
 	get = (url: string, options: RequestOptions = {}) => {
-		return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
+		return this.request(`${this.apiUrl}${url}`, { ...options, method: METHODS.GET }, options.timeout);
 	};
 
 	// Метод для выполнения POST-запроса
 	post = (url: string, options: RequestOptions = {}) => {
-		return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
+		return this.request(`${this.apiUrl}${url}`, { ...options, method: METHODS.POST }, options.timeout);
 	};
 
 	// Метод для выполнения PUT-запроса
 	put = (url: string, options: RequestOptions = {}) => {
-		return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
+		return this.request(`${this.apiUrl}${url}`, { ...options, method: METHODS.PUT }, options.timeout);
 	};
 
 	// Метод для выполнения DELETE-запроса
 	delete = (url: string, options: RequestOptions = {}) => {
-		return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
+		return this.request(`${this.apiUrl}${url}`, { ...options, method: METHODS.DELETE }, options.timeout);
 	};
 
 	// Метод для выполнения HTTP-запроса
