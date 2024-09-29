@@ -1,15 +1,19 @@
-import EventBus from './EventBus';
+import EventBus from '../eventBus/EventBus';
 
 export enum StoreEvents {
 	Updated = 'Updated',
 }
 
+type TState = {
+	[key: string]: unknown;
+}
+
 export class Store extends EventBus {
-	private state = {};
-	private defaultState = {};
+	private state: TState = {};
+
 	public static __instance: Store;
 
-	constructor(defaultState: {}) {
+	constructor(defaultState: TState) {
 		if (Store.__instance) {
 			return Store.__instance;
 		}
@@ -25,7 +29,7 @@ export class Store extends EventBus {
 		return this.state;
 	}
 
-	public set(nextState) {
+	public set(nextState: TState) {
 		const prevState = { ...this.state };
 
 		this.state = { ...this.state, ...nextState };

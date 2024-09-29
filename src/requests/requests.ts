@@ -29,7 +29,7 @@ function queryStringify(data: Record<string, unknown>): string {
 
 // Класс для выполнения HTTP-запросов
 export class HTTPTransport {
-	private apiUrl: string = '';
+	private apiUrl: string = 'https://ya-praktikum.tech';
 	constructor(apiPath: string) {
 		this.apiUrl = `local${apiPath}`;
 	}

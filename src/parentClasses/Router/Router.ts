@@ -40,7 +40,7 @@ class Router {
 		let route = this.getRoute(pathname);
 
 		if (!route) {
-			route = this.getRoute(PagesPaths.ERROR_FIFTH);
+			route = this.getRoute(PagesPaths.ERROR_FOURTH);
 		}
 		if (this._currentRoute && this._currentRoute !== route) {
 			this._currentRoute.leave();
