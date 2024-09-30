@@ -1,19 +1,34 @@
-import Handlebars from 'handlebars';
-import * as Components from './components';
 import * as Pages from './pages';
 import Block from './parentClasses/Block/BLock';
 import Router from './parentClasses/Router/Router';
 import { PagesPaths } from './parentClasses/Router/pathEnum';
+import { Store } from './parentClasses/Store/Store';
 
 // eslint-disable-next-line no-redeclare
 interface Pages {
 	[key: string]: Block;
 }
-Object.entries(Components).forEach(([name, component]) => {
-	if (typeof component === 'string') {
-		Handlebars.registerPartial(name, component);
+declare global {
+	interface Window {
+		router: Router;
+		store: Store;
 	}
+}
+window.store = new Store({
+	isLoading: false,
+	user: null,
+	profileDisabled: true,
+	errorMessage: null,
+	successMessage: null,
+	userName: null,
+	userId: null,
+	chatId: null,
 });
+// Object.entries(Components).forEach(([name, component]) => {
+// 	if (typeof component === 'string') {
+// 		Handlebars.registerPartial(name, component);
+// 	}
+// });
 const signinPage = new Pages.SignIn({});
 const registrationPage = new Pages.Registration({});
 const chatPage = new Pages.ChatPage({});
@@ -29,14 +44,15 @@ const pages: Pages = {
 	profile: ProfilePage,
 };
 const router = new Router('#app');
+window.router = router;
 router
-.use(PagesPaths.SIGNIN, pages.signin)
-.use(PagesPaths.REGISTRATION, pages.registration)
-.use(PagesPaths.CHAT, pages.chat)
-.use(PagesPaths.ERROR_FOURTH, pages.errorFourth)
-.use(PagesPaths.ERROR_FIFTH, pages.errorPage)
-.use(PagesPaths.PROFILE, pages.profile)
-.start();
+	.use(PagesPaths.SIGNIN, pages.signin)
+	.use(PagesPaths.REGISTRATION, pages.registration)
+	.use(PagesPaths.CHAT, pages.chat)
+	.use(PagesPaths.ERROR_FOURTH, pages.errorFourth)
+	.use(PagesPaths.ERROR_FIFTH, pages.errorPage)
+	.use(PagesPaths.PROFILE, pages.profile)
+	.start();
 
 // function render(root: HTMLElement, block: Block) {
 // 	root?.appendChild(block.getContent());
