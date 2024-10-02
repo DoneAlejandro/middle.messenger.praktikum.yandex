@@ -1,12 +1,12 @@
 import EventBus from '../eventBus/EventBus';
 
-// export enum StoreEvents {
-// 	Updated = 'Updated',
-// }
+export enum StoreEvents {
+	Updated = 'Updated',
+}
 
 type TState = {
 	[key: string]: unknown;
-}
+};
 
 export class Store extends EventBus {
 	private state: TState = {};

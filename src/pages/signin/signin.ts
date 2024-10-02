@@ -1,10 +1,12 @@
 import { Button, Copyright, Footer, Form, Header, Input, InputField, Link, Main, PopUp, Title } from '../../components';
+import { connect } from '../../globalFunction/utils/connect';
 import { handleFormSubmit } from '../../globalFunction/validation/formSubmit/formSubmit';
 import { checkValidate, loginValidation, passwordValidation } from '../../globalFunction/validation/validation';
 import Block from '../../parentClasses/Block/BLock';
 import { TBlock } from '../../parentClasses/types';
 import { Subtitle } from './../../components/subtitle/Subtitle';
 import SigninPageTemplate from './signin.hbs?raw';
+
 
 export class SignIn extends Block {
 	constructor(props: TBlock) {
@@ -120,3 +122,6 @@ export const InputFieldPasswordComponent = new InputField({
 		},
 	}),
 });
+const mapStateToPropsShort = ({ isLoading, errorMessage }: { [key: string]: any }) => ({ isLoading, errorMessage });
+
+export default connect(mapStateToPropsShort)(SignIn);
