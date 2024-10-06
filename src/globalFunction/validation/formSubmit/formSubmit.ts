@@ -1,3 +1,5 @@
+import { LoginRequestData } from '../../../api/types';
+import { login } from '../../../services/authorization';
 import { emailValidation, loginValidation, nameValidation, passwordValidation, phoneValidation } from '../validation';
 
 export function handleFormSubmit(event: Event) {
@@ -25,8 +27,20 @@ export function handleFormSubmit(event: Event) {
 
 	// Проверяем, все ли поля валидны
 	if (isLoginValid && isPasswordValid && isEmailValid && isFirstNameValid && isLastNameValid && isPhoneValid) {
-		console.log('Форма успешно отправлена:', formObject);
+		// console.log('Форма успешно отправлена:', formObject);
+		// const target = event.target as HTMLFormElement;
+		// const form = target!.form;
+		// const formData = new FormData(form);
+		// const formObject: LoginRequestData = {} as LoginRequestData;
+
+		// formData.forEach((value, key) => {
+		// 	formObject[key] = value.toString();
+		// });
+
+		login(formObject as LoginRequestData);
+		return true;
 	} else {
 		console.log('Форма содержит ошибки');
+		return false;
 	}
 }

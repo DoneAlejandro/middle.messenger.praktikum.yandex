@@ -29,9 +29,11 @@ function queryStringify(data: Record<string, unknown>): string {
 
 // Класс для выполнения HTTP-запросов
 export class HTTPTransport {
-	private apiUrl: string = 'https://ya-praktikum.tech';
-	constructor(apiPath: string) {
-		this.apiUrl = `local${apiPath}`;
+	private apiDomain: string = 'https://ya-praktikum.tech';
+	apiUrl: string
+	constructor(endpoint: string = '') {
+		// this.apiUrl = `local${apiPath}`;
+		this.apiUrl = `${this.apiDomain}${endpoint}`;
 	}
 	// Метод для выполнения GET-запроса
 	get = (url: string, options: RequestOptions = {}) => {
@@ -93,6 +95,8 @@ export class HTTPTransport {
 			} else if (typeof data === 'string') {
 				xhr.send(data);
 			} else {
+				console.log(`obj ${JSON.stringify(data)}`);
+				
 				xhr.send(JSON.stringify(data));
 			}
 		});
