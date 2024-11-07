@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Button, Copyright, Footer, Form, Header, Input, InputField, Link, Main, PopUp, Title } from "../../components";
 import { connect } from "../../globalFunction/utils/connect";
 import { handleFormSubmit } from "../../globalFunction/validation/formSubmit/formSubmit";
@@ -8,17 +7,6 @@ import { PagesPaths } from "../../parentClasses/Router/pathEnum";
 import { TBlock } from "../../parentClasses/types";
 import { Subtitle } from "./../../components/subtitle/Subtitle";
 import SigninPageTemplate from "./signin.hbs?raw";
-=======
-import { Button, Copyright, Footer, Form, Header, Input, InputField, Link, Main, PopUp, Title } from '../../components';
-// import WSTransport from '../../globalFunction/connectionWebsoket';
-import { connect } from '../../globalFunction/utils/connect';
-import { handleFormSubmit } from '../../globalFunction/validation/formSubmit/formSubmit';
-import { checkValidate, loginValidation, passwordValidation } from '../../globalFunction/validation/validation';
-import Block from '../../parentClasses/Block/BLock';
-import { TBlock } from '../../parentClasses/types';
-import { Subtitle } from './../../components/subtitle/Subtitle';
-import SigninPageTemplate from './signin.hbs?raw';
->>>>>>> 5801c428d9b7b4a736207c26250198289d7d9d94
 
 export class SignIn extends Block {
 	constructor(props: TBlock) {
@@ -58,15 +46,10 @@ export class SignIn extends Block {
 					}),
 					InputContentComponent: [InputFieldLoginComponent, InputFieldPasswordComponent],
 					ButtonComponent: new Button({
-<<<<<<< HEAD
 						text: "Войти",
 						buttonStyle: "signin-form__button",
 						href: "/messenger",
 						// signInButton,
-=======
-						text: 'Войти',
-						buttonStyle: 'signin-form__button',
->>>>>>> 5801c428d9b7b4a736207c26250198289d7d9d94
 					}),
 					LinkComponent: new Link({
 						text: "Нет аккаунта?",
