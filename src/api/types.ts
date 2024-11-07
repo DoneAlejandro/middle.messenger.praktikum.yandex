@@ -17,7 +17,7 @@ export type UserDTO = {
 	email: string;
 };
 
-export type CreateUser = Omit<UserDTO, 'avatar' | 'display_name' | 'id'> & {
+export type CreateUser = Omit<UserDTO, "avatar" | "display_name" | "id"> & {
 	password: string;
 };
 
@@ -28,6 +28,7 @@ export type CreateChat = {
 export type LoginRequestData = {
 	login: string;
 	password: string;
+	[key: string]: string;
 };
 
 type LastMessage = {

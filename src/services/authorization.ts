@@ -1,6 +1,6 @@
 
-import { LoginRequestData, SignUpRequestData } from '@/api/types';
 import { AuthApi } from '../api/auth';
+import { LoginRequestData, SignUpRequestData } from '../api/types';
 import { PagesPaths } from '../parentClasses/Router/pathEnum';
 
 const authApi = new AuthApi();

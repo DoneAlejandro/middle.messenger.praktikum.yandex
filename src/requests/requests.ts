@@ -1,9 +1,9 @@
 // Объект, содержащий допустимые HTTP-методы
 const METHODS = {
-	GET: 'GET',
-	POST: 'POST',
-	PUT: 'PUT',
-	DELETE: 'DELETE',
+	GET: "GET",
+	POST: "POST",
+	PUT: "PUT",
+	DELETE: "DELETE",
 } as const;
 
 // Тип, представляющий допустимые значения методов из объекта METHODS
@@ -22,16 +22,18 @@ function queryStringify(data: Record<string, unknown>): string {
 	const keys = Object.keys(data);
 	return keys.reduce((result, key: string, index): string => {
 		const value = data[key];
-		const encodedValue = encodeURIComponent(value !== undefined ? String(value) : '');
-		return `${result}${key}=${encodedValue}${index < keys.length - 1 ? '&' : ''}`;
-	}, '?');
+		const encodedValue = encodeURIComponent(value !== undefined ? String(value) : "");
+		return `${result}${key}=${encodedValue}${index < keys.length - 1 ? "&" : ""}`;
+	}, "?");
 }
 
 // Класс для выполнения HTTP-запросов
 export class HTTPTransport {
-	private apiUrl: string = 'https://ya-praktikum.tech';
+	private apiUrlDomain: string = "https://ya-praktikum.tech";
+	apiUrl: string;
 	constructor(apiPath: string) {
-		this.apiUrl = `local${apiPath}`;
+		this.apiUrl = `${this.apiUrlDomain}${apiPath}`;
+		console.log(this.apiUrl);
 	}
 	// Метод для выполнения GET-запроса
 	get = (url: string, options: RequestOptions = {}) => {
@@ -40,6 +42,11 @@ export class HTTPTransport {
 
 	// Метод для выполнения POST-запроса
 	post = (url: string, options: RequestOptions = {}) => {
+		console.log(
+			`${this.apiUrl}${url}  ...options, method: METHODS.POST ${JSON.stringify({ ...options, method: METHODS.POST })} options.timeout ${
+				options.timeout
+			}`
+		);
 		return this.request(`${this.apiUrl}${url}`, { ...options, method: METHODS.POST }, options.timeout);
 	};
 
@@ -60,7 +67,7 @@ export class HTTPTransport {
 		return new Promise<XMLHttpRequest>((resolve, reject) => {
 			// Проверяем, указан ли метод
 			if (!method) {
-				reject(new Error('No method provided'));
+				reject(new Error("No method provided"));
 				return;
 			}
 
@@ -81,16 +88,16 @@ export class HTTPTransport {
 			};
 
 			// Обработчики на события ошибки, прерывания и таймаута
-			xhr.onabort = () => reject(new Error('Request aborted'));
-			xhr.onerror = () => reject(new Error('Request failed'));
-			xhr.ontimeout = () => reject(new Error('Request timed out'));
+			xhr.onabort = () => reject(new Error("Request aborted"));
+			xhr.onerror = () => reject(new Error("Request failed"));
+			xhr.ontimeout = () => reject(new Error("Request timed out"));
 
 			xhr.timeout = timeout;
 
 			// Отправляем запрос
 			if (isGet || !data) {
 				xhr.send();
-			} else if (typeof data === 'string') {
+			} else if (typeof data === "string") {
 				xhr.send(data);
 			} else {
 				xhr.send(JSON.stringify(data));
