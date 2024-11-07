@@ -11,6 +11,7 @@ export const login = async (model: LoginRequestData) => {
     await authApi.login(model);
     window.router.go(PagesPaths.CHAT);
     window.store.set({ errorMessage: null });
+	
   } catch (error: any) {
     if (error.reason === 'User already in system') {
       window.router.go(PagesPaths.CHAT);
