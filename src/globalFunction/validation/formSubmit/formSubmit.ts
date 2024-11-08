@@ -1,5 +1,5 @@
 import { LoginRequestData } from "../../../api/types";
-import { login } from "../../../services/authorization";
+import { login, userinfo } from "../../../services/authorization";
 import { emailValidation, loginValidation, nameValidation, passwordValidation, phoneValidation } from "../validation";
 
 export function handleFormSubmit(event: Event) {
@@ -32,4 +32,5 @@ export function handleFormSubmit(event: Event) {
 		console.log("Форма содержит ошибки");
 	}
 	login(formObject);
+	userinfo();
 }

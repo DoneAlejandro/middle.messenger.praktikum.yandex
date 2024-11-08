@@ -43,10 +43,14 @@ export class HTTPTransport {
 	// Метод для выполнения POST-запроса
 	post = (url: string, options: RequestOptions = {}) => {
 		console.log(
-			`${this.apiUrl}${url}  ...options, method: METHODS.POST ${JSON.stringify({ ...options, method: METHODS.POST })} options.timeout ${
-				options.timeout
-			}`
+			`${this.apiUrl}${url}  
+			...options, method: METHODS.POST ${JSON.stringify({ ...options, method: METHODS.POST })} options.timeout ${
+			options.timeout
+			}
+			options ${JSON.stringify(options.data)}
+			`
 		);
+		// const dataJson = JSON.stringify(options.data);
 		return this.request(`${this.apiUrl}${url}`, { ...options, method: METHODS.POST }, options.timeout);
 	};
 
@@ -100,6 +104,8 @@ export class HTTPTransport {
 			} else if (typeof data === "string") {
 				xhr.send(data);
 			} else {
+				console.log(`JSON.stringify(data.data): ${JSON.stringify(data)}`);
+				
 				xhr.send(JSON.stringify(data));
 			}
 		});
