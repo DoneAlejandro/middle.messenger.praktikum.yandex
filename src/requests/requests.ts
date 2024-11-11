@@ -13,7 +13,7 @@ type MethodType = (typeof METHODS)[keyof typeof METHODS];
 interface RequestOptions {
 	method?: MethodType;
 	headers?: Record<string, string>;
-	data?: Record<string, unknown> | string;
+	data?: FormData | Record<string, unknown> | string;
 	timeout?: number;
 }
 
@@ -44,9 +44,7 @@ export class HTTPTransport {
 	post = (url: string, options: RequestOptions = {}) => {
 		console.log(
 			`${this.apiUrl}${url}  
-			...options, method: METHODS.POST ${JSON.stringify({ ...options, method: METHODS.POST })} options.timeout ${
-			options.timeout
-			}
+			...options, method: METHODS.POST ${JSON.stringify({ ...options, method: METHODS.POST })} options.timeout ${options.timeout}
 			options ${JSON.stringify(options.data)}
 			`
 		);
@@ -88,7 +86,24 @@ export class HTTPTransport {
 
 			// Устанавливаем обработчик на событие завершения загрузки
 			xhr.onload = function () {
-				resolve(xhr);
+				if (xhr.status >= 200 && xhr.status < 300) {
+					let responseText = xhr.responseText;
+
+					// Проверка на тип ответа, чтобы избежать экранирования бинарных данных
+					if (xhr.getResponseHeader("Content-Type")?.includes("application/json")) {
+						try {
+							// Парсим JSON и экранируем строки в ответе
+							const responseJSON = JSON.parse(responseText);
+							responseText = JSON.stringify(responseJSON);
+						} catch (error) {
+							console.error("Failed to parse JSON response", error);
+						}
+					}
+					resolve(xhr);
+				} else {
+					// Если статус ответа не в диапазоне 200-299, возвращаем ошибку
+					reject(new Error(`Request failed with status ${xhr.status}: ${xhr.statusText}`));
+				}
 			};
 
 			// Обработчики на события ошибки, прерывания и таймаута
@@ -105,7 +120,7 @@ export class HTTPTransport {
 				xhr.send(data);
 			} else {
 				console.log(`JSON.stringify(data.data): ${JSON.stringify(data)}`);
-				
+
 				xhr.send(JSON.stringify(data));
 			}
 		});

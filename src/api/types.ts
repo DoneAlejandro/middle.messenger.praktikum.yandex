@@ -54,3 +54,22 @@ export type SignUpRequestData = {
 	phone: string;
 	[key: string]: string;
 };
+
+export type AddChat = {
+	title: string;
+	[key: string]: string;
+};
+
+export type AddUserToChat = {
+	users: number[];
+	chatId: number;
+};
+
+export type ChatId = {
+	chatId: number;
+};
+
+export type OpenChatData = {
+	chatid: string;
+	user: { [key: string]: string };
+};
