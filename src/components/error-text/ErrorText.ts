@@ -1,12 +1,16 @@
-import Block from '../../parentClasses/Block/BLock';
-import { TBlock } from '../../parentClasses/types';
-import ErrorTextTemplate from './error-text.hbs?raw';
+import Block from "../../parentClasses/Block/BLock";
+import { TBlock } from "../../parentClasses/types";
 
 export class ErrorText extends Block {
 	constructor(props: TBlock) {
 		super({ ...props });
 	}
-	render() {
-		return this.compile(ErrorTextTemplate, this.props);
+	renderPublic() {
+		return `
+		<div class='error-text'>
+			<span class='error-text__text {{#if className}} {{className}}{{/if}}'>{{text}}</span>
+		</div>
+		`;
+		// this.compile(ErrorTextTemplate, this.props);
 	}
 }

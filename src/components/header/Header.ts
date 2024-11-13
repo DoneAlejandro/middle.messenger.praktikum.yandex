@@ -1,12 +1,16 @@
-import Block from '../../parentClasses/Block/BLock';
-import { TBlock } from '../../parentClasses/types';
-import headerTemplate from './header.hbs?raw';
+import Block from "../../parentClasses/Block/BLock";
+import { TBlock } from "../../parentClasses/types";
 
 export class Header extends Block {
 	constructor(props: TBlock) {
 		super({ ...props });
 	}
-	render() {
-		return this.compile(headerTemplate, { ...this.props });
+	renderPublic() {
+		return `
+		<header class='header {{#if className}} {{className}}{{/if}}'>
+			{{{ title }}}
+		</header>
+		`;
+		// this.compile(headerTemplate, { ...this.props });
 	}
 }

@@ -7,7 +7,13 @@ export class InputSearch extends Block {
 		super({ ...props });
 	}
 
-	render() {
-		return this.compile(inputSearchTemplate, this.props);
+	renderPublic() {
+		return `
+		<div class='input-container'>
+			<input class='input-container__input' type='text' placeholder='{{placeholder}}'>
+			<div class='input-container__icon'></div>
+		</div>
+		`
+		// this.compile(inputSearchTemplate, this.props);
 	}
 }

@@ -67,7 +67,7 @@ export class ChatApi {
 
 		this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${data.user.id}/${data.chatid}/${response.token}`);
 
-		let pingInterval: string | number | NodeJS.Timeout | undefined;
+		let pingInterval: number | undefined;
 
 		this.socket.onopen = () => {
 			console.log("Соединение установлено");

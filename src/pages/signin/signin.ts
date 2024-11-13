@@ -7,7 +7,6 @@ import Block from "../../parentClasses/Block/BLock";
 import { PagesPaths } from "../../parentClasses/Router/pathEnum";
 import { TBlock } from "../../parentClasses/types";
 import { Subtitle } from "./../../components/subtitle/Subtitle";
-import SigninPageTemplate from "./signin.hbs?raw";
 
 export class SignIn extends Block {
 	constructor(props: TBlock) {
@@ -101,8 +100,15 @@ export class SignIn extends Block {
 		window.router.go(PagesPaths.REGISTRATION);
 	}
 
-	render() {
-		return this.compile(SigninPageTemplate, this.props);
+	renderPublic() {
+		return `
+		<div class='page'>
+			{{{ headerComponent }}}
+			{{{ mainComponent }}}
+			{{{ footerComponent }}}
+		</div>
+		`;
+		// this.compile(SigninPageTemplate, this.props);
 	}
 }
 

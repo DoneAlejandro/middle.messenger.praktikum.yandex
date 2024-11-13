@@ -1,11 +1,14 @@
-import Block from '../../parentClasses/Block/BLock';
-import { TBlock } from '../../parentClasses/types';
-import inputTemplate from './input.hbs?raw';
+import Block from "../../parentClasses/Block/BLock";
+import { TBlock } from "../../parentClasses/types";
 export class Input extends Block {
 	constructor(props: TBlock) {
 		super({ ...props });
 	}
-	render() {
-		return this.compile(inputTemplate, this.props);
+	renderPublic() {
+		return `
+		<input type='{{inputType}}' title='{{inputTitle}}' value='{{value}}' name='{{inputName}}' placeholder='{{inputPlaceholder}}' class='input {{#if className}} {{className}}{{/if}}'>
+		`
 	}
+
 }
+

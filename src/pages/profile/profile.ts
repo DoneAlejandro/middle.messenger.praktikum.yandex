@@ -1,5 +1,5 @@
-import { Button, Copyright, Footer, Form, Input, InputField, Link, Main, PopUp, Title } from '../../components';
-import { handleFormSubmit } from '../../globalFunction/validation/formSubmit/formSubmit';
+import { Button, Copyright, Footer, Form, Input, InputField, Link, Main, PopUp, Title } from "../../components";
+import { handleFormSubmit } from "../../globalFunction/validation/formSubmit/formSubmit";
 import {
 	checkValidate,
 	emailValidation,
@@ -7,30 +7,29 @@ import {
 	nameValidation,
 	passwordValidation,
 	phoneValidation,
-} from '../../globalFunction/validation/validation';
-import Block from '../../parentClasses/Block/BLock';
-import { TBlock } from '../../parentClasses/types';
-import profilePageTemplate from './profile.hbs?raw';
+} from "../../globalFunction/validation/validation";
+import Block from "../../parentClasses/Block/BLock";
+import { TBlock } from "../../parentClasses/types";
 
 export class ProfilePage extends Block {
 	constructor(props: TBlock) {
 		super({
 			...props,
 			titleComponent: new Title({
-				titleText: 'Иван',
+				titleText: "Иван",
 			}),
 			mainComponent: new Main({
-				mainStyle: 'main-profile',
+				mainStyle: "main-profile",
 				formComponent: new Form({
 					events: {
 						submit: (event: Event) => {
 							handleFormSubmit(event);
 						},
 					},
-					formStyle: 'profile-form',
-					sectionStyle: 'profile',
-					formContainerStyle: 'profile-form__container',
-					formInputsStyle: 'profile-form__inputs',
+					formStyle: "profile-form",
+					sectionStyle: "profile",
+					formContainerStyle: "profile-form__container",
+					formInputsStyle: "profile-form__inputs",
 					InputContentComponent: [
 						InputFieldMailComponent,
 						InputFieldLoginComponent,
@@ -41,170 +40,182 @@ export class ProfilePage extends Block {
 						InputFieldPasswordRetryComponent,
 					],
 					ButtonComponent: new Button({
-						text: 'Сохранить',
-						href: '/messenger',
+						text: "Сохранить",
+						href: "/messenger",
 					}),
 				}),
 			}),
 			footerComponent: new Footer({
-				footerStyle: 'footer-signin',
+				footerStyle: "footer-signin",
 				copyrightComponent: new Copyright({
-					copyright: '© 2024 DoneAlejandro. Все права защищены.',
+					copyright: "© 2024 DoneAlejandro. Все права защищены.",
 				}),
 				popUpComponent: new PopUp({
 					linkSignIn: new Link({
-						text: 'Войти',
-						href: '/',
+						text: "Войти",
+						href: "/",
 					}),
 					linkRegistration: new Link({
-						text: 'Регистрация',
-						href: '/registration',
+						text: "Регистрация",
+						href: "/registration",
 					}),
 					linkProfile: new Link({
-						text: 'Профиль',
-						href: '/settings',
+						text: "Профиль",
+						href: "/settings",
 					}),
 					linkChat: new Link({
-						text: 'Чат',
-						href: '/messenger',
+						text: "Чат",
+						href: "/messenger",
 					}),
 					linkErrorFifth: new Link({
-						text: 'Ошибка 500',
-						linkStyle: 'popup__link-errorFiveHundredth',
-						href: '/error-fifth',
+						text: "Ошибка 500",
+						linkStyle: "popup__link-errorFiveHundredth",
+						href: "/error-fifth",
 					}),
 					linkErrorFourth: new Link({
-						text: 'Ошибка 404',
-						linkStyle: 'popup__link-errorFourHundredth',
-						href: '/error-fourth',
+						text: "Ошибка 404",
+						linkStyle: "popup__link-errorFourHundredth",
+						href: "/error-fourth",
 					}),
 				}),
 			}),
 		});
 	}
-	render() {
-		return this.compile(profilePageTemplate, this.props);
+	renderPublic() {
+		return `
+		<div class="page">
+			<header class="header header-profile">
+				<div class='header-profile__avatar'>
+					<img src="https://github.com/DoneAlejandro/yandex-praktikum/blob/sprint_1/src/assets/img/kchay.jpg?raw=true" alt="name">
+				</div>
+				{{{ titleComponent }}}
+			</header>
+			{{{ mainComponent }}}
+			{{{ footerComponent }}}
+		</div>
+		`;
+		// this.compile(profilePageTemplate, this.props);
 	}
 }
 export const InputFieldMailComponent = new InputField({
-	inputFieldStyle: 'input-field',
-	inputFieldLabelStyle: 'input-field__label',
-	labelInput: 'Почта',
-	labelTitle: 'Почта',
+	inputFieldStyle: "input-field",
+	inputFieldLabelStyle: "input-field__label",
+	labelInput: "Почта",
+	labelTitle: "Почта",
 	inputComponent: new Input({
-		inputType: 'email',
-		inputTitle: 'Почта',
-		inputName: 'email',
-		inputPlaceholder: 'логин@почта.рф',
+		inputType: "email",
+		inputTitle: "Почта",
+		inputName: "email",
+		inputPlaceholder: "логин@почта.рф",
 		events: {
 			blur: (event: Event) => {
-				checkValidate(event, emailValidation, 'email');
+				checkValidate(event, emailValidation, "email");
 			},
 		},
 	}),
 });
 
 export const InputFieldLoginComponent = new InputField({
-	inputFieldStyle: 'input-field',
-	inputFieldLabelStyle: 'input-field__label',
-	labelInput: 'Логин',
-	labelTitle: 'Логин',
+	inputFieldStyle: "input-field",
+	inputFieldLabelStyle: "input-field__label",
+	labelInput: "Логин",
+	labelTitle: "Логин",
 	inputComponent: new Input({
-		inputType: 'text',
-		inputTitle: 'Логин',
-		inputName: 'login',
-		inputPlaceholder: 'ГрандМастерБит',
+		inputType: "text",
+		inputTitle: "Логин",
+		inputName: "login",
+		inputPlaceholder: "ГрандМастерБит",
 		events: {
 			blur: (event: Event) => {
-				checkValidate(event, loginValidation, 'login');
+				checkValidate(event, loginValidation, "login");
 			},
 		},
 	}),
 });
 
 export const InputFieldNameComponent = new InputField({
-	inputFieldStyle: 'input-field',
-	inputFieldLabelStyle: 'input-field__label',
-	labelInput: 'Имя',
-	labelTitle: 'Имя',
+	inputFieldStyle: "input-field",
+	inputFieldLabelStyle: "input-field__label",
+	labelInput: "Имя",
+	labelTitle: "Имя",
 	inputComponent: new Input({
-		inputType: 'text',
-		inputTitle: 'Имя',
-		inputName: 'first_name',
-		inputPlaceholder: 'Мастер',
+		inputType: "text",
+		inputTitle: "Имя",
+		inputName: "first_name",
+		inputPlaceholder: "Мастер",
 		events: {
 			blur: (event: Event) => {
-				checkValidate(event, nameValidation, 'first_name');
+				checkValidate(event, nameValidation, "first_name");
 			},
 		},
 	}),
 });
 
 export const InputFieldSecondNameComponent = new InputField({
-	inputFieldStyle: 'input-field',
-	inputFieldLabelStyle: 'input-field__label',
-	labelInput: 'Фамилия',
-	labelTitle: 'Фамилия',
+	inputFieldStyle: "input-field",
+	inputFieldLabelStyle: "input-field__label",
+	labelInput: "Фамилия",
+	labelTitle: "Фамилия",
 	inputComponent: new Input({
-		inputType: 'text',
-		inputTitle: 'Фамилия',
-		inputName: 'second_name',
-		inputPlaceholder: 'Бит',
+		inputType: "text",
+		inputTitle: "Фамилия",
+		inputName: "second_name",
+		inputPlaceholder: "Бит",
 		events: {
 			blur: (event: Event) => {
-				checkValidate(event, nameValidation, 'last_name');
+				checkValidate(event, nameValidation, "last_name");
 			},
 		},
 	}),
 });
 
 export const InputFieldPhoneComponent = new InputField({
-	inputFieldStyle: 'input-field',
-	inputFieldLabelStyle: 'input-field__label',
-	labelInput: 'Телефон',
-	labelTitle: 'Телефон',
+	inputFieldStyle: "input-field",
+	inputFieldLabelStyle: "input-field__label",
+	labelInput: "Телефон",
+	labelTitle: "Телефон",
 	inputComponent: new Input({
-		inputType: 'text',
-		inputTitle: 'Телефон',
-		inputName: 'phone',
-		inputPlaceholder: 'ГрандМастерБит',
+		inputType: "text",
+		inputTitle: "Телефон",
+		inputName: "phone",
+		inputPlaceholder: "ГрандМастерБит",
 		events: {
 			blur: (event: Event) => {
-				checkValidate(event, phoneValidation, 'phone');
+				checkValidate(event, phoneValidation, "phone");
 			},
 		},
 	}),
 });
 export const InputFieldPasswordComponent = new InputField({
-	inputFieldStyle: 'input-field',
-	inputFieldLabelStyle: 'input-field__label',
-	labelInput: 'Пароль',
-	labelTitle: 'Пароль',
+	inputFieldStyle: "input-field",
+	inputFieldLabelStyle: "input-field__label",
+	labelInput: "Пароль",
+	labelTitle: "Пароль",
 	inputComponent: new Input({
-		inputType: 'password',
-		inputTitle: 'Пароль',
-		inputName: 'password',
-		inputPlaceholder: 'Пароль',
+		inputType: "password",
+		inputTitle: "Пароль",
+		inputName: "password",
+		inputPlaceholder: "Пароль",
 		events: {
 			blur: (event: Event) => {
-				checkValidate(event, passwordValidation, 'password');
+				checkValidate(event, passwordValidation, "password");
 			},
 		},
 	}),
 });
 export const InputFieldPasswordRetryComponent = new InputField({
-	inputFieldStyle: 'input-field',
-	inputFieldLabelStyle: 'input-field__label',
-	labelInput: 'Пароль (ещё раз)',
-	labelTitle: 'Пароль (ещё раз)',
+	inputFieldStyle: "input-field",
+	inputFieldLabelStyle: "input-field__label",
+	labelInput: "Пароль (ещё раз)",
+	labelTitle: "Пароль (ещё раз)",
 	inputComponent: new Input({
-		inputType: 'password',
-		inputTitle: 'Пароль (ещё раз)',
-		inputName: 'password',
-		inputPlaceholder: 'Пароль (ещё раз)',
+		inputType: "password",
+		inputTitle: "Пароль (ещё раз)",
+		inputName: "password",
+		inputPlaceholder: "Пароль (ещё раз)",
 		events: {
 			blur: (event: Event) => {
-				checkValidate(event, passwordValidation, 'password');
+				checkValidate(event, passwordValidation, "password");
 			},
 		},
 	}),
