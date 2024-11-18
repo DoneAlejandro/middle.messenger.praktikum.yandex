@@ -57,7 +57,7 @@ export class ChatApi {
 	}
 
 	async openChat(data: OpenChatData, callback: Function) {
-		const response: any = await this.chatApiInstance.post(`/token/${data.chatid}`, {
+		const response: any = await this.chatApiInstance.post(`/token/${data.chatId}`, {
 			data,
 			headers: {
 				"Content-Type": "application/json",
@@ -65,7 +65,7 @@ export class ChatApi {
 			},
 		});
 
-		this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${data.user.id}/${data.chatid}/${response.token}`);
+		this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${data.user.id}/${data.chatId}/${response.token}`);
 
 		let pingInterval: number | undefined;
 

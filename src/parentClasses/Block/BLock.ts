@@ -414,7 +414,7 @@ class Block {
 	}
 
 	// возвращает DOM-элемент компонента
-	public getContent(): Node | null {
+	public getContent(): Node | string {
 		if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE)
 			setTimeout(() => {
 				if (this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) this.dispatchComponentDidMount();

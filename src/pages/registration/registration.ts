@@ -35,15 +35,15 @@ export class Registration extends Block {
 					subtitleComponent: new Subtitle({
 						subtitleText: "Регистрация",
 					}),
-					InputContentComponent: [
-						InputFieldMailComponent,
-						InputFieldLoginComponent,
-						InputFieldNameComponent,
-						InputFieldSecondNameComponent,
-						InputFieldPhoneComponent,
-						InputFieldPasswordComponent,
-						InputFieldPasswordRetryComponent,
-					],
+
+					InputFieldMailComponent,
+					InputFieldLoginComponent,
+					InputFieldNameComponent,
+					InputFieldSecondNameComponent,
+					InputFieldPhoneComponent,
+					InputFieldPasswordComponent,
+					InputFieldPasswordRetryComponent,
+
 					ButtonComponent: new Button({
 						text: "Зарегистрироваться",
 						href: "/messenger",

@@ -12,7 +12,13 @@ export class Form extends Block {
 			<form class="{{formStyle}}" onsubmit="return false;">
 				<div class="{{formContainerStyle}}">
 					<div class="{{formInputsStyle}}">
-						{{{ InputContentComponent }}}
+						{{{ InputFieldLoginComponent }}}
+						{{{ InputFieldPasswordComponent }}}
+						{{{ InputFieldPasswordRetryComponent }}}
+						{{{ InputFieldNameComponent }}}
+						{{{ InputFieldSecondNameComponent }}}
+						{{{ InputFieldPhoneComponent }}}
+						{{{ InputFieldMailComponent }}}
 					</div>
 					{{{ ButtonComponent}}}
 				</div>

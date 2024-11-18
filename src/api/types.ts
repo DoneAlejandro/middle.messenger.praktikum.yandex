@@ -70,6 +70,6 @@ export type ChatId = {
 };
 
 export type OpenChatData = {
-	chatid: string;
+	chatId: string;
 	user: { [key: string]: string };
 };

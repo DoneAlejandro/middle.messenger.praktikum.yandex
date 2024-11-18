@@ -25,16 +25,6 @@ export class SignIn extends Block {
 					events: {
 						submit: (event: Event) => {
 							handleFormSubmit(event);
-							// const target = event.target as HTMLFormElement;
-							// const form = target!.form;
-							// const formData = new FormData(form);
-							// const output: LoginRequestData = {} as LoginRequestData;
-
-							// formData.forEach((value, key) => {
-							// 	output[key] = value.toString();
-							// });
-
-							// login(output);
 						},
 					},
 					formStyle: "signin-form",
@@ -44,7 +34,10 @@ export class SignIn extends Block {
 					subtitleComponent: new Subtitle({
 						subtitleText: "Войти",
 					}),
-					InputContentComponent: [InputFieldLoginComponent, InputFieldPasswordComponent],
+
+					InputFieldLoginComponent,
+					InputFieldPasswordComponent,
+
 					ButtonComponent: new Button({
 						text: "Войти",
 						buttonStyle: "signin-form__button",
