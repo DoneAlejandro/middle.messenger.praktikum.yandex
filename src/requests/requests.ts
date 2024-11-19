@@ -37,6 +37,8 @@ export class HTTPTransport {
 	}
 	// Метод для выполнения GET-запроса
 	get = (url: string, options: RequestOptions = {}) => {
+		console.log(`options ${JSON.stringify(options)}`);
+		
 		return this.request(`${this.apiUrl}${url}`, { ...options, method: METHODS.GET }, options.timeout);
 	};
 
@@ -86,23 +88,31 @@ export class HTTPTransport {
 
 			// Устанавливаем обработчик на событие завершения загрузки
 			xhr.onload = function () {
-				if (xhr.status >= 200 && xhr.status < 300) {
-					let responseText = xhr.responseText;
+				console.log(`this.status ${this.status}`);
+
+				if (this.status >= 200 && this.status < 300) {
+					// let responseText = xhr.responseText;
 
 					// Проверка на тип ответа, чтобы избежать экранирования бинарных данных
 					if (xhr.getResponseHeader("Content-Type")?.includes("application/json")) {
-						try {
-							// Парсим JSON и экранируем строки в ответе
-							const responseJSON = JSON.parse(responseText);
-							responseText = JSON.stringify(responseJSON);
-						} catch (error) {
-							console.error("Failed to parse JSON response", error);
-						}
+						// Парсим JSON и экранируем строки в ответе
+						const data = JSON.parse(this.response);
+						// const data = JSON.stringify(responseJSON);
+						console.log(`data 98 ${data}`);
+						resolve(data);
+					} else {
+						console.log(`this.response 102 ${this.response}`);
+						resolve(this.response);
 					}
-					resolve(xhr);
 				} else {
-					// Если статус ответа не в диапазоне 200-299, возвращаем ошибку
-					reject(new Error(`Request failed with status ${xhr.status}: ${xhr.statusText}`));
+					console.log(`this.response 106 ${this.response}`);
+					if (this.response) {
+						console.log(`this.response 108 ${this.response}`);
+						reject(JSON.parse(this.response));
+					} else {
+						// Если статус ответа не в диапазоне 200-299, возвращаем ошибку
+						reject(new Error(`Request failed with status ${xhr.status}: ${xhr.statusText}`));
+					}
 				}
 			};
 
@@ -115,8 +125,9 @@ export class HTTPTransport {
 
 			// Отправляем запрос
 			if (isGet || !data) {
+				console.log(`data 128 ${JSON.stringify(data)}`);
 				xhr.send();
-			} else if (typeof data === "string") {
+			} else if (data instanceof FormData) {
 				xhr.send(data);
 			} else {
 				console.log(`JSON.stringify(data.data): ${JSON.stringify(data)}`);

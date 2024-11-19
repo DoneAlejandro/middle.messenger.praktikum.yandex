@@ -1,7 +1,8 @@
-import { ChatDTO } from "../../api/types";
+import { AddChat, AddUserToChat, ChatDTO, ChatUser, UserDTO } from "../../api/types";
 import { DialogList, InputSearch } from "../../components";
 import Block from "../../parentClasses/Block/BLock";
-import { getChatUsers } from "../../services/chats";
+import { userinfo } from "../../services/authorization";
+import { addChat, getChatUsers } from "../../services/chats";
 // import { TBlock } from "../../parentClasses/types";
 
 export class ChatPage extends Block {
@@ -27,6 +28,30 @@ export class ChatPage extends Block {
 		};
 		console.log(this.props.dialogs);
 	}
+	beforeMount(): void {
+		this.updateDialogsList();
+
+		userinfo().then(response => {
+			const data: UserDTO | any = response;
+			window.store.set({ userId: data.id });
+			this.state = window.store.getState();
+		});
+	}
+	addChat(e: Event) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		const target = e.target as HTMLFormElement;
+		const form = target!.form;
+
+		const output: AddChat = {
+			title: form.querySelector("input").value,
+		};
+
+		addChat(output).then(() => {
+			this.updateDialogsList();
+		});
+	}
 	updateDialogsList() {
 		const store = window.store.getState();
 		const chat_id = +store.chatId;
@@ -42,6 +67,32 @@ export class ChatPage extends Block {
 				});
 			}
 		});
+	}
+	updateDialogUserList() {
+		const store = window.store.getState();
+		const chat_id = +store.chatId;
+		getChatUsers(chat_id).then(response => {
+			const responseList: ChatUser[] = response as any;
+			const data = responseList.filter((item: ChatUser) => item.id !== store.userId);
+			this.children.modalChatUserList.setProps({ list: data });
+
+			const list = document.querySelectorAll("#chat-user-list li .delete");
+			list.forEach(item => {
+				const element = item as HTMLElement;
+				return element.addEventListener("click", () => this.chatUserDelete(+element.dataset.id!));
+			});
+		});
+	}
+	chatUserDelete(user_id: number) {
+		const store = window.store.getState();
+		const data: AddUserToChat = {
+			users: [user_id],
+			chatId: +store.chatId,
+		};
+		// deleteUser(data)
+		//   .then(() => {
+		// 	this.updateChatUserList();
+		//   });
 	}
 	renderPublic() {
 		return `

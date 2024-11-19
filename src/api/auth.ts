@@ -9,6 +9,7 @@ export class AuthApi {
 	}
 
 	async login(data: LoginRequestData) {
+		console.log(`data AuthApi ${JSON.stringify(data)}`);
 		return this.authApiInstance.post('/signin', {
 			data,
 			headers: {
