@@ -1,5 +1,6 @@
 import { AddChat, AddUserToChat, ChatDTO, ChatUser, UserDTO } from "../../api/types";
 import { DialogList, InputSearch } from "../../components";
+import { connect } from "../../globalFunction/utils/connect";
 import Block from "../../parentClasses/Block/BLock";
 import { userinfo } from "../../services/authorization";
 import { addChat, getChatUsers } from "../../services/chats";
@@ -112,7 +113,9 @@ export class ChatPage extends Block {
 				`;
 	}
 }
+const mapStateToPropsShort = ({ isLoading, errorMessage, chatId, massageStack }: { [key: string]: any }) => ({ isLoading, errorMessage, chatId, massageStack });
 
+export default connect(mapStateToPropsShort)(ChatPage);
 // export class ChatPage extends Block {
 // 	constructor(props: TBlock) {
 // 		super({
