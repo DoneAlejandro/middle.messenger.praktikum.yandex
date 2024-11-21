@@ -3,7 +3,7 @@ import { DialogList, InputSearch } from "../../components";
 import { connect } from "../../globalFunction/utils/connect";
 import Block from "../../parentClasses/Block/BLock";
 import { userinfo } from "../../services/authorization";
-import { addChat, getChatUsers } from "../../services/chats";
+import { addChat, getChats, getChatUsers } from "../../services/chats";
 // import { TBlock } from "../../parentClasses/types";
 
 export class ChatPage extends Block {
@@ -16,8 +16,9 @@ export class ChatPage extends Block {
 		this.state = window.store.getState();
 		this.props.chatList = [];
 		this.props.messages = [];
+		console.log("Creating DialogList with dialogs:", this.props.chatList);
 		const DialogListComponent = new DialogList({
-			dialogs: this.props.contacts,
+			dialogs: this.props.chatList,
 		});
 		const InputSearchComponent = new InputSearch({
 			placeholder: "Поиск",
@@ -31,9 +32,9 @@ export class ChatPage extends Block {
 	}
 	beforeMount(): void {
 		this.updateDialogsList();
-
 		userinfo().then(response => {
 			const data: UserDTO | any = response;
+			console.log(`userinfo ${JSON.stringify(data)}`);
 			window.store.set({ userId: data.id });
 			this.state = window.store.getState();
 		});
@@ -53,29 +54,53 @@ export class ChatPage extends Block {
 			this.updateDialogsList();
 		});
 	}
+	a = {
+		"element": {},
+		"id": "lauFqu",
+		"props": { "id": "lauFqu" },
+		"children": {},
+		"list": {
+			"dialogs": [
+				{ "id": 35738, "title": " kolyaaaa", "avatar": null, "created_by": 2714, "unread_count": 0, "last_message": null },
+			],
+		},
+		"firstRender": false,
+	};
 	updateDialogsList() {
-		const store = window.store.getState();
-		const chat_id = +store.chatId;
-		getChatUsers(chat_id).then(response => {
-			const data: any = response;
+		getChats().then(response => {
+			const data: ChatDTO[] = response as any;
 			this.props.chatList = data;
+			console.log(`62 dialogs: data ${JSON.stringify(this.props.chatList)}`);
+
 			this.children.DialogListComponent.setProps({ dialogs: data });
-			const dialogsList = document.querySelectorAll(".dialog__container");
-			if (dialogsList) {
-				dialogsList.forEach(elem => {
-					elem.removeEventListener("click", () => {});
-					elem.addEventListener("click", () => {});
+			console.log(
+				`65 dialogs: data ${JSON.stringify(data)} this.children.DialogListComponent ${JSON.stringify(
+					this.children.DialogListComponent
+				)}`
+			);
+
+			this.chats = data;
+			const chatListArr = document.querySelectorAll(".dialogs");
+			console.log(`chatListArr ${JSON.stringify(chatListArr)}`);
+
+			if (chatListArr) {
+				chatListArr.forEach(chat => {
+					chat.removeEventListener("click", () => {});
+					chat.addEventListener("click", () => {});
 				});
 			}
 		});
 	}
+
 	updateDialogUserList() {
 		const store = window.store.getState();
 		const chat_id = +store.chatId;
+		console.log(`chat_id ${chat_id}`);
+
 		getChatUsers(chat_id).then(response => {
 			const responseList: ChatUser[] = response as any;
 			const data = responseList.filter((item: ChatUser) => item.id !== store.userId);
-			this.children.modalChatUserList.setProps({ list: data });
+			// this.children.modalChatUserList.setProps({ list: data });
 
 			const list = document.querySelectorAll("#chat-user-list li .delete");
 			list.forEach(item => {
@@ -108,12 +133,25 @@ export class ChatPage extends Block {
 					</section>
 					<section class='main-chat__dialog'>
 						{{{ PopUpComponent }}}
+						<div class='main-chat__messages'>
+							messages
+						</div>
+						<form class='main-chat__dialog-form'>
+							<div class='main-chat__textarea-container'>
+								<textarea class='main-chat__textarea'></textarea>
+							</div>
+						</form>
 					</section>
 				</main>
 				`;
 	}
 }
-const mapStateToPropsShort = ({ isLoading, errorMessage, chatId, massageStack }: { [key: string]: any }) => ({ isLoading, errorMessage, chatId, massageStack });
+const mapStateToPropsShort = ({ isLoading, errorMessage, chatId, massageStack }: { [key: string]: any }) => ({
+	isLoading,
+	errorMessage,
+	chatId,
+	massageStack,
+});
 
 export default connect(mapStateToPropsShort)(ChatPage);
 // export class ChatPage extends Block {

@@ -38,7 +38,7 @@ export class HTTPTransport {
 	// Метод для выполнения GET-запроса
 	get = (url: string, options: RequestOptions = {}) => {
 		console.log(`options ${JSON.stringify(options)}`);
-		
+
 		return this.request(`${this.apiUrl}${url}`, { ...options, method: METHODS.GET }, options.timeout);
 	};
 
@@ -67,6 +67,7 @@ export class HTTPTransport {
 	// Метод для выполнения HTTP-запроса
 	request = (url: string, options: RequestOptions = {}, timeout = 5000): Promise<XMLHttpRequest> => {
 		const { headers = {}, method, data } = options;
+		console.log(`options ${JSON.stringify(options)} data ${JSON.stringify(data)}`);
 
 		return new Promise<XMLHttpRequest>((resolve, reject) => {
 			// Проверяем, указан ли метод
@@ -78,27 +79,34 @@ export class HTTPTransport {
 			const xhr = new XMLHttpRequest();
 			const isGet = method === METHODS.GET;
 
-			// Открываем соединение
-			xhr.open(method, isGet && !!data ? `${url}${queryStringify(data as Record<string, unknown>)}` : url);
+			// Если метод GET и данные есть, добавляем query string
+			if (isGet && data && typeof data === "object" && !(data instanceof FormData)) {
+				url += queryStringify(data as Record<string, unknown>);
+			}
 
-			// Устанавливаем заголовки запроса
-			Object.keys(headers).forEach(key => {
-				xhr.setRequestHeader(key, headers[key]);
-			});
+			// Открываем соединение
+			xhr.open(method, url);
+			xhr.withCredentials = true;
+
+			if (data instanceof FormData) {
+				delete headers["Content-Type"];
+			} else {
+				headers["Content-Type"] = headers["Content-Type"] || "application/json;charset=UTF-8";
+				// Устанавливаем заголовки запроса
+				Object.keys(headers).forEach(key => {
+					xhr.setRequestHeader(key, headers[key]);
+				});
+			}
 
 			// Устанавливаем обработчик на событие завершения загрузки
 			xhr.onload = function () {
 				console.log(`this.status ${this.status}`);
 
 				if (this.status >= 200 && this.status < 300) {
-					// let responseText = xhr.responseText;
-
 					// Проверка на тип ответа, чтобы избежать экранирования бинарных данных
 					if (xhr.getResponseHeader("Content-Type")?.includes("application/json")) {
-						// Парсим JSON и экранируем строки в ответе
 						const data = JSON.parse(this.response);
-						// const data = JSON.stringify(responseJSON);
-						console.log(`data 98 ${data}`);
+						console.log(`data 98 ${JSON.stringify(data)}`);
 						resolve(data);
 					} else {
 						console.log(`this.response 102 ${this.response}`);
@@ -110,7 +118,6 @@ export class HTTPTransport {
 						console.log(`this.response 108 ${this.response}`);
 						reject(JSON.parse(this.response));
 					} else {
-						// Если статус ответа не в диапазоне 200-299, возвращаем ошибку
 						reject(new Error(`Request failed with status ${xhr.status}: ${xhr.statusText}`));
 					}
 				}
@@ -125,13 +132,10 @@ export class HTTPTransport {
 
 			// Отправляем запрос
 			if (isGet || !data) {
-				console.log(`data 128 ${JSON.stringify(data)}`);
 				xhr.send();
 			} else if (data instanceof FormData) {
 				xhr.send(data);
 			} else {
-				console.log(`JSON.stringify(data.data): ${JSON.stringify(data)}`);
-
 				xhr.send(JSON.stringify(data));
 			}
 		});

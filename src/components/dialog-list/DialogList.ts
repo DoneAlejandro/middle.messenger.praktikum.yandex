@@ -6,11 +6,13 @@ export class DialogList extends Block {
 		super({ ...props });
 	}
 	renderPublic() {
-		console.log(this.props.dialogs);
+		console.log(`this.props.dialogs ${JSON.stringify(this.props.dialogs)}`);
 		return `
 		<ul class='dialogs'>
+		{{log "Dialogs content:" dialogs}}
+		{{log "Props:" this}}
 		{{#each dialogs}}
-			<li class='dialog'>
+			<li class='dialog' data-id={{id}}>
 				<div class='dialog__line'></div>
 				<div class='dialog__container {{#if current}} dialog__container--current{{/if}}'>
 					{{#if avatar}}
@@ -23,10 +25,10 @@ export class DialogList extends Block {
 					</div>
 					{{/if}}
 					<div class='dialog__name'>
-						{{name}}
+						{{title}}
 					</div>
 					<div class='dialog__message'>
-						<span>{{message}}</span>
+						<span>{{last_message.content}}</span>
 					</div>
 				</div>
 			</li>

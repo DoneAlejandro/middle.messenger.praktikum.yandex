@@ -1,6 +1,5 @@
-import Block from '../../parentClasses/Block/BLock';
-import { TBlock } from '../../parentClasses/types';
-import inputSearchTemplate from './input-search.hbs?raw';
+import Block from "../../parentClasses/Block/BLock";
+import { TBlock } from "../../parentClasses/types";
 
 export class InputSearch extends Block {
 	constructor(props: TBlock) {
@@ -13,7 +12,7 @@ export class InputSearch extends Block {
 			<input class='input-container__input' type='text' placeholder='{{placeholder}}'>
 			<div class='input-container__icon'></div>
 		</div>
-		`
+		`;
 		// this.compile(inputSearchTemplate, this.props);
 	}
 }

@@ -28,6 +28,7 @@ export class ChatApi {
 		});
 	}
 	async getChatUsers(chat_id: number) {
+		console.log(`chat_id ${chat_id}`);
 		return this.chatApiInstance.get(`/${chat_id}/users`);
 	}
 

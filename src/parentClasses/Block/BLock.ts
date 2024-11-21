@@ -370,10 +370,10 @@ class Block {
 	// Установка новых пропсов
 	public setProps(nextProps: TBlock) {
 		if (!nextProps) return;
-		// Object.assign(this.props, nextProps);
-		const { props, list } = this.getChildrenAndProps(nextProps);
-		Object.assign(this.props, props);
-		Object.assign(this.list, list);
+		Object.assign(this.props, nextProps);
+		// const { props, list } = this.getChildrenAndProps(nextProps);
+		// Object.assign(this.props, props);
+		// Object.assign(this.list, list);
 	}
 
 	// Возвращает DOM-элемент компонента
