@@ -1,4 +1,4 @@
-$font-body: inter, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-sans;
+$font-body: inter, "Segoe UI", "Roboto", "Helvetica Neue", sans-sans;
 $font-weight-regular: 500;
 $font-weight-semibold: 600;
 $main-padding: 0 10px;
@@ -61,3 +61,28 @@ $menu-button-color: #{$button-bgcolor};
 $menu-button-bgcolor: #fff;
 $menu-button-width: 30px;
 $menu-button-height: 20px;
+
+// стили контейнера отправки сообщения
+$bg-color: #2c2f33; /* Фон контейнера */
+$border-color: #40444b; /* Цвет рамки */
+$text-color: #ffffff; /* Цвет текста в поле ввода */
+$button-color: #b9bbbe; /* Цвет иконок кнопок */
+$button-hover-bg: #40444b; /* Фон кнопок при наведении */
+$send-btn-color: #3ba55d; /* Цвет кнопки отправки */
+$font-size: 14px; /* Основной размер текста */
+$container-padding: 10px; /* Внутренние отступы контейнера */
+$border-radius: 20px; /* Закругление углов */
+$container-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2); /* Тень */
+
+// стили сообщения 
+$bg-color-sent: #4f8bfc;
+$bg-color-received: #3a3f48;
+$text-color: white;
+$text-color-date: #7a7a7a;
+$border-radius: 20px;
+$padding: 10px 15px;
+$font-size-message: 14px;
+$font-size-date: 12px;
+$max-width: 70%;
+$arrow-size: 10px;
+$gap: 10px;

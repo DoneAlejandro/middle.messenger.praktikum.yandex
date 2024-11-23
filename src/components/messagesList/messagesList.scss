@@ -1,0 +1,46 @@
+@import "../../assets/variables.scss";
+.messages-list {
+	&__container {
+		display: flex;
+		flex-direction: column;
+		gap: $gap;
+		padding: $padding;
+	}
+	&__item {
+		background-color: $bg-color-received;
+		border-radius: $border-radius;
+		padding: $padding;
+		color: $text-color;
+		font-size: $font-size-message;
+		position: relative;
+		max-width: $max-width;
+		word-wrap: break-word;
+		white-space: pre-wrap;
+
+		&::after {
+			content: "";
+			position: absolute;
+			bottom: -$arrow-size;
+			left: $arrow-size;
+			border-left: $arrow-size solid transparent;
+			border-right: $arrow-size solid transparent;
+			border-top: $arrow-size solid $bg-color-received;
+		}
+	}
+
+	&__item.sent {
+		align-self: flex-end;
+		background-color: $bg-color-sent;
+	}
+	&__item.received {
+		align-self: flex-start;
+		background-color: $bg-color-received;
+	}
+
+	&__date {
+		font-size: $font-size-date;
+		color: $text-color-date;
+		margin-top: 5px;
+		text-align: right;
+	}
+}

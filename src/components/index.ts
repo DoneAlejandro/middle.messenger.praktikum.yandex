@@ -16,3 +16,4 @@ export { MenuBurger } from './menu-burger';
 export { PopUp } from './pop-up';
 export { Subtitle } from './subtitle';
 export { Title } from './title';
+export { MessagesList } from './messagesList';

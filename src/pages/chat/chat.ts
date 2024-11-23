@@ -1,17 +1,19 @@
-import { AddChat, AddUserToChat, ChatDTO, ChatUser, UserDTO } from "../../api/types";
-import { DialogList, InputSearch } from "../../components";
+import { AddChat, AddUserToChat, ChatDTO, ChatMessage, ChatUser, UserDTO } from "../../api/types";
+import { DialogList, InputSearch, MessagesList } from "../../components";
 import { connect } from "../../globalFunction/utils/connect";
 import Block from "../../parentClasses/Block/BLock";
 import { userinfo } from "../../services/authorization";
-import { addChat, getChats, getChatUsers } from "../../services/chats";
+import { addChat, getChats, getChatUsers, openChat } from "../../services/chats";
 // import { TBlock } from "../../parentClasses/types";
 
 export class ChatPage extends Block {
 	chats: object[] | undefined;
-	state: object | undefined;
+	state: object | undefined | any;
 	currentChat: ChatDTO | undefined;
 
 	initPublic() {
+		const addChatBind = this.addChat.bind(this);
+		const onClickChatBind = this.onClickChat.bind(this);
 		this.chats = [];
 		this.state = window.store.getState();
 		this.props.chatList = [];
@@ -19,19 +21,29 @@ export class ChatPage extends Block {
 		console.log("Creating DialogList with dialogs:", this.props.chatList);
 		const DialogListComponent = new DialogList({
 			dialogs: this.props.chatList,
+			onClick: onClickChatBind,
 		});
 		const InputSearchComponent = new InputSearch({
 			placeholder: "Поиск",
+		});
+		const MessagesListComponent = new MessagesList({
+			messages: [],
+			currentUser: null,
 		});
 		this.children = {
 			...this.children,
 			DialogListComponent,
 			InputSearchComponent,
+			MessagesListComponent,
 		};
-		console.log(this.props.dialogs);
+		console.log(`this.children ${JSON.stringify(this.children)}`);
+
+		console.log(`this.props.dialogs 41 ${this.props.dialogs}`);
+		console.log(`this.props.contacts 42 ${this.props.contacts}`);
 	}
 	beforeMount(): void {
 		this.updateDialogsList();
+		// this.inputAutoResize();
 		userinfo().then(response => {
 			const data: UserDTO | any = response;
 			console.log(`userinfo ${JSON.stringify(data)}`);
@@ -54,18 +66,7 @@ export class ChatPage extends Block {
 			this.updateDialogsList();
 		});
 	}
-	a = {
-		"element": {},
-		"id": "lauFqu",
-		"props": { "id": "lauFqu" },
-		"children": {},
-		"list": {
-			"dialogs": [
-				{ "id": 35738, "title": " kolyaaaa", "avatar": null, "created_by": 2714, "unread_count": 0, "last_message": null },
-			],
-		},
-		"firstRender": false,
-	};
+
 	updateDialogsList() {
 		getChats().then(response => {
 			const data: ChatDTO[] = response as any;
@@ -80,13 +81,13 @@ export class ChatPage extends Block {
 			);
 
 			this.chats = data;
-			const chatListArr = document.querySelectorAll(".dialogs");
+			const chatListArr = document.querySelectorAll(".dialog");
 			console.log(`chatListArr ${JSON.stringify(chatListArr)}`);
 
 			if (chatListArr) {
 				chatListArr.forEach(chat => {
-					chat.removeEventListener("click", () => {});
-					chat.addEventListener("click", () => {});
+					chat.removeEventListener("click", this.onClickChat.bind(this));
+					chat.addEventListener("click", this.onClickChat.bind(this));
 				});
 			}
 		});
@@ -120,6 +121,82 @@ export class ChatPage extends Block {
 		// 	this.updateChatUserList();
 		//   });
 	}
+	onClickChat(e: Event) {
+		console.log(`click ${JSON.stringify(e)}`);
+		e.stopPropagation();
+
+		const elem = e.target as HTMLElement;
+console.log(`elem ${JSON.stringify(elem)}`);
+
+console.log(`elem.dataset.id ${elem.dataset.id}`);
+		if (!elem.dataset.id) return;
+		
+		const data = {
+			chatId: elem.dataset.id,
+			user: {
+				id: this.state.userId,
+			},
+		};
+
+		window.store.set({ chatId: elem.dataset.id });
+		const messages: ChatMessage[] = [];
+		this.children.MessagesListComponent.setProps({ messages });
+		const onReceivedMessage = (message: ChatMessage) => {
+			console.log(`onReceivedMessage ${JSON.stringify(message)}`);
+			
+			if (message.type === "user connected") {
+				message.content = "User added";
+			}
+			if (message.time) {
+				const date = new Date(message.time);
+				message.time = date.toLocaleTimeString("en-En", { hour12: false });
+			}
+			if (message.user_id && message.user_id === this.state.userId) {
+				message.user_id = "user";
+			} else {
+				message.user_id = "guest";
+			}
+			messages.push(message);
+			messages.sort((a, b) => {
+				const timeA = new Date(a.time).getTime();
+				const timeB = new Date(b.time).getTime();
+				return timeA - timeB;
+			});
+			this.children.MessagesListComponent.setProps({ messages, currentUser: this.state.userId });
+			const list = document.querySelector("#messages") as HTMLElement;
+			const messageList = document.querySelector("#messages-list") as HTMLElement;
+			const messagesHeight = messageList.scrollHeight;
+			list.scrollTo(0, messagesHeight);
+		};
+		console.log(`messages ${JSON.stringify(messages)}`);
+		
+		openChat(data, onReceivedMessage).then(() => {
+			
+				console.log(`this.props.chatList 171 ${JSON.stringify(this.props.chatList)}`);
+				
+				this.props.currentChat = this.props.chatList?.find(item => item.id === +data.chatId);
+			
+			console.log(`openChat ${JSON.stringify(this.props.currentChat)}`);
+			this.updateDialogUserList();
+		});
+	}
+	// inputAutoResize() {
+	// 	const textarea = document.querySelector(".message-input") as HTMLTextAreaElement;
+	// 	console.log(`textarea ${JSON.stringify(textarea)}`);
+	// 	debugger;
+	// 	if (!textarea) {
+	// 		console.warn("Textarea element not found.");
+	// 		return;
+	// 	}
+
+	// 	console.log("Adding input event listener to textarea...");
+	// 	textarea.addEventListener("input", () => {
+	// 		console.log(`Input event triggered, value: ${textarea.value}`);
+	// 		textarea.style.height = "auto";
+	// 		textarea.style.height = `${textarea.scrollHeight}px`;
+	// 	});
+	// }
+
 	renderPublic() {
 		return `
 				<main class='main main-chat'>
@@ -133,19 +210,24 @@ export class ChatPage extends Block {
 					</section>
 					<section class='main-chat__dialog'>
 						{{{ PopUpComponent }}}
-						<div class='main-chat__messages'>
-							messages
+						<div class='main-chat__messages' id='messages'>
+							{{{ MessagesListComponent }}}
 						</div>
 						<form class='main-chat__dialog-form'>
-							<div class='main-chat__textarea-container'>
-								<textarea class='main-chat__textarea'></textarea>
+							<div class="message-input-container">
+								<button class="attach-btn" aria-label="Attach file">📎</button>
+								<textarea class="message-input" placeholder="Написать сообщение..."></textarea>
+								<button class="emoji-btn" aria-label="Emoji">😊</button>
+								<button class="send-btn" aria-label="Send message">➤</button>
 							</div>
+							
 						</form>
 					</section>
 				</main>
 				`;
 	}
 }
+
 const mapStateToPropsShort = ({ isLoading, errorMessage, chatId, massageStack }: { [key: string]: any }) => ({
 	isLoading,
 	errorMessage,
@@ -154,81 +236,3 @@ const mapStateToPropsShort = ({ isLoading, errorMessage, chatId, massageStack }:
 });
 
 export default connect(mapStateToPropsShort)(ChatPage);
-// export class ChatPage extends Block {
-// 	constructor(props: TBlock) {
-// 		super({
-// 			...props,
-// 			MenuBurgerComponent: new MenuBurger({}),
-// 			InputSearchComponent: new InputSearch({
-// 				placeholder: "Поиск",
-// 			}),
-// 			DialogListComponent: new DialogList({
-// 				// DialogItemComponent: dialogElement,
-// 			}),
-// 			PopUpComponent: new PopUp({
-// 				linkSignIn: new Link({
-// 					text: "Войти",
-// 					href: "/",
-// 				}),
-// 				linkRegistration: new Link({
-// 					text: "Регистрация",
-// 					href: "/registration",
-// 				}),
-// 				linkProfile: new Link({
-// 					text: "Профиль",
-// 					href: "/settings",
-// 				}),
-// 				linkChat: new Link({
-// 					text: "Чат",
-// 					href: "/messenger",
-// 				}),
-// 				linkErrorFifth: new Link({
-// 					text: "Ошибка 500",
-// 					linkStyle: "popup__link-errorFiveHundredth",
-// 					href: "/error-fifth",
-// 				}),
-// 				linkErrorFourth: new Link({
-// 					text: "Ошибка 404",
-// 					linkStyle: "popup__link-errorFourHundredth",
-// 					href: "/error-fourth",
-// 				}),
-// 			}),
-// 		});
-// 	}
-
-// 	renderPublic() {
-// 		return `
-// 		<main class='main main-chat'>
-// 			<section class="main-chat__list">
-// 				<header class='header header-chat'>
-// 					{{{ MenuBurgerComponent }}}
-// 					{{{ InputSearchComponent }}}
-// 				</header>
-// 				{{{ DialogListComponent }}}
-// 			</section>
-// 			<section class='main-chat__dialog'>
-// 				{{{ PopUpComponent }}}
-// 			</section>
-// 		</main>
-// 		`;
-// 		// this.compile(Chat, this.props);
-// 	}
-// }
-// const dialogsData = [
-// 	{
-// 		name: "Опоссум",
-// 		message: "Изображение",
-// 		unread: "2",
-// 		avatar: "https://github.com/DoneAlejandro/yandex-praktikum/blob/sprint_1/src/assets/img/kchay.jpg?raw=true",
-// 	},
-// 	{ name: "Енот", message: "Go на свалку!" },
-// 	{ name: "Барсук", message: "А у кого ключи от сарая?", unread: "4" },
-// ];
-
-// const dialogElement = dialogsData.map(dialog => {
-// 	return new DialogItem({
-// 		avatar: dialog.avatar,
-// 		name: dialog.name,
-// 		message: dialog.message,
-// 	});
-// });

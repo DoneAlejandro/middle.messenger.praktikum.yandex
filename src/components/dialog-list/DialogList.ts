@@ -12,7 +12,7 @@ export class DialogList extends Block {
 		{{log "Dialogs content:" dialogs}}
 		{{log "Props:" this}}
 		{{#each dialogs}}
-			<li class='dialog' data-id={{id}}>
+			<li class='dialog' data-id="{{id}}">
 				<div class='dialog__line'></div>
 				<div class='dialog__container {{#if current}} dialog__container--current{{/if}}'>
 					{{#if avatar}}

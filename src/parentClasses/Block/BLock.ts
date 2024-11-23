@@ -359,8 +359,6 @@ class Block {
 		Object.entries(propsWithChildren).forEach(([key, value]) => {
 			if (value instanceof Block) {
 				children[key] = value;
-			} else if (Array.isArray(value)) {
-				list[key] = value;
 			} else props[key] = value;
 		});
 

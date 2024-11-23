@@ -74,6 +74,17 @@ export type OpenChatData = {
 	user: { [key: string]: string };
 };
 
+export type ChatMessage = {
+	id: number;
+	user_id: number | string;
+	chat_id: number;
+	type: string;
+	time: string;
+	content: string;
+	is_read: true;
+	file: null;
+};
+
 export type ChatUser = {
 	id: 123;
 	first_name: string;
