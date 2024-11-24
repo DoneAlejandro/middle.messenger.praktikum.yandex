@@ -58,6 +58,8 @@ export class ChatApi {
 	}
 
 	async openChat(data: OpenChatData, callback: Function) {
+		console.log(`openChat data ${JSON.stringify(data)}`);
+		
 		const response: any = await this.chatApiInstance.post(`/token/${data.chatId}`, {
 			data,
 			headers: {
@@ -68,7 +70,7 @@ export class ChatApi {
 
 		this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${data.user.id}/${data.chatId}/${response.token}`);
 
-		let pingInterval: number | undefined;
+		let pingInterval: string | number | NodeJS.Timeout | undefined;
 
 		this.socket.onopen = () => {
 			console.log("Соединение установлено");
@@ -81,7 +83,7 @@ export class ChatApi {
 			);
 
 			const sendBtn = document.getElementById("send-btn");
-
+			
 			sendBtn?.addEventListener("click", () => {
 				const textArea = document.getElementById("message") as HTMLInputElement;
 				if (textArea.value === "") return;
@@ -114,8 +116,8 @@ export class ChatApi {
 		};
 
 		this.socket.onmessage = event => {
-			// console.log('Получены данные', event.data);
-			console.log("Получены данные");
+			console.log('Получены данные', event.data);
+			
 			let messages: unknown;
 			try {
 				messages = JSON.parse(event.data);

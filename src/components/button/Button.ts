@@ -3,7 +3,12 @@ import { TBlock } from "../../parentClasses/types";
 
 export class Button extends Block {
 	constructor(props: TBlock) {
-		super({ ...props });
+		super({
+			...props,
+			events: {
+				click: props.onClick,
+			},
+		});
 	}
 	renderPublic() {
 		return `

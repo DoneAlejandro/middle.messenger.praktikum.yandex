@@ -80,9 +80,23 @@ $bg-color-received: #3a3f48;
 $text-color: white;
 $text-color-date: #7a7a7a;
 $border-radius: 20px;
-$padding: 10px 15px;
+$padding: 9px 20px;
 $font-size-message: 14px;
 $font-size-date: 12px;
-$max-width: 70%;
-$arrow-size: 10px;
+$max-width: 50%;
+$arrow-size: -10px;
+$arrow-size-bottom: 3px;
+$arrow-size-left: 19px;
+$arrow-size-right: 0;
+$arrow-size-top: 12px;
 $gap: 10px;
+
+
+// content: "";
+// position: absolute;
+// bottom: 3px;
+// left: -9px;
+// border-left: 19px solid transparent;
+// border-right: -25px solid transparent;
+// border-top: 12px solid #3a3f48;
+// }

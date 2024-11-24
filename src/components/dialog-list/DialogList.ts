@@ -6,11 +6,8 @@ export class DialogList extends Block {
 		super({ ...props });
 	}
 	renderPublic() {
-		console.log(`this.props.dialogs ${JSON.stringify(this.props.dialogs)}`);
 		return `
 		<ul class='dialogs'>
-		{{log "Dialogs content:" dialogs}}
-		{{log "Props:" this}}
 		{{#each dialogs}}
 			<li class='dialog' data-id="{{id}}">
 				<div class='dialog__line'></div>
