@@ -16,25 +16,17 @@
 		max-width: $max-width;
 		word-wrap: break-word;
 		// white-space: pre-wrap;
-
-		&::after {
-			content: "";
-			position: absolute;
-			bottom: $arrow-size-bottom;
-			left: $arrow-size;
-			border-left: $arrow-size-left solid transparent;
-			border-right: $arrow-size-right solid transparent;
-			border-top: $arrow-size-top solid $bg-color-received;
-		}
 	}
 
 	&__item.sent {
 		align-self: flex-end;
 		background-color: $bg-color-sent;
+		border-end-end-radius: $none-border-radius;
 	}
 	&__item.received {
 		align-self: flex-start;
 		background-color: $bg-color-received;
+		border-radius: 20px 20px 20px 0;
 	}
 
 	&__date {

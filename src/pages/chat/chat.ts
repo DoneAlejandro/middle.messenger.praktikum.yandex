@@ -19,7 +19,7 @@ export class ChatPage extends Block {
 		this.chats = [];
 		this.state = window.store.getState();
 		this.props.chatList = [];
-		this.props.messages = [];
+		this.props.messages = this.props.messages || [];
 
 		const DialogListComponent = new DialogList({
 			dialogs: this.props.chatList,
@@ -39,9 +39,11 @@ export class ChatPage extends Block {
 			InputSearchComponent,
 			MessagesListComponent,
 		};
-		const sendButton = document.querySelector(".send-btn");
-		if(sendButton) {
-			sendButton.addEventListener("click", onSendMessageBind);
+		const sendButton = document.querySelector(".main-chat__dialog-form");
+		if (sendButton) {
+			console.log(`sendButton ${sendButton}`);
+
+			sendButton.addEventListener("submit", onSendMessageBind);
 		}
 	}
 	// Подключение обработчика отправки сообщений
@@ -138,7 +140,10 @@ export class ChatPage extends Block {
 		window.store.set({ chatId: elem.dataset.id });
 		this.children.MessagesListComponent.setProps({ messages: [] });
 
-		openChat(data, (message: ChatMessage) => this.onReceivedMessage(message)).then(() => {
+		openChat(data, (message: ChatMessage) => {
+			this.onReceivedMessage(message);
+			console.log(`openChat 144 message ${JSON.stringify(message)}`);
+		}).then(() => {
 			if (Array.isArray(this.props.chatList)) {
 				this.props.currentChat = this.props.chatList.find(item => item.id === +data.chatId);
 				this.updateDialogUserList();
@@ -149,12 +154,12 @@ export class ChatPage extends Block {
 	// Буферизуем обработку сообщений
 	onReceivedMessage(message: ChatMessage) {
 		this.messageQueue.push(message);
-
+		console.log(`messages ${JSON.stringify(this.messageQueue)}`);
 		if (this.batchingTimeout) return;
 
 		this.batchingTimeout = setTimeout(() => {
-			this.processMessageBatch();
 			this.batchingTimeout = null;
+			this.processMessageBatch();
 		}, 100);
 	}
 
@@ -164,7 +169,7 @@ export class ChatPage extends Block {
 
 		const messages = [...(this.props.messages as ChatMessage[]), ...this.messageQueue];
 
-		this.messageQueue = [];
+		// this.messageQueue = [];
 		messages.forEach((message: ChatMessage) => {
 			if (message.time) {
 				const date = new Date(message.time);
@@ -187,9 +192,7 @@ export class ChatPage extends Block {
 	}
 	onSendMessage(e: Event) {
 		e.preventDefault();
-
-		const input = document.querySelector(".message-input") as HTMLTextAreaElement;
-		if (!input.value.trim()) return;
+		console.log(`onSendMessage ${e}`);
 	}
 
 	renderPublic() {
@@ -208,7 +211,7 @@ export class ChatPage extends Block {
 						<div class='main-chat__messages' id='messages'>
 							{{{ MessagesListComponent }}}
 						</div>
-						<form class='main-chat__dialog-form'>
+						<form onsubmit="return false;" class='main-chat__dialog-form'>
 							<div class="message-input-container">
 								<button class="attach-btn" aria-label="Attach file">📎</button>
 								<textarea class="message-input" placeholder="Написать сообщение..." name="message" id="message"></textarea>

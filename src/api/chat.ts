@@ -59,7 +59,7 @@ export class ChatApi {
 
 	async openChat(data: OpenChatData, callback: Function) {
 		console.log(`openChat data ${JSON.stringify(data)}`);
-		
+
 		const response: any = await this.chatApiInstance.post(`/token/${data.chatId}`, {
 			data,
 			headers: {
@@ -83,7 +83,7 @@ export class ChatApi {
 			);
 
 			const sendBtn = document.getElementById("send-btn");
-			
+
 			sendBtn?.addEventListener("click", () => {
 				const textArea = document.getElementById("message") as HTMLInputElement;
 				if (textArea.value === "") return;
@@ -104,7 +104,7 @@ export class ChatApi {
 					})
 				);
 			};
-			pingInterval = setInterval(ping, 3000);
+			pingInterval = setInterval(ping, 10000);
 		};
 
 		this.socket.onclose = event => {
@@ -116,11 +116,12 @@ export class ChatApi {
 		};
 
 		this.socket.onmessage = event => {
-			console.log('Получены данные', event.data);
-			
+			console.log("Получены данные", event.data);
+
 			let messages: unknown;
 			try {
 				messages = JSON.parse(event.data);
+				console.log(`messages 124 ${JSON.stringify(messages)}`);
 			} catch (error) {
 				console.log(error);
 			}
@@ -141,6 +142,7 @@ export class ChatApi {
 }
 
 function handleMessage(data: any, temp: object[] | undefined, callback: Function) {
+	console.log(`handleMessage data ${JSON.stringify(data)} temp ${JSON.stringify(temp)} callback ${JSON.stringify(callback)}`);
 	if (Array.isArray(data)) {
 		data.forEach(item => handleMessage(item, temp, callback));
 		return;

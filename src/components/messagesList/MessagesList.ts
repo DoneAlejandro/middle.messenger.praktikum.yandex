@@ -9,8 +9,9 @@ export class MessagesList extends Block {
 	public renderPublic() {
 		return `
 		<div class='messages-list__container' id='messages-list'>
+		 {{log "MessagesList content:" messages}}
 		{{#each messages}}
-			<div class='messages-list__item {{#if sent}}sent{{else}}received{{/if}}'>
+			<div class='messages-list__item {{#if user_id}}sent{{else}}received{{/if}}'>
 				{{content}} {{userId}}
 				<div class='messages-list__date'>{{time}}</div>
 			</div>
