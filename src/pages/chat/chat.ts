@@ -1,8 +1,9 @@
 import { AddChat, AddUserToChat, ChatDTO, ChatMessage, ChatUser, UserDTO } from "../../api/types";
-import { DialogList, InputSearch, MessagesList } from "../../components";
+import { DialogList, InputSearch, ItemList, MessagesList } from "../../components";
 import { connect } from "../../globalFunction/utils/connect";
 import Block from "../../parentClasses/Block/BLock";
-import { userinfo } from "../../services/authorization";
+import { PagesPaths } from "../../parentClasses/Router/pathEnum";
+import { logout, userinfo } from "../../services/authorization";
 import { addChat, getChats, getChatUsers, openChat } from "../../services/chats";
 
 export class ChatPage extends Block {
@@ -15,7 +16,9 @@ export class ChatPage extends Block {
 	initPublic() {
 		const addChatBind = this.addChat.bind(this);
 		const onClickChatBind = this.onClickChat.bind(this);
-		const onSendMessageBind = this.onSendMessage.bind(this);
+		const clickProfileBind = this.clickProfile.bind(this);
+		const onLogoutBind = this.onLogout.bind(this);
+		const clickAddChatBind  = this.clickAddChat.bind(this)
 		this.chats = [];
 		this.state = window.store.getState();
 		this.props.chatList = [];
@@ -32,19 +35,34 @@ export class ChatPage extends Block {
 			messages: [],
 			currentUser: null,
 		});
+		const itemListLogoutComponent = new ItemList({
+			title: "Logout",
+			className: "header__menu-item",
+			idItem: "logout",
+			onClick: onLogoutBind,
+		});
+		const ItemListProfileComponent = new ItemList({
+			title: "Profile",
+			className: "header__menu-item",
+			idItem: "profile",
+			onClick: clickProfileBind,
+		});
+		const itemListAddChatComponent = new ItemList({
+			title: "Add chat",
+			className: "header__menu-item",
+			idItem: "addChat",
+			onClick: clickAddChatBind,
+		});
 
 		this.children = {
 			...this.children,
 			DialogListComponent,
 			InputSearchComponent,
 			MessagesListComponent,
+			itemListLogoutComponent,
+			ItemListProfileComponent,
+			itemListAddChatComponent,
 		};
-		const sendButton = document.querySelector(".main-chat__dialog-form");
-		if (sendButton) {
-			console.log(`sendButton ${sendButton}`);
-
-			sendButton.addEventListener("submit", onSendMessageBind);
-		}
 	}
 	// Подключение обработчика отправки сообщений
 
@@ -190,9 +208,22 @@ export class ChatPage extends Block {
 			list.scrollTo(0, messageList.scrollHeight);
 		}
 	}
-	onSendMessage(e: Event) {
-		e.preventDefault();
-		console.log(`onSendMessage ${e}`);
+
+	// Добавление чата
+	clickAddChat() {
+		const popover = document.querySelector("#addChat") as HTMLDialogElement;
+		console.log(`popover ${popover}`);
+
+		popover.showPopover();
+	}
+
+	// Переход на страницу профиля
+	clickProfile() {
+		window.router.go(PagesPaths.PROFILE);
+	}
+	// Выход из профиля
+	onLogout() {
+		logout();
 	}
 
 	renderPublic() {
@@ -200,10 +231,20 @@ export class ChatPage extends Block {
 		<main class='main main-chat'>
 					<section class="main-chat__list">
 						<header class='header header-chat'>
-							Header
+							<div class='header__menu'>
+								<div class='header__menu-btn-container'>
+									<div class='header__menu-btn'></div>
+								</div>
+								<div class='header__menu-content'>
+									<ul class='header__menu-list'>
+										{{{ itemListLogoutComponent }}}
+										{{{ ItemListProfileComponent }}}
+										{{{ itemListAddChatComponent }}}
+									</ul>
+								</div>
+							</div>
 							{{{ InputSearchComponent }}}
 						</header>
-						CHATS
 						{{{ DialogListComponent }}}
 					</section>
 					<section class='main-chat__dialog'>
