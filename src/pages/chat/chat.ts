@@ -1,5 +1,5 @@
 import { AddChat, AddUserToChat, ChatDTO, ChatMessage, ChatUser, UserDTO } from "../../api/types";
-import { DialogList, InputSearch, ItemList, MessagesList } from "../../components";
+import { DialogList, InputSearch, ItemList, MessagesList, ModalAddChat } from "../../components";
 import { connect } from "../../globalFunction/utils/connect";
 import Block from "../../parentClasses/Block/BLock";
 import { PagesPaths } from "../../parentClasses/Router/pathEnum";
@@ -50,9 +50,10 @@ export class ChatPage extends Block {
 		const itemListAddChatComponent = new ItemList({
 			title: "Add chat",
 			className: "header__menu-item",
-			idItem: "addChat",
+			idItem: "addChatBtn",
 			onClick: clickAddChatBind,
 		});
+		const addChatModalComponent = new ModalAddChat({})
 
 		this.children = {
 			...this.children,
@@ -62,6 +63,7 @@ export class ChatPage extends Block {
 			itemListLogoutComponent,
 			ItemListProfileComponent,
 			itemListAddChatComponent,
+			addChatModalComponent
 		};
 	}
 	// Подключение обработчика отправки сообщений
@@ -211,10 +213,11 @@ export class ChatPage extends Block {
 
 	// Добавление чата
 	clickAddChat() {
-		const popover = document.querySelector("#addChat") as HTMLDialogElement;
-		console.log(`popover ${popover}`);
-
-		popover.showPopover();
+		const addChatBtn = document.querySelector("#addChatBtn") as HTMLElement;
+		const addChatForm = document.querySelector("#addChat") as HTMLElement;
+		addChatBtn.addEventListener("click", () => {
+			addChatForm.style.display = "block";
+		});
 	}
 
 	// Переход на страницу профиля
@@ -262,6 +265,7 @@ export class ChatPage extends Block {
 							
 						</form>
 					</section>
+					{{{ addChatModalComponent }}}
 				</main>
 	  `;
 	}
