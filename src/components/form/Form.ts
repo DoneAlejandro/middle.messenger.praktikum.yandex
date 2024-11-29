@@ -5,9 +5,10 @@ export class Form extends Block {
 		super({ ...props });
 	}
 
+
 	renderPublic() {
 		return `
-		<section class="{{#if sectionStyle}} {{{sectionStyle}}}{{/if}}">
+		<section class="{{#if sectionStyle}} {{sectionStyle}}{{/if}}">
 			{{{ subtitleComponent }}}
 			<form class="{{formStyle}}" onsubmit="return false;">
 				<div class="{{formContainerStyle}}">
@@ -22,9 +23,6 @@ export class Form extends Block {
 					</div>
 					{{{ ButtonComponent}}}
 				</div>
-				<button type="submit" class="{{#if buttonStyle}} {{{ buttonStyle }}}{{/if}}">
-					Отправить форму
-				</button>
 				{{{ LinkComponent }}}
 			</form>
 		</section>

@@ -12,7 +12,7 @@ export class Button extends Block {
 	}
 	renderPublic() {
 		return `
-		<button id="{{idBtn}}" class="{{#if buttonStyle}}{{buttonStyle}}{{else}}button{{/if}}" page="{{page}}">{{text}}</button>
+		<button id="{{idBtn}}" class="{{#if buttonStyle}} {{buttonStyle}} button{{/if}}" page="{{page}}">{{text}}</button>
 		`;
 		// this.compile(buttonTemplate, this.props);
 	}

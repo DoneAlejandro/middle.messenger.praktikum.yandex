@@ -18,7 +18,7 @@ export class ChatPage extends Block {
 		const onClickChatBind = this.onClickChat.bind(this);
 		const clickProfileBind = this.clickProfile.bind(this);
 		const onLogoutBind = this.onLogout.bind(this);
-		const clickAddChatBind  = this.clickAddChat.bind(this)
+		const clickAddChatBind = this.clickAddChat.bind(this);
 		this.chats = [];
 		this.state = window.store.getState();
 		this.props.chatList = [];
@@ -53,7 +53,10 @@ export class ChatPage extends Block {
 			idItem: "addChatBtn",
 			onClick: clickAddChatBind,
 		});
-		const addChatModalComponent = new ModalAddChat({})
+		const logoutItemComponent = new ItemList({ title: "Logout", className: "chat-settings__item", onClick: onLogoutBind });
+		const addChatModalComponent = new ModalAddChat({
+			onSubmit: addChatBind,
+		});
 
 		this.children = {
 			...this.children,
@@ -63,7 +66,8 @@ export class ChatPage extends Block {
 			itemListLogoutComponent,
 			ItemListProfileComponent,
 			itemListAddChatComponent,
-			addChatModalComponent
+			addChatModalComponent,
+			logoutItemComponent,
 		};
 	}
 	// Подключение обработчика отправки сообщений
@@ -83,9 +87,11 @@ export class ChatPage extends Block {
 
 		const target = e.target as HTMLFormElement;
 		const form = target.form!;
+		const formAddChat = document.querySelector("#addChat") as HTMLElement;
+		if (formAddChat) formAddChat.style.display = "none";
 
 		const output: AddChat = {
-			title: form.querySelector("input")!.value,
+			title: form.querySelector("input").value,
 		};
 
 		addChat(output).then(() => {
@@ -256,10 +262,18 @@ export class ChatPage extends Block {
 							{{{ MessagesListComponent }}}
 						</div>
 						<form onsubmit="return false;" class='main-chat__dialog-form'>
+						<div class="chat-settings">
+							<div class="chat-settings__btn-container">
+								<div class="chat-settings__btn"></div>
+							</div>
+							<div class="chat-settings__modal">
+								<ul class="chat-settings__list">
+									{{{ logoutItemComponent }}}
+								</ul>
+							</div>
+						</div>
 							<div class="message-input-container">
-								<button class="attach-btn" aria-label="Attach file">📎</button>
 								<textarea class="message-input" placeholder="Написать сообщение..." name="message" id="message"></textarea>
-								<button type="button" class="emoji-btn" aria-label="Emoji">😊</button>
 								<button class="send-btn" aria-label="Send message" id="send-btn">➤</button>
 							</div>
 							
