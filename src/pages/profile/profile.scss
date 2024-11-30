@@ -1,11 +1,10 @@
-@import '../../assets/variables';
+@import "../../assets/variables";
 
 .header-profile {
 	display: flex;
 	flex-direction: column;
-	margin-bottom: 30px;
+	margin: 30px;
 	padding: 15px 3px;
-	height: 100%;
 
 	&__avatar {
 		width: $header-avatar-width;

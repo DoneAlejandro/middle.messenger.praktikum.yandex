@@ -1,10 +1,11 @@
-import { AddChat, AddUserToChat, ChatDTO, ChatMessage, ChatUser, UserDTO } from "../../api/types";
-import { DialogList, InputSearch, ItemList, MessagesList, ModalAddChat } from "../../components";
+import { AddChat, AddUserToChat, ChatDTO, ChatMessage, ChatUser, SearchUser, UserDTO } from "../../api/types";
+import { DialogList, InputSearch, ItemList, MessagesList, ModalAddChat, ModalAddUser, ModalUserList } from "../../components";
 import { connect } from "../../globalFunction/utils/connect";
 import Block from "../../parentClasses/Block/BLock";
 import { PagesPaths } from "../../parentClasses/Router/pathEnum";
 import { logout, userinfo } from "../../services/authorization";
-import { addChat, getChats, getChatUsers, openChat } from "../../services/chats";
+import { addChat, addUser, deleteUser, getChats, getChatUsers, openChat } from "../../services/chats";
+import { searchUser } from "../../services/user";
 
 export class ChatPage extends Block {
 	chats: object[] | undefined;
@@ -19,6 +20,9 @@ export class ChatPage extends Block {
 		const clickProfileBind = this.clickProfile.bind(this);
 		const onLogoutBind = this.onLogout.bind(this);
 		const clickAddChatBind = this.clickAddChat.bind(this);
+		const clickAddUserInChatBind = this.clickAddUserInChat.bind(this);
+		const addUserToChatBind = this.addUserToChat.bind(this);
+		const clickUserInChatListBind = this.clickUserInChatList.bind(this);
 		this.chats = [];
 		this.state = window.store.getState();
 		this.props.chatList = [];
@@ -55,8 +59,26 @@ export class ChatPage extends Block {
 		});
 		const logoutItemComponent = new ItemList({ title: "Logout", className: "chat-settings__item", onClick: onLogoutBind });
 		const addChatModalComponent = new ModalAddChat({
+			titleModal: "Add new chat",
 			onSubmit: addChatBind,
 		});
+		const addUserModalComponent = new ModalAddUser({
+			titleModal: "Add new user",
+			onSubmit: addUserToChatBind,
+		});
+		const addNewUserInChatComponent = new ItemList({
+			title: "Add user",
+			className: "chat-settings__item",
+			idItem: "addUserInChat",
+			onClick: clickAddUserInChatBind,
+		});
+		const userInChatItemComponent = new ItemList({
+			title: "Users",
+			className: "chat-settings__item",
+			idItem: "usersInChat",
+			onClick: clickUserInChatListBind,
+		});
+		const modalChatUserList = new ModalUserList({ list: [] });
 
 		this.children = {
 			...this.children,
@@ -68,6 +90,10 @@ export class ChatPage extends Block {
 			itemListAddChatComponent,
 			addChatModalComponent,
 			logoutItemComponent,
+			addNewUserInChatComponent,
+			addUserModalComponent,
+			modalChatUserList,
+			userInChatItemComponent,
 		};
 	}
 	// Подключение обработчика отправки сообщений
@@ -81,6 +107,7 @@ export class ChatPage extends Block {
 		});
 	}
 
+	// Добавление чата
 	addChat(e: Event) {
 		e.preventDefault();
 		e.stopPropagation();
@@ -96,6 +123,35 @@ export class ChatPage extends Block {
 
 		addChat(output).then(() => {
 			this.updateDialogsList();
+		});
+	}
+
+	// Добавление пользователя в чат
+	addUserToChat(e: Event) {
+		e.preventDefault();
+
+		const store = window.store.getState();
+		const input = document.querySelector("#inputId") as HTMLInputElement;
+		const inputValue: SearchUser = { login: input.value };
+		const users: number[] = [];
+		let newUserId: number = 0;
+		searchUser(inputValue).then((repsonse: any) => {
+			console.log("searchUser response:", repsonse);
+			if (repsonse[0].id) newUserId = repsonse[0].id;
+			if (newUserId) {
+				users.push(newUserId);
+				const chatId: number = +store.chatId;
+				const data: AddUserToChat = {
+					users,
+					chatId,
+				};
+				console.log(users, chatId);
+
+				addUser(data).then(response => {
+					console.log(response);
+					this.updateDialogsList();
+				});
+			}
 		});
 	}
 
@@ -124,8 +180,8 @@ export class ChatPage extends Block {
 		getChatUsers(chat_id).then(response => {
 			const responseList: ChatUser[] = response as any;
 			const data = responseList.filter((item: ChatUser) => item.id !== store.userId);
-
-			const list = document.querySelectorAll("#chat-user-list li .delete");
+			this.children.modalChatUserList.setProps({ list: data });
+			const list = document.querySelectorAll("#chat-user-list li .user-list__delete");
 			list.forEach(item => {
 				const element = item as HTMLElement;
 				element.addEventListener("click", () => this.chatUserDelete(+element.dataset.id!));
@@ -139,10 +195,9 @@ export class ChatPage extends Block {
 			users: [user_id],
 			chatId: +store.chatId,
 		};
-		// deleteUser(data)
-		//   .then(() => {
-		//     this.updateChatUserList();
-		//   });
+		deleteUser(data).then(() => {
+			this.updateDialogUserList();
+		});
 	}
 
 	onClickChat(e: Event) {
@@ -217,15 +272,33 @@ export class ChatPage extends Block {
 		}
 	}
 
+	// TODO?: требуется рефакторинг, т.к. повторяющиеся методы (пока не понимаю как универсальный метод получить)
 	// Добавление чата
 	clickAddChat() {
 		const addChatBtn = document.querySelector("#addChatBtn") as HTMLElement;
 		const addChatForm = document.querySelector("#addChat") as HTMLElement;
+		if (!addChatBtn || !addChatForm) return;
 		addChatBtn.addEventListener("click", () => {
 			addChatForm.style.display = "block";
 		});
 	}
-
+	// Добавление пользователей в чат
+	clickAddUserInChat() {
+		const addChatBtn = document.querySelector("#addUserInChat") as HTMLElement;
+		const addChatForm = document.querySelector("#addUser") as HTMLElement;
+		if (!addChatBtn || !addChatForm) return;
+		addChatBtn.addEventListener("click", () => {
+			addChatForm.style.display = "block";
+		});
+	}
+	// Посмотреть юзеров в чате
+	clickUserInChatList() {
+		const userInChatForm = document.querySelector("#chat-user-list") as HTMLElement;
+		const userInChatBtn = document.querySelector("#usersInChat") as HTMLElement;
+		userInChatBtn.addEventListener("click", () => {
+			userInChatForm.style.display = "block";
+		});
+	}
 	// Переход на страницу профиля
 	clickProfile() {
 		window.router.go(PagesPaths.PROFILE);
@@ -269,6 +342,8 @@ export class ChatPage extends Block {
 							<div class="chat-settings__modal">
 								<ul class="chat-settings__list">
 									{{{ logoutItemComponent }}}
+									{{{ addNewUserInChatComponent }}}
+									{{{ userInChatItemComponent }}}
 								</ul>
 							</div>
 						</div>
@@ -279,7 +354,9 @@ export class ChatPage extends Block {
 							
 						</form>
 					</section>
+					{{{ addUserModalComponent }}}
 					{{{ addChatModalComponent }}}
+					{{{ modalChatUserList }}}
 				</main>
 	  `;
 	}

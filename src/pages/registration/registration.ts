@@ -47,6 +47,7 @@ export class Registration extends Block {
 					ButtonComponent: new Button({
 						text: "Зарегистрироваться",
 						href: "/messenger",
+						buttonStyle: "button",
 					}),
 				}),
 			}),
@@ -62,7 +63,7 @@ export class Registration extends Block {
 					}),
 					linkRegistration: new Link({
 						text: "Регистрация",
-						href: "/registration",
+						href: "/sign-up",
 					}),
 					linkProfile: new Link({
 						text: "Профиль",

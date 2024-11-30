@@ -6,7 +6,7 @@ export class Input extends Block {
 	}
 	renderPublic() {
 		return `
-		<input type='{{inputType}}' title='{{inputTitle}}' value='{{value}}' name='{{inputName}}' placeholder='{{inputPlaceholder}}' class='input {{#if className}} {{className}}{{/if}}'>
+		<input type='{{inputType}}' title='{{inputTitle}}' id='{{inputId}}' value='{{value}}' name='{{inputName}}' placeholder='{{inputPlaceholder}}' class='input {{#if className}} {{className}}{{/if}}'>
 		`
 	}
 

@@ -1,5 +1,5 @@
-import { Button } from "../../components/button";
-import { Input } from "../../components/input";
+import { Button } from "../button";
+import { Input } from "../input";
 import { connect } from "../../globalFunction/utils/connect";
 import Block from "../../parentClasses/Block/BLock";
 
@@ -17,7 +17,7 @@ const data = {
 	},
 };
 
-export class ModalAddChat extends Block {
+export class ModalAddUser extends Block {
 	initPublic() {
 		// const onChangeBind = this.onChange.bind(this);
 		const closeModalBind = this.closeModal.bind(this);
@@ -26,7 +26,7 @@ export class ModalAddChat extends Block {
 		const SubmitButton = new Button({ ...data.submit, text: "Add", buttonStyle: "button", onClick: this.props.onSubmit });
 		const closeBtnComponent = new Button({
 			type: "button",
-			idBtn: "close",
+			idBtn: "closeUser",
 			text: "✕",
 			buttonStyle: "modal__close",
 			onClick: closeModalBind,
@@ -46,8 +46,8 @@ export class ModalAddChat extends Block {
 	// 	else this.children["SubmitButton"].setProps({ disabled: "true" });
 	// }
 	closeModal() {
-		const btn = document.querySelector("#close") as HTMLElement;
-		const modal = document.querySelector("#addChat") as HTMLElement;
+		const btn = document.querySelector("#closeUser") as HTMLElement;
+		const modal = document.querySelector("#addUser") as HTMLElement;
 		btn.addEventListener("click", () => {
 			console.log(`btn ${btn} modal ${modal}`);
 
@@ -57,7 +57,7 @@ export class ModalAddChat extends Block {
 
 	renderPublic(): string {
 		return `
-    <div id="addChat" class="modal text-center {{#if isLoading}}loading{{/if}}">
+    <div id="addUser" class="modal text-center {{#if isLoading}}loading{{/if}}">
         {{{ closeBtnComponent }}}
 		<form class="modal__form" onkeydown="return event.key != 'Enter';">
         <h4 class="modal__title">{{{ titleModal }}}</h4>
@@ -74,4 +74,4 @@ export class ModalAddChat extends Block {
 
 const mapStateToPropsShort = ({ isLoading, errorMessage }: { [key: string]: any }) => ({ isLoading, errorMessage });
 
-export default connect(mapStateToPropsShort)(ModalAddChat);
+export default connect(mapStateToPropsShort)(ModalAddUser);

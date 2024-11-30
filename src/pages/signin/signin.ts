@@ -40,13 +40,11 @@ export class SignIn extends Block {
 
 					ButtonComponent: new Button({
 						text: "Войти",
-						buttonStyle: "signin-form__button",
 						href: "/messenger",
-						// signInButton,
 					}),
 					LinkComponent: new Link({
 						text: "Нет аккаунта?",
-						href: "/registration",
+						href: "/sign-up",
 					}),
 
 					// registrationButton
@@ -104,27 +102,6 @@ export class SignIn extends Block {
 		// this.compile(SigninPageTemplate, this.props);
 	}
 }
-
-// const registrationButton = new Link({
-// 	text: "Нет аккаунта?",
-// 	// href: '/registration',
-// 	events: {
-// 		click: () => {
-// 			window.router.go(PagesPaths.REGISTRATION);
-// 		},
-// 	},
-// });
-
-// const signInButton = new Button({
-// 	text: "Войти",
-// 	// href: '/messenger',
-// 	events: {
-// 		click: (event: Event) => {
-// 			const form: LoginRequestData = handleFormSubmit(event) as LoginRequestData;
-// 			login(form);
-// 		},
-// 	},
-// });
 
 const InputFieldLoginComponent = new InputField({
 	inputFieldStyle: "input-field",

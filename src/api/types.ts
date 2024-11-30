@@ -17,6 +17,16 @@ export type UserDTO = {
 	email: string;
 };
 
+export type UpdateUserData = {
+	first_name: string;
+	second_name: string;
+	display_name: string;
+	login: string;
+	email: string;
+	phone: string;
+	[key: string]: string;
+};
+
 export type CreateUser = Omit<UserDTO, "avatar" | "display_name" | "id"> & {
 	password: string;
 };
@@ -83,6 +93,14 @@ export type ChatMessage = {
 	content: string;
 	is_read: true;
 	file: null;
+};
+export type SearchUser = {
+	login: string;
+};
+export type UpdateUserPassword = {
+	oldPassword: string;
+	newPassword: string;
+	[key: string]: string;
 };
 
 export type ChatUser = {

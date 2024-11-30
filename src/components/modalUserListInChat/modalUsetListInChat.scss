@@ -1,0 +1,23 @@
+@import "../../assets/variables.scss";
+.user-list {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	background-color: rgb(46, 27, 40);
+	padding: 30px;
+	border-radius: 10px;
+	display: none;
+	&__title {
+		color: $text-color;
+		margin-bottom: 10px;
+	}
+	&__close {
+		position: relative;
+		right: 20px;
+		top: -20px;
+	}
+	&__delete {
+		color: rgb(145, 7, 7);
+		cursor: pointer;
+	}
+}
