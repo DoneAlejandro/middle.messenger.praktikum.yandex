@@ -3,10 +3,11 @@ import { login } from "../../../services/authorization";
 import { emailValidation, loginValidation, nameValidation, passwordValidation, phoneValidation } from "../validation";
 
 export function handleFormSubmit(event: Event) {
-	event.preventDefault();
+	
 	console.log(event.target);
 	const formElement = event.target as HTMLFormElement;
-
+	console.log(`formElement ${formElement}`);
+	
 	// Теперь передаем форму в FormData
 	const formData = new FormData(formElement);
 
@@ -28,9 +29,11 @@ export function handleFormSubmit(event: Event) {
 	// Проверяем, все ли поля валидны
 	if (isLoginValid && isPasswordValid && isEmailValid && isFirstNameValid && isLastNameValid && isPhoneValid) {
 		console.log("Форма успешно отправлена:", formObject);
+		return true;
 	} else {
 		console.log("Форма содержит ошибки");
+		return false;
 	}
-	login(formObject);
+	// login(formObject);
 	// userinfo();
 }

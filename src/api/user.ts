@@ -18,7 +18,8 @@ export class UserApi {
 	}
 
 	async changePassword(data: UpdateUserPassword) {
-		return this.userApiInstance.post("/password", {
+		console.log(`changePassword model 21 ${JSON.stringify(data)}`);
+		return this.userApiInstance.put("/password", {
 			data,
 			headers: {
 				"Content-Type": "application/json",

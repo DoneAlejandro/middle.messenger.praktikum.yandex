@@ -20,6 +20,8 @@ export const update = async (model: UpdateUserData) => {
 };
 
 export const changePassword = async (model: UpdateUserPassword) => {
+	console.log(`changePassword model ${JSON.stringify(model)}`);
+	
 	window.store.set({ isLoading: true });
 	try {
 		await userApi.changePassword(model);

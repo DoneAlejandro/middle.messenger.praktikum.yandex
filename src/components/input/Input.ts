@@ -3,10 +3,12 @@ import { TBlock } from "../../parentClasses/types";
 export class Input extends Block {
 	constructor(props: TBlock) {
 		super({ ...props });
+		console.log(`this.props ${JSON.stringify(this.props)}`);
 	}
 	renderPublic() {
 		return `
-		<input type='{{inputType}}' title='{{inputTitle}}' id='{{inputId}}' value='{{value}}' name='{{inputName}}' placeholder='{{inputPlaceholder}}' class='input {{#if className}} {{className}}{{/if}}'>
+		{{log "Input content:" props}}
+		<input type='{{inputType}}' title='{{inputTitle}}' id='{{name}}' value='{{value}}' name='{{name}}' placeholder='{{inputPlaceholder}}' class='input {{#if className}} {{className}}{{/if}}'>
 		`
 	}
 

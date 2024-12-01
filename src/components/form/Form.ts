@@ -10,7 +10,7 @@ export class Form extends Block {
 		return `
 		<section class="{{#if sectionStyle}} {{sectionStyle}}{{/if}}">
 			{{{ subtitleComponent }}}
-			<form class="{{formStyle}}" onsubmit="return false;">
+			<form class="{{formStyle}}" id="{{formId}}" onsubmit="return false;">
 				<div class="{{formContainerStyle}}">
 					<div class="{{formInputsStyle}}">
 						{{{ InputFieldLoginComponent }}}
