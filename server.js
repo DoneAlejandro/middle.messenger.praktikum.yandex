@@ -10,10 +10,31 @@ app.use(express.static("dist"));
 app.get("/", (req, res) => {
 	res.send("<h1> Hello </h1>");
 	// Отправляем файл index.html из папки src
-	res.sendFile(path.join(__dirname, "../assets/index.html"));
+	res.sendFile(path.join(__dirname, "./src/index.html"));
 	// res.sendFile(path.resolve(__dirname, "src", "index.html"));
 });
+
 
 app.listen(PORT, () => {
 	console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+
+// import express from "express";
+// import path from "path";
+
+// const app = express();
+// const PORT = 3000;
+
+// // Указываем путь к папке со статическим контентом
+// app.use(express.static("dist"));
+
+// // Обработка всех маршрутов для SPA
+// app.get("*", (req, res) => {
+// 	res.sendFile(path.resolve(__dirname, "dist", "index.html"));
+// });
+
+// // Запуск сервера
+// app.listen(PORT, () => {
+// 	console.log(`Server is running on http://localhost:${PORT}`);
+// });

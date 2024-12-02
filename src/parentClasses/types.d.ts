@@ -16,5 +16,4 @@ export type TBlock = {
 	lists?: Block[];
 	[key: string]: unknown;
 };
-
 // ----------------Interfaces----------------//
