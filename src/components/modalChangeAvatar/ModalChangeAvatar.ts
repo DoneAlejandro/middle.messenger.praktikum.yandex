@@ -88,6 +88,6 @@ export class ModalAvatar extends Block {
 	}
 }
 
-const mapStateToPropsShort = ({ isLoading, errorMessage }: { [key: string]: any }) => ({ isLoading, errorMessage });
+const mapStateToPropsShort = ({ isLoading, errorMessage }: { [key: string]: unknown }) => ({ isLoading, errorMessage });
 
 export default connect(mapStateToPropsShort)(ModalAvatar);

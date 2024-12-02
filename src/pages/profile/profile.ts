@@ -264,7 +264,7 @@ export class ProfilePage extends Block {
 		`;
 	}
 }
-const mapStateToPropsShort = ({ isLoading, errorMessage, profileDisabled, userName }: { [key: string]: any }) => ({
+const mapStateToPropsShort = ({ isLoading, errorMessage, profileDisabled, userName }: { [key: string]: unknown }) => ({
 	isLoading,
 	errorMessage,
 	profileDisabled,

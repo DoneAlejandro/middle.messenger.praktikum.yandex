@@ -394,7 +394,7 @@ export class ChatPage extends Block {
 	}
 }
 
-const mapStateToPropsShort = ({ isLoading, errorMessage, chatId, massageStack }: { [key: string]: any }) => ({
+const mapStateToPropsShort = ({ isLoading, errorMessage, chatId, massageStack }: { [key: string]: unknown }) => ({
 	isLoading,
 	errorMessage,
 	chatId,

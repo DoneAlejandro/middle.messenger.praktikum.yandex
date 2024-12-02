@@ -147,6 +147,6 @@ export class SignIn extends Block {
 	}
 }
 
-const mapStateToPropsShort = ({ isLoading, errorMessage }: { [key: string]: any }) => ({ isLoading, errorMessage });
+const mapStateToPropsShort = ({ isLoading, errorMessage }: { [key: string]: unknown }) => ({ isLoading, errorMessage });
 
 export default connect(mapStateToPropsShort)(SignIn);
