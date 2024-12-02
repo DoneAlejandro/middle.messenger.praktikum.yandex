@@ -21,8 +21,8 @@ export class ModalAddUser extends Block {
 	initPublic() {
 		const closeModalBind = this.closeModal.bind(this);
 
-		const InputTitle = new Input({ ...data.input, inputId: "inputId" });
-		const SubmitButton = new Button({ ...data.submit, text: "Add", buttonStyle: "button", onClick: this.props.onSubmit });
+		const InputTitle = new Input({ ...data.input, name: "inputIdAddUser", inputPlaceholder: "Enter Login" });
+		const SubmitButton = new Button({ ...data.submit, text: "Add", idBtn: "addUser", buttonStyle: "button", onClick: this.props.onSubmit });
 		const closeBtnComponent = new Button({
 			type: "button",
 			idBtn: "closeUser",

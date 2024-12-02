@@ -31,6 +31,5 @@ export class DialogItem extends Block {
 			</div>
 		</li>
 `;
-		// this.compile(DialogItemTemplate, this.props);
 	}
 }

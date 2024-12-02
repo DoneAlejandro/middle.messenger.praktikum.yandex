@@ -14,7 +14,7 @@ export class DialogList extends Block {
 				<div class='dialog__container {{#if current}} dialog__container--current{{/if}}'>
 					{{#if avatar}}
 					<div>
-						<img class='dialog__avatar' src={{avatar}} alt={{name}}>
+						<img class='dialog__avatar' src="https://ya-praktikum.tech/api/v2/resources/{{avatar}}" alt={{name}}>
 					</div>
 					{{else}}
 					<div>
@@ -32,6 +32,5 @@ export class DialogList extends Block {
 		{{/each}}
 	</ul>
 		`;
-		// this.compile(DialogListTemplate, this.props);
 	}
 }

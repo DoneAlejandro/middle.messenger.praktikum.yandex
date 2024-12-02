@@ -21,7 +21,7 @@ export class ModalAddChat extends Block {
 	initPublic() {
 		const closeModalBind = this.closeModal.bind(this);
 
-		const InputTitle = new Input({ ...data.input, inputId: "inputId" });
+		const InputTitle = new Input({ ...data.input, inputId: "inputId", inputPlaceholder: "Enter Login" });
 		const SubmitButton = new Button({ ...data.submit, text: "Add", buttonStyle: "button", onClick: this.props.onSubmit });
 		const closeBtnComponent = new Button({
 			type: "button",

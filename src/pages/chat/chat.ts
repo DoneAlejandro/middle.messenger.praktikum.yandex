@@ -4,13 +4,16 @@ import { connect } from "../../globalFunction/utils/connect";
 import Block from "../../parentClasses/Block/BLock";
 import { PagesPaths } from "../../parentClasses/Router/pathEnum";
 import { logout, userinfo } from "../../services/authorization";
-import { addChat, addUser, deleteChat, deleteUser, getChats, getChatUsers, openChat } from "../../services/chats";
+import { addChat, addUser, closeChat, deleteChat, deleteUser, getChats, getChatUsers, openChat } from "../../services/chats";
 import { searchUser } from "../../services/user";
+
+
 
 export class ChatPage extends Block {
 	chats: object[] | undefined;
 	state: object | undefined | any;
 	currentChat: ChatDTO | undefined;
+	chatList: ChatDTO[] = [];
 	messageQueue: ChatMessage[] = []; // Очередь сообщений
 	batchingTimeout: NodeJS.Timeout | null = null; // Таймер для обработки сообщений
 
@@ -139,7 +142,7 @@ export class ChatPage extends Block {
 		e.preventDefault();
 
 		const store = window.store.getState();
-		const input = document.querySelector("#inputId") as HTMLInputElement;
+		const input = document.querySelector("#inputIdAddUser") as HTMLInputElement;
 		const inputValue: SearchUser = { login: input.value };
 		const users: number[] = [];
 		let newUserId: number = 0;
@@ -152,7 +155,7 @@ export class ChatPage extends Block {
 					users,
 					chatId,
 				};
-
+				console.log(users, chatId);
 				addUser(data).then(response => {
 					console.log(response);
 					this.updateDialogsList();
@@ -210,10 +213,11 @@ export class ChatPage extends Block {
 		const data: ChatId = {
 			chatId: +store.chatId,
 		};
-
+		
 		deleteChat(data).then(() => {
 			window.store.set({ chatId: null });
 			this.props.currentChat = null;
+			this.children.MessagesListComponent.setProps({ messages: [] });
 			this.updateDialogsList();
 		});
 	}
@@ -235,10 +239,14 @@ export class ChatPage extends Block {
 				id: this.state.userId,
 			},
 		};
-
+		if (this.currentChat && this.currentChat.id !== Number(data.chatId)) {
+			this.cleanupWebSocket();
+		}
+		//@ts-expect-error wft
+		this.currentChat = this.props.chatList.find((chat: ChatDTO) => chat.id === Number(data.chatId));
 		window.store.set({ chatId: elem.dataset.id });
 		this.children.MessagesListComponent.setProps({ messages: [] });
-
+		closeChat();
 		openChat(data, (message: ChatMessage) => {
 			this.onReceivedMessage(message);
 		}).then(() => {
@@ -247,6 +255,13 @@ export class ChatPage extends Block {
 				this.updateDialogUserList();
 			}
 		});
+	}
+	cleanupWebSocket() {
+		if (this.batchingTimeout) {
+			clearTimeout(this.batchingTimeout);
+			this.batchingTimeout = null;
+		}
+		this.messageQueue = [];
 	}
 
 	// Буферизуем обработку сообщений

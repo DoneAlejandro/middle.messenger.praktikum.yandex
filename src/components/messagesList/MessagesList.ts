@@ -20,6 +20,6 @@ export class MessagesList extends Block {
 		`;
 	}
 }
-const mapStateToPropsShort = ({ userId }: { [key: string]: any }) => ({ userId });
+const mapStateToPropsShort = ({ userId }: { [key: string]: unknown }) => ({ userId });
 
 export default connect(mapStateToPropsShort)(MessagesList);
