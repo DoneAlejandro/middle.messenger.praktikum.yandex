@@ -12,6 +12,5 @@ export class Link extends Block {
 			<a href='{{href}}' class='link {{#if linkStyle}} {{linkStyle}}{{/if}}' page='{{page}}'>{{text}}</a>
 		</div>
 		`;
-		// this.compile(linkTemplate, this.props);
 	}
 }

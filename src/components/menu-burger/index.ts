@@ -1,2 +1,2 @@
-import './menu-burger.scss';
-export { MenuBurger } from './MenuBurger.ts';
+import "./menu-burger.scss";
+export { MenuBurger } from "./MenuBurger.ts";

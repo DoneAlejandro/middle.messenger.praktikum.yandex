@@ -1,2 +1,2 @@
-import './input-field.scss';
-export { InputField } from './InputField.ts';
+import "./input-field.scss";
+export { InputField } from "./InputField.ts";

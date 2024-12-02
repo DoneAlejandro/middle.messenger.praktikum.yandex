@@ -1,2 +1,2 @@
-import './modalAddChat.scss'
+import "./modalAddChat.scss";
 export { ModalAddChat } from "./ModalAddChat";

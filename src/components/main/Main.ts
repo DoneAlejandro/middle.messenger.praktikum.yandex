@@ -11,6 +11,5 @@ export class Main extends Block {
 			{{{ formComponent }}}
 		</main>
 		`;
-		// this.compile(main, { ...this.props });
 	}
 }

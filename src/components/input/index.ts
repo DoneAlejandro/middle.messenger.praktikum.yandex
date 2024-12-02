@@ -1,2 +1,2 @@
-import './input.scss';
-export { Input } from './Input.ts';
+import "./input.scss";
+export { Input } from "./Input.ts";

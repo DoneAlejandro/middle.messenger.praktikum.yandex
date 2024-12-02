@@ -11,6 +11,5 @@ export class Header extends Block {
 			{{{ title }}}
 		</header>
 		`;
-		// this.compile(headerTemplate, { ...this.props });
 	}
 }

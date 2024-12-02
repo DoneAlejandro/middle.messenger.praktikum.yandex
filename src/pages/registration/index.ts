@@ -1,2 +1,2 @@
-import './registration.scss';
-export { Registration } from './registration.ts';
+import "./registration.scss";
+export { Registration } from "./registration.ts";

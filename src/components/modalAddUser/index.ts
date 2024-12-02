@@ -1,2 +1,2 @@
-import './modalAddUser.scss'
+import "./modalAddUser.scss";
 export { ModalAddUser } from "./ModalAddUser";

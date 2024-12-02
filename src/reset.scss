@@ -1,4 +1,4 @@
-@import './assets/variables';
+@import "./assets/variables";
 
 /* ----------------------СТИЛЬ ОБНУЛЕНИЯ--------------------------- */
 * {
@@ -72,7 +72,7 @@ input::-ms-clear {
 }
 
 button,
-input[type='submit'] {
+input[type="submit"] {
 	display: inline-block;
 	box-shadow: none;
 	background-color: transparent;
@@ -133,14 +133,5 @@ footer {
 	position: absolute;
 	color: red;
 	width: 100px;
-
-	// background: #fff;
-	// padding: 2px;
 	border-radius: 5px;
-
-	// display: none;
 }
-
-// .input-error--visible {
-// 	display: block;
-// }

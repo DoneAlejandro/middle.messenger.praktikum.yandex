@@ -11,6 +11,5 @@ export class ErrorCode extends Block {
 			<h3 class='error-code__title {{#if className}} {{className}}{{/if}}'>{{code}}</h3>
 		</div>
 		`;
-		// this.compile(ErrorCodeTemplate, this.props);
 	}
 }

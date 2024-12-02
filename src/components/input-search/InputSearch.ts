@@ -13,6 +13,5 @@ export class InputSearch extends Block {
 			<div class='input-container__icon'></div>
 		</div>
 		`;
-		// this.compile(inputSearchTemplate, this.props);
 	}
 }

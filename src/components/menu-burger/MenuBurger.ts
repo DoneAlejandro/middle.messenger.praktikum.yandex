@@ -11,6 +11,5 @@ export class MenuBurger extends Block {
 			<div></div>
 		</div>
 		`;
-		// this.compile(menuBurgerTemplate, this.props);
 	}
 }

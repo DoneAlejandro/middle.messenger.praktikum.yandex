@@ -1,2 +1,2 @@
-import './avatar.scss'
-export { Avatar } from './Avatar'
+import "./avatar.scss";
+export { Avatar } from "./Avatar";

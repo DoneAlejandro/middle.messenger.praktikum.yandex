@@ -1,2 +1,2 @@
-import './title.scss';
-export { Title } from './Title.ts';
+import "./title.scss";
+export { Title } from "./Title.ts";

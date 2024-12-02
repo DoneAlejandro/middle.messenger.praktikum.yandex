@@ -1,2 +1,2 @@
-import './footer.scss';
-export { Footer } from './Footer.ts';
+import "./footer.scss";
+export { Footer } from "./Footer.ts";

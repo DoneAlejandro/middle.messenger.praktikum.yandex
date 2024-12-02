@@ -1,2 +1,2 @@
-import './error-page.scss';
-export { ErrorPage } from './errorPage.ts';
+import "./error-page.scss";
+export { ErrorPage } from "./errorPage.ts";

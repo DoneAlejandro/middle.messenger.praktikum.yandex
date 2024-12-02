@@ -1,4 +1,6 @@
+export { Avatar } from "./avatar";
 export { Button } from "./button";
+export { ChangePasswordModal } from "./changePasswordModal";
 export { Copyright } from "./copyright";
 export { DialogItem } from "./dialog-item";
 export { DialogList } from "./dialog-list";
@@ -17,10 +19,8 @@ export { MenuBurger } from "./menu-burger";
 export { MessagesList } from "./messagesList";
 export { ModalAddChat } from "./modalAddChat";
 export { ModalAddUser } from "./modalAddUser";
+export { ModalAvatar } from "./modalChangeAvatar";
 export { ModalUserList } from "./modalUserListInChat";
 export { PopUp } from "./pop-up";
 export { Subtitle } from "./subtitle";
 export { Title } from "./title";
-export { Avatar } from "./avatar";
-export { ChangePasswordModal } from "./changePasswordModal";
-export { ModalAvatar } from "./modalChangeAvatar";

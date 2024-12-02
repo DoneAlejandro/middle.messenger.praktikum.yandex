@@ -66,7 +66,6 @@ export class ChangePasswordModal extends Block {
 		if (isFormValid) {
 			const target = e.target as HTMLFormElement;
 			const form = target!.form;
-	
 
 			const formData = new FormData(form);
 

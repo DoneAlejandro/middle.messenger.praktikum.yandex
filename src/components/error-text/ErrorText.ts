@@ -11,6 +11,5 @@ export class ErrorText extends Block {
 			<span class='error-text__text {{#if className}} {{className}}{{/if}}'>{{text}}</span>
 		</div>
 		`;
-		// this.compile(ErrorTextTemplate, this.props);
 	}
 }

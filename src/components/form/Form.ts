@@ -5,7 +5,6 @@ export class Form extends Block {
 		super({ ...props });
 	}
 
-
 	renderPublic() {
 		return `
 		<section class="{{#if sectionStyle}} {{sectionStyle}}{{/if}}">
@@ -27,6 +26,5 @@ export class Form extends Block {
 			</form>
 		</section>
 		`;
-		// this.compile(form, this.props);
 	}
 }

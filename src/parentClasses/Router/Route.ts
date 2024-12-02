@@ -1,5 +1,5 @@
-import Block from '../Block/BLock';
-import { PagesPaths } from './pathEnum';
+import Block from "../Block/BLock";
+import { PagesPaths } from "./pathEnum";
 
 interface IRoteProps {
 	rootQuery: string;
@@ -28,10 +28,10 @@ class Route {
 
 	leave() {
 		if (this._root) {
-			this._root.innerHTML = '';
+			this._root.innerHTML = "";
 			this._block?.dispatchComponentDidMount();
 		} else {
-			console.error('Root not found');
+			console.error("Root not found");
 		}
 	}
 
@@ -42,7 +42,7 @@ class Route {
 	_renderDom(query: string, block: Block) {
 		const root = document.querySelector(query);
 		if (root) {
-			root.innerHTML = '';
+			root.innerHTML = "";
 			root!.append(block.getContent());
 		}
 	}

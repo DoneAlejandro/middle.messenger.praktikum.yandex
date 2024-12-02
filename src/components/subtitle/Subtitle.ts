@@ -11,6 +11,5 @@ export class Subtitle extends Block {
 			{{subtitleText}}
 		</h3>
 		`;
-		// this.compile(subtitle, this.props);
 	}
 }

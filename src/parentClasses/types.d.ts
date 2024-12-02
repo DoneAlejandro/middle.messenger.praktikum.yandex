@@ -1,4 +1,4 @@
-import Block from './Block/BLock';
+import Block from "./Block/BLock";
 
 // ----------------Types----------------//
 

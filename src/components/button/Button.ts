@@ -14,6 +14,5 @@ export class Button extends Block {
 		return `
 		<button id="{{idBtn}}" class="{{#if buttonStyle}} {{buttonStyle}} {{else}} button {{/if}}" page="{{page}}">{{text}}</button>
 		`;
-		// this.compile(buttonTemplate, this.props);
 	}
 }

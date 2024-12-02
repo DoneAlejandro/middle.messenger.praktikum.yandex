@@ -11,6 +11,5 @@ export class Title extends Block {
 			{{titleText}}
 		</h1>
 		`;
-		// this.compile(title, this.props);
 	}
 }

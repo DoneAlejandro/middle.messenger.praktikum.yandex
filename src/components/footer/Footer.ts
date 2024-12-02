@@ -12,6 +12,5 @@ export class Footer extends Block {
 			{{{ popUpComponent }}}
 		</footer>
 		`;
-		// this.compile(footerTemplate, this.props);
 	}
 }

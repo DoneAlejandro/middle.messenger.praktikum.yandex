@@ -15,6 +15,6 @@ export class ItemList extends Block {
 		<li class='{{ className }}' id='{{ idItem }}'>
 			{{ title }}
 		</li>
-		`
-	} 
+		`;
+	}
 }

@@ -35,6 +35,5 @@ export class PopUp extends Block {
 			</div>
 		</div>
 		`;
-		// this.compile(popUpTemplate, this.props);
 	}
 }

@@ -1,12 +1,12 @@
-import Block from '../Block/BLock';
-import { PagesPaths } from './pathEnum';
-import Route from './Route';
+import Block from "../Block/BLock";
+import { PagesPaths } from "./pathEnum";
+import Route from "./Route";
 
 class Router {
 	private routes: Route[] = [];
 	private history: History = window.history;
 	private _currentRoute: Route | undefined = undefined;
-	private _rootQuery: string = '';
+	private _rootQuery: string = "";
 	static __instance: Router;
 
 	constructor(rootQuery: string) {
@@ -52,7 +52,7 @@ class Router {
 	}
 
 	go(pathname: PagesPaths) {
-		this.history.pushState({}, '', pathname);
+		this.history.pushState({}, "", pathname);
 		this._onRoute(pathname);
 	}
 

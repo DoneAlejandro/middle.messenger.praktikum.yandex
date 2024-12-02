@@ -47,6 +47,5 @@ export class ErrorPage extends Block {
 		{{{ FooterComponent }}}
 		</div>
 		`;
-		// this.compile(ErrorPageTemplate, this.props);
 	}
 }
