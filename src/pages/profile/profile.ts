@@ -47,7 +47,6 @@ export class ProfilePage extends Block {
 	public initPublic() {
 		this.state = window.store.getState();
 		const changeUserDataBind = this.changeUserData.bind(this);
-		console.log(`this.state ${JSON.stringify(this.state)}`);
 
 		const avatarComponent = new Avatar({ ...data.avatar });
 		const titleComponent = new Title({ titleText: "Профиль" });
@@ -176,7 +175,6 @@ export class ProfilePage extends Block {
 			changeUserPasswordComponent,
 			changePasswordModalComponent,
 		};
-		console.log(`this.children ${JSON.stringify(this.children)}`);
 	}
 	beforeMount() {
 		this.getUserInfo();
@@ -193,7 +191,7 @@ export class ProfilePage extends Block {
 		if (modal) {
 			modal.addEventListener("click", event => {
 				if (event.target === modal) {
-					this.toggleModalVisibility(false); // Скрыть модальное окно
+					this.toggleModalVisibility(false);
 				}
 			});
 		}
@@ -201,15 +199,12 @@ export class ProfilePage extends Block {
 	getUserInfo() {
 		userinfo()
 			.then((response: UserDTO | any) => {
-				console.log(`response ${JSON.stringify(response)}`);
-
 				if (response) {
 					window.store.set({
 						userName: response["first_name"],
 					});
 
 					Object.entries(response).forEach(([key, value]) => {
-						console.log(`key: ${key}, value: ${value}`);
 						const dataObject: Record<string, () => void> = {
 							"avatar": () => this.children.avatarComponent.setProps({ path: value }),
 							"login": () => this.children.inputLogin.setProps({ value: value }),
@@ -231,8 +226,6 @@ export class ProfilePage extends Block {
 	}
 
 	changeUserData(e: Event) {
-		console.log(`changeUserData ${JSON.stringify(e)}`);
-
 		e.preventDefault();
 		const formElem = document.querySelector("#profileForm") as HTMLFormElement;
 		if (!formElem) return;

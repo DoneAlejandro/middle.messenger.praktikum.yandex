@@ -27,9 +27,10 @@ const data = {
 export class ChangePasswordModal extends Block {
 	initPublic() {
 		const onSubmitBind = this.onSubmit.bind(this);
-		const inputCurrentPassword = new Input({ ...data.currentPassword });
+		const inputCurrentPassword = new Input({ ...data.currentPassword, className: "change-password-form__input" });
 		const inputNewPassword = new Input({
 			...data.newPassword,
+			className: "change-password-form__input",
 			events: {
 				blur: (event: Event) => {
 					checkValidate(event, () => true, "password");
@@ -38,6 +39,7 @@ export class ChangePasswordModal extends Block {
 		});
 		const inputRepeatPassword = new Input({
 			...data.repeatNewPassword,
+			className: "change-password-form__input",
 			events: {
 				blur: (event: Event) => {
 					checkValidate(event, () => true, "confirm_password");
@@ -64,19 +66,14 @@ export class ChangePasswordModal extends Block {
 		if (isFormValid) {
 			const target = e.target as HTMLFormElement;
 			const form = target!.form;
-			console.log(`formProfile 96 ${form}`);
+	
 
 			const formData = new FormData(form);
-			
+
 			const output: UpdateUserPassword = {
 				oldPassword: formData.get("oldPassword") as string,
 				newPassword: formData.get("newPassword") as string,
 			};
-			console.log(`formData ${JSON.stringify(formData)}
-			formData.get("oldPassword") ${formData.get("oldPassword")}
-			formData.get("newPassword") ${formData.get("newPassword")}
-			changePassword(output); ${JSON.stringify(changePassword(output))}
-			`);
 			changePassword(output);
 		}
 	}

@@ -23,3 +23,4 @@ export { Subtitle } from "./subtitle";
 export { Title } from "./title";
 export { Avatar } from "./avatar";
 export { ChangePasswordModal } from "./changePasswordModal";
+export { ModalAvatar } from "./modalChangeAvatar";

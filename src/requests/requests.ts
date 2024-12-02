@@ -33,24 +33,14 @@ export class HTTPTransport {
 	apiUrl: string;
 	constructor(apiPath: string) {
 		this.apiUrl = `${this.apiUrlDomain}${apiPath}`;
-		console.log(this.apiUrl);
 	}
 	// Метод для выполнения GET-запроса
 	get = (url: string, options: RequestOptions = {}) => {
-		console.log(`options ${JSON.stringify(options)}`);
-
 		return this.request(`${this.apiUrl}${url}`, { ...options, method: METHODS.GET }, options.timeout);
 	};
 
 	// Метод для выполнения POST-запроса
 	post = (url: string, options: RequestOptions = {}) => {
-		console.log(
-			`${this.apiUrl}${url}  
-			...options, method: METHODS.POST ${JSON.stringify({ ...options, method: METHODS.POST })} options.timeout ${options.timeout}
-			options ${JSON.stringify(options.data)}
-			`
-		);
-		// const dataJson = JSON.stringify(options.data);
 		return this.request(`${this.apiUrl}${url}`, { ...options, method: METHODS.POST }, options.timeout);
 	};
 
@@ -67,7 +57,6 @@ export class HTTPTransport {
 	// Метод для выполнения HTTP-запроса
 	request = (url: string, options: RequestOptions = {}, timeout = 5000): Promise<XMLHttpRequest> => {
 		const { headers = {}, method, data } = options;
-		console.log(`options ${JSON.stringify(options)} data ${JSON.stringify(data)}`);
 
 		return new Promise<XMLHttpRequest>((resolve, reject) => {
 			// Проверяем, указан ли метод
@@ -100,22 +89,16 @@ export class HTTPTransport {
 
 			// Устанавливаем обработчик на событие завершения загрузки
 			xhr.onload = function () {
-				console.log(`this.status ${this.status}`);
-
 				if (this.status >= 200 && this.status < 300) {
 					// Проверка на тип ответа, чтобы избежать экранирования бинарных данных
 					if (xhr.getResponseHeader("Content-Type")?.includes("application/json")) {
 						const data = JSON.parse(this.response);
-						console.log(`data 98 ${JSON.stringify(data)}`);
 						resolve(data);
 					} else {
-						console.log(`this.response 102 ${this.response}`);
 						resolve(this.response);
 					}
 				} else {
-					console.log(`this.response 106 ${this.response}`);
 					if (this.response) {
-						console.log(`this.response 108 ${this.response}`);
 						reject(JSON.parse(this.response));
 					} else {
 						reject(new Error(`Request failed with status ${xhr.status}: ${xhr.statusText}`));

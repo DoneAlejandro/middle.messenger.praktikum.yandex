@@ -49,13 +49,9 @@ export const logout = async () => {
 
 export const userinfo = async () => {
 	window.store.set({ isLoading: true });
-	const data = await authApi.userinfo();
-	console.log(`data 53 ${JSON.stringify(data)}`);
-
 	try {
 		const data = await authApi.userinfo();
 		window.store.set({ errorMessage: null });
-		console.log(`data 55 ${JSON.stringify(data)}`);
 		return data;
 	} catch (error: any) {
 		window.store.set({ errorMessage: error.reason });

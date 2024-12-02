@@ -91,10 +91,6 @@ class WSTransport {
 			console.log('Received pong');
 			return;
 		}
-		// Здесь можно обрабатывать входящие сообщения, например:
-		// if (message.type === 'message') {
-		//   // Обработка сообщения
-		// }
 	}
 
 	public close(): void {

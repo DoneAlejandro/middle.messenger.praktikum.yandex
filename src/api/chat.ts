@@ -28,7 +28,6 @@ export class ChatApi {
 		});
 	}
 	async getChatUsers(chat_id: number) {
-		console.log(`chat_id ${chat_id}`);
 		return this.chatApiInstance.get(`/${chat_id}/users`);
 	}
 
@@ -58,8 +57,6 @@ export class ChatApi {
 	}
 
 	async openChat(data: OpenChatData, callback: Function) {
-		console.log(`openChat data ${JSON.stringify(data)}`);
-
 		const response: any = await this.chatApiInstance.post(`/token/${data.chatId}`, {
 			data,
 			headers: {
@@ -121,7 +118,6 @@ export class ChatApi {
 			let messages: unknown;
 			try {
 				messages = JSON.parse(event.data);
-				console.log(`messages 124 ${JSON.stringify(messages)}`);
 			} catch (error) {
 				console.log(error);
 			}
@@ -142,7 +138,6 @@ export class ChatApi {
 }
 
 function handleMessage(data: any, temp: object[] | undefined, callback: Function) {
-	console.log(`handleMessage data ${JSON.stringify(data)} temp ${JSON.stringify(temp)} callback ${JSON.stringify(callback)}`);
 	if (Array.isArray(data)) {
 		data.forEach(item => handleMessage(item, temp, callback));
 		return;

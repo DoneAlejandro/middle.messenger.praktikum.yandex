@@ -1,10 +1,10 @@
-import { AddChat, AddUserToChat, ChatDTO, ChatMessage, ChatUser, SearchUser, UserDTO } from "../../api/types";
+import { AddChat, AddUserToChat, ChatDTO, ChatId, ChatMessage, ChatUser, SearchUser, UserDTO } from "../../api/types";
 import { DialogList, InputSearch, ItemList, MessagesList, ModalAddChat, ModalAddUser, ModalUserList } from "../../components";
 import { connect } from "../../globalFunction/utils/connect";
 import Block from "../../parentClasses/Block/BLock";
 import { PagesPaths } from "../../parentClasses/Router/pathEnum";
 import { logout, userinfo } from "../../services/authorization";
-import { addChat, addUser, deleteUser, getChats, getChatUsers, openChat } from "../../services/chats";
+import { addChat, addUser, deleteChat, deleteUser, getChats, getChatUsers, openChat } from "../../services/chats";
 import { searchUser } from "../../services/user";
 
 export class ChatPage extends Block {
@@ -23,6 +23,7 @@ export class ChatPage extends Block {
 		const clickAddUserInChatBind = this.clickAddUserInChat.bind(this);
 		const addUserToChatBind = this.addUserToChat.bind(this);
 		const clickUserInChatListBind = this.clickUserInChatList.bind(this);
+		const deleteChatBind = this.onChatDelete.bind(this);
 		this.chats = [];
 		this.state = window.store.getState();
 		this.props.chatList = [];
@@ -78,6 +79,12 @@ export class ChatPage extends Block {
 			idItem: "usersInChat",
 			onClick: clickUserInChatListBind,
 		});
+		const deleteChatItemComponent = new ItemList({
+			title: "Delete chat",
+			className: "chat-settings__item",
+			idItem: "deleteChat",
+			onClick: deleteChatBind,
+		});
 		const modalChatUserList = new ModalUserList({ list: [] });
 
 		this.children = {
@@ -94,6 +101,7 @@ export class ChatPage extends Block {
 			addUserModalComponent,
 			modalChatUserList,
 			userInChatItemComponent,
+			deleteChatItemComponent,
 		};
 	}
 	// Подключение обработчика отправки сообщений
@@ -135,9 +143,8 @@ export class ChatPage extends Block {
 		const inputValue: SearchUser = { login: input.value };
 		const users: number[] = [];
 		let newUserId: number = 0;
-		searchUser(inputValue).then((repsonse: any) => {
-			console.log("searchUser response:", repsonse);
-			if (repsonse[0].id) newUserId = repsonse[0].id;
+		searchUser(inputValue).then((response: any) => {
+			if (response[0].id) newUserId = response[0].id;
 			if (newUserId) {
 				users.push(newUserId);
 				const chatId: number = +store.chatId;
@@ -145,7 +152,6 @@ export class ChatPage extends Block {
 					users,
 					chatId,
 				};
-				console.log(users, chatId);
 
 				addUser(data).then(response => {
 					console.log(response);
@@ -199,6 +205,18 @@ export class ChatPage extends Block {
 			this.updateDialogUserList();
 		});
 	}
+	onChatDelete() {
+		const store = window.store.getState();
+		const data: ChatId = {
+			chatId: +store.chatId,
+		};
+
+		deleteChat(data).then(() => {
+			window.store.set({ chatId: null });
+			this.props.currentChat = null;
+			this.updateDialogsList();
+		});
+	}
 
 	onClickChat(e: Event) {
 		e.stopPropagation();
@@ -223,7 +241,6 @@ export class ChatPage extends Block {
 
 		openChat(data, (message: ChatMessage) => {
 			this.onReceivedMessage(message);
-			console.log(`openChat 144 message ${JSON.stringify(message)}`);
 		}).then(() => {
 			if (Array.isArray(this.props.chatList)) {
 				this.props.currentChat = this.props.chatList.find(item => item.id === +data.chatId);
@@ -235,7 +252,6 @@ export class ChatPage extends Block {
 	// Буферизуем обработку сообщений
 	onReceivedMessage(message: ChatMessage) {
 		this.messageQueue.push(message);
-		console.log(`messages ${JSON.stringify(this.messageQueue)}`);
 		if (this.batchingTimeout) return;
 
 		this.batchingTimeout = setTimeout(() => {
@@ -344,6 +360,7 @@ export class ChatPage extends Block {
 									{{{ logoutItemComponent }}}
 									{{{ addNewUserInChatComponent }}}
 									{{{ userInChatItemComponent }}}
+									{{{ deleteChatItemComponent }}}
 								</ul>
 							</div>
 						</div>

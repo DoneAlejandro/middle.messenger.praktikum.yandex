@@ -20,8 +20,6 @@ export class ModalUserList extends Block {
 		const btn = document.querySelector("#closeUserList") as HTMLElement;
 		const modal = document.querySelector("#chat-user-list") as HTMLElement;
 		btn.addEventListener("click", () => {
-			console.log(`btn ${btn} modal ${modal}`);
-
 			modal.style.display = "none";
 		});
 	}

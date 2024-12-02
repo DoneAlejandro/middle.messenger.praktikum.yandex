@@ -72,8 +72,6 @@ export function checkValidate(event: Event, validationFn: (value: string) => boo
 
 // Валидация логина
 export function loginValidation(value: string): boolean {
-	console.log(`loginValidation ${value}`);
-	
 	return /^[a-zA-Z0-9_-]{3,16}$/.test(value);
 }
 

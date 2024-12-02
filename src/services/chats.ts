@@ -70,10 +70,8 @@ export const getChatUsers = async (chat_id: number) => {
 };
 
 export const openChat = async (model: OpenChatData, callback: Function) => {
-	console.log(`73 openChat data ${JSON.stringify(model)}`);
 	window.store.set({ isLoading: true });
 	try {
-		console.log(`try 76 openChat data ${JSON.stringify(model)}`)
 		await chatApi.openChat(model, callback);
 		window.store.set({ popoverIsOpen: "" });
 	} catch (error: any) {

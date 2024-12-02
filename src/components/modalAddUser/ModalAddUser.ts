@@ -1,7 +1,7 @@
-import { Button } from "../button";
-import { Input } from "../input";
 import { connect } from "../../globalFunction/utils/connect";
 import Block from "../../parentClasses/Block/BLock";
+import { Button } from "../button";
+import { Input } from "../input";
 
 const data = {
 	input: {
@@ -19,10 +19,9 @@ const data = {
 
 export class ModalAddUser extends Block {
 	initPublic() {
-		// const onChangeBind = this.onChange.bind(this);
 		const closeModalBind = this.closeModal.bind(this);
 
-		const InputTitle = new Input({ ...data.input, inputId: 'inputId' });
+		const InputTitle = new Input({ ...data.input, inputId: "inputId" });
 		const SubmitButton = new Button({ ...data.submit, text: "Add", buttonStyle: "button", onClick: this.props.onSubmit });
 		const closeBtnComponent = new Button({
 			type: "button",
@@ -39,18 +38,10 @@ export class ModalAddUser extends Block {
 		};
 	}
 
-	// onChange(e: Event) {
-	// 	const target = e.target as HTMLFormElement;
-
-	// 	if (target.value.length > 0) this.children["SubmitButton"].setProps({ disabled: "false" });
-	// 	else this.children["SubmitButton"].setProps({ disabled: "true" });
-	// }
 	closeModal() {
 		const btn = document.querySelector("#closeUser") as HTMLElement;
 		const modal = document.querySelector("#addUser") as HTMLElement;
 		btn.addEventListener("click", () => {
-			console.log(`btn ${btn} modal ${modal}`);
-
 			modal.style.display = "none";
 		});
 	}
