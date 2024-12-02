@@ -1,5 +1,5 @@
 import { LoginRequestData } from "../../api/types";
-import { Button, Form, Header, Input, InputField, Link, Main, Subtitle, Title } from "../../components";
+import { Button, Form, Header, Input, InputField, Main, Subtitle, Title } from "../../components";
 import { connect } from "../../globalFunction/utils/connect";
 import { handleFormSubmit } from "../../globalFunction/validation/formSubmit/formSubmit";
 import { checkValidate, loginValidation, passwordValidation } from "../../globalFunction/validation/validation";
@@ -23,6 +23,7 @@ const data = {
 };
 export class SignIn extends Block {
 	initPublic() {
+		const clickForCreateAccountBind = this.clickForCreateAccount.bind(this);
 		const onSubmitBind = this.onSubmit.bind(this);
 		const inputLogin = new Input({
 			...data.login,
@@ -68,12 +69,15 @@ export class SignIn extends Block {
 		});
 		const ButtonComponent = new Button({
 			text: "Войти",
+			idBtn: "signin-button",
 			href: "/messenger",
 			onClick: onSubmitBind,
 		});
-		const LinkComponent = new Link({
+		const LinkComponent = new Button({
 			text: "Нет аккаунта?",
-			href: "/sign-up",
+			buttonStyle: "link",
+			idBtn: "signin-link",
+			onClick: clickForCreateAccountBind,
 		});
 		const formComponent = new Form({
 			formId: "signin-form",
@@ -109,7 +113,6 @@ export class SignIn extends Block {
 		};
 	}
 
-	clickForCreateAccountBind = this.clickForCreateAccount.bind(this);
 	clickForCreateAccount() {
 		window.router.go(PagesPaths.REGISTRATION);
 	}
