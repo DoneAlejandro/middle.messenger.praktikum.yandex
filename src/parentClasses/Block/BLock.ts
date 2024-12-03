@@ -210,7 +210,7 @@ class Block {
 
 	show(): void {
 		const content = this.getContent() as HTMLElement | null;
-		if (content) content.style.display = "block";
+		if (content) content.style.display = "flex";
 	}
 
 	hide(): void {

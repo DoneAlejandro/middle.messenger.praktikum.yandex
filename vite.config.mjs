@@ -7,10 +7,11 @@ dns.setDefaultResultOrder("verbatim");
 export default defineConfig({
 	root: resolve(__dirname, "src"),
 	build: {
-		outDir: "../dist",
+		outDir: resolve(__dirname, "dist"),
 	},
 	server: {
 		host: "localhost",
 		port: 3000,
 	},
+	publicDir: "../public",
 });

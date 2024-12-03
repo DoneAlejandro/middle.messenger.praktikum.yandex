@@ -29,7 +29,6 @@ class Route {
 	leave() {
 		if (this._root) {
 			this._root.innerHTML = "";
-			this._block?.dispatchComponentDidMount();
 		} else {
 			console.error("Root not found");
 		}
@@ -41,18 +40,24 @@ class Route {
 
 	_renderDom(query: string, block: Block) {
 		const root = document.querySelector(query);
+
 		if (root) {
+			const savedAttributes = root.getAttribute("class");
 			root.innerHTML = "";
-			root!.append(block.getContent());
+			root.append(block.getContent());
+			if (savedAttributes) {
+				root.setAttribute("class", savedAttributes);
+			}
+		} else {
+			console.error(`Root element not found for query: ${query}`);
 		}
 	}
 
 	render() {
 		if (!this._block) {
 			this._block = this._blockClass;
-			this._renderDom(this._props.rootQuery, this._block);
-			return;
 		}
+		this._renderDom(this._props.rootQuery, this._block);
 		this._block.show();
 	}
 }

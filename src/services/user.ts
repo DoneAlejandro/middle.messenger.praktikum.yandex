@@ -47,6 +47,7 @@ export const uploadAvatar = async (model: FormData) => {
 	window.store.set({ isLoading: true });
 	try {
 		await userApi.uploadAvatar(model);
+		location.reload();
 		window.router.go(PagesPaths.PROFILE);
 	} catch (error: any) {
 		window.store.set({ errorMessage: error.reason });

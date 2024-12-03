@@ -37,18 +37,24 @@ class Router {
 	}
 
 	_onRoute(pathname: PagesPaths) {
+		console.log(`Routing to: ${pathname}`);
 		let route = this.getRoute(pathname);
 
 		if (!route) {
 			route = this.getRoute(PagesPaths.ERROR_FOURTH);
 		}
-		if (this._currentRoute && this._currentRoute !== route) {
+
+		if (this._currentRoute) {
 			this._currentRoute.leave();
 		}
 
 		this._currentRoute = route;
 
-		route?.render();
+		if (route) {
+			route.render();
+		} else {
+			console.error(`Route not found for: ${pathname}`);
+		}
 	}
 
 	go(pathname: PagesPaths) {

@@ -93,6 +93,7 @@ export class HTTPTransport {
 					// Проверка на тип ответа, чтобы избежать экранирования бинарных данных
 					if (xhr.getResponseHeader("Content-Type")?.includes("application/json")) {
 						const data = JSON.parse(this.response);
+
 						resolve(data);
 					} else {
 						resolve(this.response);
