@@ -1,0 +1,38 @@
+@import "../../assets/variables.scss";
+.messages-list {
+	&__container {
+		display: flex;
+		flex-direction: column;
+		gap: $gap;
+		padding: $padding;
+	}
+	&__item {
+		background-color: $bg-color-received;
+		border-radius: $border-radius;
+		padding: $padding;
+		color: $text-color;
+		font-size: $font-size-message;
+		position: relative;
+		max-width: $max-width;
+		word-wrap: break-word;
+		// white-space: pre-wrap;
+	}
+
+	&__item.sent {
+		align-self: flex-end;
+		background-color: $bg-color-sent;
+		border-end-end-radius: $none-border-radius;
+	}
+	&__item.received {
+		align-self: flex-start;
+		background-color: $bg-color-received;
+		border-radius: 20px 20px 20px 0;
+	}
+
+	&__date {
+		font-size: $font-size-date;
+		color: $text-color-date;
+		margin-top: 5px;
+		text-align: right;
+	}
+}

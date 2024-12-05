@@ -1,4 +1,4 @@
-import Block from './Block/BLock';
+import Block from "./Block/BLock";
 
 // ----------------Types----------------//
 
@@ -8,7 +8,7 @@ export type ListType = Record<string, Block[]>;
 export type TBlock = {
 	id?: string;
 	events?: {
-		[key: string]: (event: Event) => void;
+		[key: string | unknown]: (event: Event) => void;
 	};
 	attr?: {
 		[key: string]: string;
@@ -16,5 +16,4 @@ export type TBlock = {
 	lists?: Block[];
 	[key: string]: unknown;
 };
-
 // ----------------Interfaces----------------//

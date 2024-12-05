@@ -1,2 +1,2 @@
-import './subtitle.scss';
-export { Subtitle } from './Subtitle.ts';
+import "./subtitle.scss";
+export { Subtitle } from "./Subtitle.ts";

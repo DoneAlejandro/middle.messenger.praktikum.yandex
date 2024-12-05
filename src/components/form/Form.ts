@@ -1,12 +1,30 @@
-import Block from '../../parentClasses/Block/BLock';
-import { TBlock } from '../../parentClasses/types';
-import form from './form.hbs?raw';
+import Block from "../../parentClasses/Block/BLock";
+import { TBlock } from "../../parentClasses/types";
 export class Form extends Block {
 	constructor(props: TBlock) {
 		super({ ...props });
 	}
 
-	render() {
-		return this.compile(form, this.props);
+	renderPublic() {
+		return `
+		<section class="{{#if sectionStyle}} {{sectionStyle}}{{/if}}">
+			{{{ subtitleComponent }}}
+			<form class="{{formStyle}}" id="{{formId}}" onsubmit="return false;">
+				<div class="{{formContainerStyle}}">
+					<div class="{{formInputsStyle}}">
+						{{{ InputFieldLoginComponent }}}
+						{{{ InputFieldPasswordComponent }}}
+						{{{ InputFieldPasswordRetryComponent }}}
+						{{{ InputFieldNameComponent }}}
+						{{{ InputFieldSecondNameComponent }}}
+						{{{ InputFieldPhoneComponent }}}
+						{{{ InputFieldMailComponent }}}
+					</div>
+					{{{ ButtonComponent}}}
+				</div>
+				{{{ LinkComponent }}}
+			</form>
+		</section>
+		`;
 	}
 }

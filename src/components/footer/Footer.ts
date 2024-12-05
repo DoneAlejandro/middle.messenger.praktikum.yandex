@@ -1,12 +1,16 @@
-import Block from '../../parentClasses/Block/BLock';
-import { TBlock } from '../../parentClasses/types';
-import footerTemplate from './footer.hbs?raw';
+import Block from "../../parentClasses/Block/BLock";
+import { TBlock } from "../../parentClasses/types";
 
 export class Footer extends Block {
 	constructor(props: TBlock) {
 		super({ ...props });
 	}
-	render() {
-		return this.compile(footerTemplate, this.props);
+	renderPublic() {
+		return `
+		<footer class='footer {{#if footerStyle}} {{footerStyle}}{{/if}}'>
+			{{{ copyrightComponent }}}
+			{{{ popUpComponent }}}
+		</footer>
+		`;
 	}
 }

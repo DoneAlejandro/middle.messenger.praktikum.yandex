@@ -1,2 +1,2 @@
-import './input-search.scss';
-export { InputSearch } from './InputSearch.ts';
+import "./input-search.scss";
+export { InputSearch } from "./InputSearch.ts";

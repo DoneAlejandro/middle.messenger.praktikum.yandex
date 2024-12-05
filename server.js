@@ -1,19 +1,19 @@
-import express from 'express';
-import path from 'path';
+import express from "express";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 
 const app = express();
 const PORT = 3000;
 
-// Указываем путь к папке, где находится статический контент (включая index.html)
-app.use(express.static('dist'));
+app.use(express.static(`${dirname}/dist`));
 
-app.get('/', (req, res) => {
-	res.send('<h1> Hello </h1>');
-	// Отправляем файл index.html из папки src
-	res.sendFile(path.join(__dirname, '../assets/index.html'));
-	// res.sendFile(path.resolve(__dirname, "src", "index.html"));
+app.get("*", (req, res) => {
+	res.sendFile(path.join(dirname, "/dist/index.html"));
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, function () {
 	console.log(`Server is running on http://localhost:${PORT}`);
 });

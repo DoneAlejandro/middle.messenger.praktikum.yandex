@@ -1,2 +1,2 @@
-import './chat.scss';
-export { ChatPage } from './chat.ts';
+import "./chat.scss";
+export { ChatPage } from "./chat.ts";

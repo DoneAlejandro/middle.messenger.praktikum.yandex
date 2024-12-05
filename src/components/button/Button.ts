@@ -1,12 +1,18 @@
-import Block from '../../parentClasses/Block/BLock';
-import { TBlock } from '../../parentClasses/types';
-import buttonTemplate from './button.hbs?raw';
+import Block from "../../parentClasses/Block/BLock";
+import { TBlock } from "../../parentClasses/types";
 
 export class Button extends Block {
 	constructor(props: TBlock) {
-		super({ ...props });
+		super({
+			...props,
+			events: {
+				click: props.onClick,
+			},
+		});
 	}
-	render() {
-		return this.compile(buttonTemplate, this.props);
+	renderPublic() {
+		return `
+		<button id="{{idBtn}}" class="{{#if buttonStyle}} {{buttonStyle}} {{else}} button {{/if}}" page="{{page}}">{{text}}</button>
+		`;
 	}
 }

@@ -4,55 +4,68 @@ export function checkValidate(event: Event, validationFn: (value: string) => boo
 	const value = inputElement.value;
 
 	let isValid = false;
-	let errorMessage = '';
+	let errorMessage = "";
 
 	// Проверка типа поля
 	switch (fieldType) {
-		case 'login':
+		case "login":
 			isValid = validationFn(value);
-			errorMessage = 'Неверный логин';
+			errorMessage = "Неверный логин";
 			break;
 
-		case 'password':
+		case "password":
 			isValid = validationFn(value);
-			errorMessage = 'Неверный пароль';
+			errorMessage = "Неверный пароль";
 			break;
 
-		case 'email':
+		case "confirm_password": {
+			const passwordInput =
+				(document.querySelector('input[name="newPassword"]') as HTMLInputElement) ||
+				(document.querySelector('input[name="password"]') as HTMLInputElement);
+			if (!passwordInput) {
+				console.error("Поле пароля не найдено");
+				break;
+			}
+			isValid = value === passwordInput.value;
+			errorMessage = "Пароли не совпадают";
+			break;
+		}
+
+		case "email":
 			isValid = validationFn(value);
-			errorMessage = 'Неверный email';
+			errorMessage = "Неверный email";
 			break;
 
-		case 'first_name':
+		case "first_name":
 			isValid = validationFn(value);
-			errorMessage = 'Имя должно начинаться с большой буквы';
+			errorMessage = "Имя должно начинаться с большой буквы";
 			break;
 
-		case 'last_name':
+		case "last_name":
 			isValid = validationFn(value);
-			errorMessage = 'Фамилия должна начинаться с большой буквы';
+			errorMessage = "Фамилия должна начинаться с большой буквы";
 			break;
 
-		case 'phone':
+		case "phone":
 			isValid = validationFn(value);
-			errorMessage = 'Телефон должен начинаться с +7 и содержать 12 символов';
+			errorMessage = "Телефон должен начинаться с +7 и содержать 12 символов";
 			break;
 
 		default:
-			console.error('Неизвестный тип поля');
+			console.error("Неизвестный тип поля");
 	}
 
 	if (!isValid) {
-		inputElement.classList.add('input--error');
+		inputElement.classList.add("input--error");
 		const errorSpan = inputElement.nextElementSibling as HTMLElement;
 		if (errorSpan) {
 			errorSpan.textContent = errorMessage;
 		}
 	} else {
-		inputElement.classList.remove('input--error');
+		inputElement.classList.remove("input--error");
 		const errorSpan = inputElement.nextElementSibling as HTMLElement;
 		if (errorSpan) {
-			errorSpan.textContent = '';
+			errorSpan.textContent = "";
 		}
 	}
 }

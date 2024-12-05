@@ -1,2 +1,2 @@
-import './copyright.scss';
-export { Copyright } from './Copyright.ts';
+import "./copyright.scss";
+export { Copyright } from "./Copyright.ts";

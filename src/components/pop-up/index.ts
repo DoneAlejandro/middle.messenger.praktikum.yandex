@@ -1,2 +1,2 @@
-import './pop-up.scss';
-export { PopUp } from './PopUp.ts';
+import "./pop-up.scss";
+export { PopUp } from "./PopUp.ts";

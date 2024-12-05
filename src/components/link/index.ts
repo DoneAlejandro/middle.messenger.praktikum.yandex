@@ -1,2 +1,2 @@
-import './link.scss';
-export { Link } from './Link.ts';
+import "./link.scss";
+export { Link } from "./Link.ts";

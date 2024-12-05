@@ -1,122 +1,152 @@
-import { Button, Copyright, Footer, Form, Header, Input, InputField, Link, Main, PopUp, Title } from '../../components';
-import { handleFormSubmit } from '../../globalFunction/validation/formSubmit/formSubmit';
-import { checkValidate, loginValidation, passwordValidation } from '../../globalFunction/validation/validation';
-import Block from '../../parentClasses/Block/BLock';
-import { TBlock } from '../../parentClasses/types';
-import { Subtitle } from './../../components/subtitle/Subtitle';
-import SigninPageTemplate from './signin.hbs?raw';
+import { LoginRequestData } from "../../api/types";
+import { Button, Form, Header, Input, InputField, Main, Subtitle, Title } from "../../components";
+import { connect } from "../../globalFunction/utils/connect";
+import { handleFormSubmit } from "../../globalFunction/validation/formSubmit/formSubmit";
+import { checkValidate, loginValidation, passwordValidation } from "../../globalFunction/validation/validation";
+import Block from "../../parentClasses/Block/BLock";
+import { PagesPaths } from "../../parentClasses/Router/pathEnum";
+import { login } from "../../services/authorization";
 
+const data = {
+	login: {
+		label: "Login",
+		type: "text",
+		name: "login",
+		value: "",
+	},
+	password: {
+		label: "Password",
+		type: "password",
+		name: "password",
+		value: "",
+	},
+};
 export class SignIn extends Block {
-	constructor(props: TBlock) {
-		super({
-			...props,
-			headerComponent: new Header({
-				title: new Title({
-					titleText: 'ONE-on-ONE Social',
-				}),
-			}),
-			mainComponent: new Main({
-				mainStyle: 'main-signin',
+	initPublic() {
+		const clickForCreateAccountBind = this.clickForCreateAccount.bind(this);
+		const onSubmitBind = this.onSubmit.bind(this);
+		const inputLogin = new Input({
+			...data.login,
+			inputType: "text",
+			inputTitle: "Логин",
+			inputName: "login",
+			inputPlaceholder: "ГрандМастерБит",
+			events: {
+				blur: (event: Event) => {
+					checkValidate(event, loginValidation, "login");
+				},
+			},
+		});
+		const InputFieldLoginComponent = new InputField({
+			inputFieldStyle: "input-field",
+			inputFieldLabelStyle: "input-field__label",
+			labelInput: "Логин",
+			labelTitle: "Логин",
 
-				formComponent: new Form({
-					events: {
-						submit: (event: Event) => {
-							handleFormSubmit(event);
-						},
-					},
-					formStyle: 'signin-form',
-					sectionStyle: 'signin',
-					formContainerStyle: 'signin-form__container',
-					formInputsStyle: 'signin-form__inputs',
-					subtitleComponent: new Subtitle({
-						subtitleText: 'Войти',
-					}),
-					InputContentComponent: [InputFieldLoginComponent, InputFieldPasswordComponent],
-					ButtonComponent: new Button({
-						text: 'Войти',
-						buttonStyle: 'signin-form__button',
-						page: 'chat',
-					}),
-					LinkComponent: new Link({
-						text: 'Нет аккаунта?',
-						page: 'registration',
-					}),
-				}),
-			}),
-			footerComponent: new Footer({
-				footerStyle: 'footer-signin',
-				copyrightComponent: new Copyright({
-					copyright: '© 2024 DoneAlejandro. Все права защищены.',
-				}),
-				popUpComponent: new PopUp({
-					linkSignIn: new Link({
-						text: 'Войти',
-						page: 'signin',
-					}),
-					linkRegistration: new Link({
-						text: 'Регистрация',
-						page: 'registration',
-					}),
-					linkProfile: new Link({
-						text: 'Профиль',
-						page: 'profile',
-					}),
-					linkChat: new Link({
-						text: 'Чат',
-						page: 'chat',
-					}),
-					linkErrorFifth: new Link({
-						text: 'Ошибка 500',
-						linkStyle: 'popup__link-errorFiveHundredth',
-						page: 'errorPage',
-					}),
-					linkErrorFourth: new Link({
-						text: 'Ошибка 404',
-						linkStyle: 'popup__link-errorFourHundredth',
-						page: 'errorFourth',
-					}),
-				}),
+			inputComponent: inputLogin,
+		});
+		const inputPassword = new Input({
+			...data.password,
+			inputType: "password",
+			inputTitle: "Пароль",
+			inputName: "password",
+			inputPlaceholder: "Пароль",
+			events: {
+				blur: (event: Event) => {
+					checkValidate(event, passwordValidation, "password");
+				},
+			},
+		});
+		const InputFieldPasswordComponent = new InputField({
+			inputFieldStyle: "input-field",
+			inputFieldLabelStyle: "input-field__label",
+			labelInput: "Пароль",
+			labelTitle: "Пароль",
+			inputComponent: inputPassword,
+		});
+		const subtitleComponent = new Subtitle({
+			subtitleText: "Войти",
+		});
+		const ButtonComponent = new Button({
+			text: "Войти",
+			idBtn: "signin-button",
+			href: "/messenger",
+			onClick: onSubmitBind,
+		});
+		const LinkComponent = new Button({
+			text: "Нет аккаунта?",
+			buttonStyle: "link",
+			idBtn: "signin-link",
+			onClick: clickForCreateAccountBind,
+		});
+		const formComponent = new Form({
+			formId: "signin-form",
+			events: {
+				submit: (event: Event) => {
+					handleFormSubmit(event);
+				},
+			},
+			formStyle: "signin-form",
+			sectionStyle: "signin",
+			formContainerStyle: "signin-form__container",
+			formInputsStyle: "signin-form__inputs",
+			subtitleComponent: subtitleComponent,
+			InputFieldLoginComponent: InputFieldLoginComponent,
+			InputFieldPasswordComponent: InputFieldPasswordComponent,
+			ButtonComponent: ButtonComponent,
+			LinkComponent: LinkComponent,
+		});
+		const mainComponent = new Main({
+			mainStyle: "main-signin",
+			formComponent: formComponent,
+		});
+		const headerComponent = new Header({
+			title: new Title({
+				titleText: "ONE-on-ONE Social",
 			}),
 		});
+
+		this.children = {
+			...this.children,
+			headerComponent,
+			mainComponent,
+		};
 	}
 
-	render() {
-		return this.compile(SigninPageTemplate, this.props);
+	clickForCreateAccount() {
+		window.router.go(PagesPaths.REGISTRATION);
+	}
+	onSubmit(e: Event) {
+		e.preventDefault();
+
+		const formElem = document.querySelector("#signin-form") as HTMLFormElement;
+		if (!formElem) return;
+		const isFormValid = handleFormSubmit({ ...e, target: formElem });
+		if (isFormValid) {
+			const target = e.target as HTMLFormElement;
+			const form = target!.form;
+			const formData = new FormData(form);
+			const output: LoginRequestData = {} as LoginRequestData;
+
+			formData.forEach((value, key) => {
+				output[key] = value.toString();
+			});
+
+			login(output);
+		}
+	}
+
+	renderPublic() {
+		return `
+		<div class='page'>
+			{{{ headerComponent }}}
+			{{{ mainComponent }}}
+			{{{ footerComponent }}}
+		</div>
+		`;
 	}
 }
 
-export const InputFieldLoginComponent = new InputField({
-	inputFieldStyle: 'input-field',
-	inputFieldLabelStyle: 'input-field__label',
-	labelInput: 'Логин',
-	labelTitle: 'Логин',
+const mapStateToPropsShort = ({ isLoading, errorMessage }: { [key: string]: unknown }) => ({ isLoading, errorMessage });
 
-	inputComponent: new Input({
-		inputType: 'text',
-		inputTitle: 'Логин',
-		inputName: 'login',
-		inputPlaceholder: 'ГрандМастерБит',
-		events: {
-			blur: (event: Event) => {
-				checkValidate(event, loginValidation, 'login');
-			},
-		},
-	}),
-});
-export const InputFieldPasswordComponent = new InputField({
-	inputFieldStyle: 'input-field',
-	inputFieldLabelStyle: 'input-field__label',
-	labelInput: 'Пароль',
-	labelTitle: 'Пароль',
-	inputComponent: new Input({
-		inputType: 'password',
-		inputTitle: 'Пароль',
-		inputName: 'password',
-		inputPlaceholder: 'Пароль',
-		events: {
-			blur: (event: Event) => {
-				checkValidate(event, passwordValidation, 'password');
-			},
-		},
-	}),
-});
+export default connect(mapStateToPropsShort)(SignIn);

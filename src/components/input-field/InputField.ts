@@ -1,12 +1,17 @@
-import Block from '../../parentClasses/Block/BLock';
-import { TBlock } from '../../parentClasses/types';
-import inputTemplate from './input-field.hbs?raw';
+import Block from "../../parentClasses/Block/BLock";
+import { TBlock } from "../../parentClasses/types";
 
 export class InputField extends Block {
 	constructor(props: TBlock) {
 		super({ ...props });
 	}
-	render() {
-		return this.compile(inputTemplate, this.props);
+	renderPublic() {
+		return `
+		<div class='{{inputFieldStyle}}'>
+			<label for='{{labelInput}}' class='{{inputFieldLabelStyle}}'>{{labelTitle}}</label>
+			{{{inputComponent}}}
+			<span class="input-error"></span>
+		</div>
+		`;
 	}
 }
