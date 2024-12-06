@@ -1,6 +1,6 @@
 import Handlebars from "handlebars";
 import { nanoid } from "nanoid";
-import EventBus from "../eventBus/EventBus";
+import EventBus from "../eventBus/EventBus.ts";
 import { ChildrenType, ListType, TBlock } from "../types";
 
 class Block {

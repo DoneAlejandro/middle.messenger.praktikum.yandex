@@ -12,18 +12,29 @@
 		"build": "tsc && vite build",
 		"preview": "vite preview",
 		"server": "node server.js",
-		"start": "npm run build && npm run server"
+		"start": "npm run build && npm run server",
+		"prepare": "husky install",
+		"test": "mocha"
 	},
 	"devDependencies": {
+		"@types/chai": "^5.0.1",
+		"@types/mocha": "^10.0.10",
 		"@types/node": "^22.9.3",
+		"@types/sinon": "^17.0.3",
 		"@typescript-eslint/eslint-plugin": "^8.4.0",
 		"@typescript-eslint/parser": "^8.4.0",
+		"chai": "^5.1.1",
 		"eslint": "^9.9.1",
+		"husky": "^7.0.4",
+		"jsdom": "^22.1.0",
+		"mocha": "^10.7.3",
 		"sass": "^1.77.5",
+		"sinon": "^19.0.2",
 		"stylelint": "^16.8.2",
 		"stylelint-config-standard": "^36.0.1",
 		"stylelint-config-standard-scss": "^13.1.0",
-		"typescript": "^5.2.2",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.7.2",
 		"vite": "^5.2.0"
 	},
 	"dependencies": {
