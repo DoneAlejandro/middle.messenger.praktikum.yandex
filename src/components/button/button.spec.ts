@@ -28,7 +28,7 @@ describe("Button", function () {
 		// Проверяем наличие события click
 		const events = button.props.events || {};
 		expect(events).to.have.property("click");
-		// expect(events.click).to.equal(mockClickHandler);
+		expect(events.click).to.equal(mockClickHandler);
 	});
 
 	it("should call the onClick handler when clicked", function () {
@@ -48,7 +48,7 @@ describe("Button", function () {
 		expect(events).to.have.property("click");
 
 		// Эмулируем вызов события клика
-		// (events.click as (event: Event) => void)(new Event("click"));
+		(events.click as (event: Event) => void)(new Event("click"));
 
 		// Проверяем, что обработчик был вызван
 		expect(mockClickHandler.calledOnce).to.be.true;

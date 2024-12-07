@@ -1,8 +1,15 @@
-import Block from "../../parentClasses/Block/BLock";
-import { TBlock } from "../../parentClasses/types";
+import Block from "../../parentClasses/Block/BLock.ts";
+
+type ButtonProps = {
+	idBtn?: string;
+	buttonStyle?: string;
+	text?: string;
+	page?: string;
+	onClick: (event: Event) => void;
+};
 
 export class Button extends Block {
-	constructor(props: TBlock) {
+	constructor(props: ButtonProps) {
 		super({
 			...props,
 			events: {
@@ -12,7 +19,7 @@ export class Button extends Block {
 	}
 	renderPublic() {
 		return `
-		<button id="{{idBtn}}" class="{{#if buttonStyle}} {{buttonStyle}} {{else}} button {{/if}}" page="{{page}}">{{text}}</button>
+		 <button id="{{idBtn}}" class="{{#if buttonStyle}}{{buttonStyle}}{{else}}button{{/if}}" page="{{page}}">{{text}}</button>
 		`;
 	}
 }

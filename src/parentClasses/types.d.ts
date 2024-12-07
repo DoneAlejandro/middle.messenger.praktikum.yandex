@@ -8,7 +8,7 @@ export type ListType = Record<string, Block[]>;
 export type TBlock = {
 	id?: string;
 	events?: {
-		[key: string | unknown]: (event: Event) => void;
+		[key: string]: (event: Event) => void; // Уточняем тип события
 	};
 	attr?: {
 		[key: string]: string;
@@ -17,14 +17,14 @@ export type TBlock = {
 	[key: string]: unknown;
 };
 // ----------------Interfaces----------------//
-type a = {
-	id?: string;
-	events?: {
-		[key: string | unknown]: (event: Event) => void;
-	};
-	attr?: {
-		[key: string]: string;
-	};
-	lists?: Block[];
-	[key: string]: unknown;
-};
+// type a = {
+// 	id?: string;
+// 	events?: {
+// 		[key: string | unknown]: (event: Event) => void;
+// 	};
+// 	attr?: {
+// 		[key: string]: string;
+// 	};
+// 	lists?: Block[];
+// 	[key: string]: unknown;
+// };

@@ -4,8 +4,8 @@
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
-		"lint": "eslint .",
-		"lint:scss": "npx stylelint \"**/*.scss\"",
+		"lint": "eslint ./src",
+		"lint:scss": "stylelint 'src/**/*.scss'",
 		"lint:scss:fix": "npx stylelint \"**/*.scss\" --fix",
 		"stylelint:fix": "stylelint \"**/*.scss\" --fix",
 		"dev": "vite",
