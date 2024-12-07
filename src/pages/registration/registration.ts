@@ -147,7 +147,6 @@ export class Registration extends Block {
 		});
 		const ButtonComponent = new Button({
 			text: "Зарегистрироваться",
-			href: "/messenger",
 			buttonStyle: "button",
 			idBtn: "registration-button",
 			onClick: onSubmitBind,

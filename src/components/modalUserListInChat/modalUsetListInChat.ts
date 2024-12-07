@@ -5,7 +5,6 @@ export class ModalUserList extends Block {
 	public initPublic() {
 		const closeModalBind = this.closeModal.bind(this);
 		const closeBtnComponent = new Button({
-			type: "button",
 			idBtn: "closeUserList",
 			text: "✕",
 			buttonStyle: "user-list__close-btn",

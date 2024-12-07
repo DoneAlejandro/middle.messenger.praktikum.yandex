@@ -1,6 +1,6 @@
-import Block from "../Block/BLock";
-import { PagesPaths } from "./pathEnum";
-import Route from "./Route";
+import Block from "../Block/BLock.ts";
+import { PagesPaths } from "./pathEnum.ts";
+import Route from "./Route.ts";
 
 class Router {
 	private routes: Route[] = [];

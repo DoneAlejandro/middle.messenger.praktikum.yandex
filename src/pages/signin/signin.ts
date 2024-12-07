@@ -70,7 +70,6 @@ export class SignIn extends Block {
 		const ButtonComponent = new Button({
 			text: "Войти",
 			idBtn: "signin-button",
-			href: "/messenger",
 			onClick: onSubmitBind,
 		});
 		const LinkComponent = new Button({

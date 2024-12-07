@@ -1,5 +1,5 @@
-import Block from "../../parentClasses/Block/BLock";
-import { TBlock } from "../../parentClasses/types";
+import Block from "../../parentClasses/Block/BLock.ts";
+import { TBlock } from "../../parentClasses/types.ts";
 export class Input extends Block {
 	constructor(props: TBlock) {
 		super({ ...props });

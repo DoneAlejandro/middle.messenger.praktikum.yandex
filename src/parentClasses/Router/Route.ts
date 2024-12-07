@@ -20,11 +20,15 @@ class Route {
 	}
 
 	navigate(pathname: PagesPaths) {
-		if (this.match(pathname)) {
+		if (!this.match(pathname)) {
 			this._pathname = pathname;
 			this.render();
 		}
 	}
+	// navigate(pathname: PagesPaths) {
+	// 	this._pathname = pathname;
+	// 	this.render(); 
+	// }
 
 	leave() {
 		if (this._root) {
