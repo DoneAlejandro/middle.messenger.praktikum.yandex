@@ -8,7 +8,7 @@ export type ListType = Record<string, Block[]>;
 export type TBlock = {
 	id?: string;
 	events?: {
-		[key: string]: (event: Event) => void; // Уточняем тип события
+		[key: string | unknown]: (event: Event) => void;
 	};
 	attr?: {
 		[key: string]: string;

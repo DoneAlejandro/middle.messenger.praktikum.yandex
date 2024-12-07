@@ -18,7 +18,7 @@ interface RequestOptions {
 }
 
 // Функция для преобразования объекта в строку запроса (query string)
-function queryStringify(data: Record<string, unknown>): string {
+export function queryStringify(data: Record<string, unknown>): string {
 	const keys = Object.keys(data);
 	return keys.reduce((result, key: string, index): string => {
 		const value = data[key];
