@@ -11,20 +11,33 @@ const data = {
 		style: "text-left",
 	},
 	submit: {
-		style: "primary",
-		type: "button",
 		title: "Add",
 	},
 };
+// Определим тип для props, который точно укажет на onSubmit
+interface ModalAddChatProps {
+	onSubmit: (event: Event) => void;
+	titleModal?: string;
+	errorMessage?: string;
+	isLoading?: boolean;
+}
 
 export class ModalAddUser extends Block {
 	initPublic() {
 		const closeModalBind = this.closeModal.bind(this);
 
 		const InputTitle = new Input({ ...data.input, name: "inputIdAddUser", inputPlaceholder: "Enter Login" });
-		const SubmitButton = new Button({ ...data.submit, text: "Add", idBtn: "addUser", buttonStyle: "button", onClick: this.props.onSubmit });
+		const SubmitButton = new Button({
+			...data.submit,
+			text: "Add",
+			idBtn: "addUser",
+			buttonStyle: "button",
+			onClick: (event: Event) => {
+				const props = this.props as unknown as ModalAddChatProps;
+				props.onSubmit(event);
+			},
+		});
 		const closeBtnComponent = new Button({
-			type: "button",
 			idBtn: "closeUser",
 			text: "✕",
 			buttonStyle: "modal__close",

@@ -5,7 +5,7 @@ type ButtonProps = {
 	buttonStyle?: string;
 	text?: string;
 	page?: string;
-	onClick: (event: Event) => void;
+	onClick: (event: Event ) => void;
 };
 
 export class Button extends Block {

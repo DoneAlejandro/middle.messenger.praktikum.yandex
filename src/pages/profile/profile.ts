@@ -138,7 +138,6 @@ export class ProfilePage extends Block {
 
 		const ButtonComponent = new Button({
 			text: "Сохранить",
-			href: "/messenger",
 			onClick: changeUserDataBind,
 		});
 		const changeUserPasswordComponent = new Button({
