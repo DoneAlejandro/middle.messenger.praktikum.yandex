@@ -17,14 +17,3 @@ export type TBlock = {
 	[key: string]: unknown;
 };
 // ----------------Interfaces----------------//
-// type a = {
-// 	id?: string;
-// 	events?: {
-// 		[key: string | unknown]: (event: Event) => void;
-// 	};
-// 	attr?: {
-// 		[key: string]: string;
-// 	};
-// 	lists?: Block[];
-// 	[key: string]: unknown;
-// };
