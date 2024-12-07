@@ -15,7 +15,6 @@ const data = {
 	},
 };
 
-// Определим тип для props, который точно укажет на onSubmit
 interface ModalAddChatProps {
 	onSubmit: (event: Event) => void;
 	titleModal?: string;
